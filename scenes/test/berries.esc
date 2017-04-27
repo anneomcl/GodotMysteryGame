@@ -1,0 +1,6 @@
+
+:use
+debug "this is the 'use' event for berry bushes!"
+say player "I found some berries to eat."
+set_global i/berries true
+set_active berries false

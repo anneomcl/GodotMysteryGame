@@ -1,0 +1,9 @@
+:load
+
+debug "this is the 'load' event for the door to Archie's office!"
+
+cut_scene camera idle_below
+cut_scene camera camera_pan_upward
+cut_scene camera idle
+say player "It was a Tuesday evening when I met her..."
+say player "I am talking"

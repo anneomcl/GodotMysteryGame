@@ -1,0 +1,19 @@
+:use
+debug "this is the 'use' event for the crime scene cat hair!"
+
+say player "This is the pillow Ms. Waldorf said the amulet was laying on."
+
+> [!found_cat_hair]
+	say player "What's this? There's... hair... all over it."
+	say player "There isn't enough time to test it at the lab now, but if I had to guess?"
+	
+	> [!spoke_to_Cat]
+		say player "It's probably... either a werecow, or a squirrel."
+		say player "But that's just blind intuition."
+
+	> [spoke_to_Cat]
+		say player "It suspiciously looks like it belongs to a certain cat's fur..."
+	
+	set_global i/cathair true
+	set_active cathair false
+	set_global found_cat_hair true

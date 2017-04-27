@@ -1,0 +1,35 @@
+:use
+
+debug "this is the 'use' event for Waldorf!"
+
+> [!spoke_to_Waldorf]
+	say player "Good day, ma'am! What seems to be the problem?"
+	say Waldorf "Oh good heavens, I've been languishing in agony waiting for you to arrive!"
+	say Waldorf "This... creature... has stolen my most prized Waldorf family heirloom!"
+	say player "Do you mind answering a few questions?"
+	say Waldorf "Who, me? That hairy little thief is who you should be talking to! And disposing of while you're at it!"
+	set_global spoke_to_Waldorf true
+
+>
+	?
+		- "It'll help out the investigation."
+			say player "It's all just procedure, ma'am, it'll help me move this case along."
+			say Waldorf "Be quick about it."
+
+			>
+				?
+					- "Tell me more about the item."
+						say player "What exactly is this heirloom?"
+						stop
+					- "Tell me more about the crime."
+						say player "Can you tell me more about the crime? What you were doing when it occurred until now?"
+						say Waldorf "If you insist..."
+						stop
+					- "Tell me more about the suspect."
+						say player "Where is this 'creature' that you think stole your heirloom?"
+						set_global c/checkers_is_cat true
+						stop
+
+		- "I can come back later."
+			stop
+	repeat

@@ -1,0 +1,31 @@
+:use
+
+debug "this is the 'use' event for the Judge and accusation sequence!"
+
+> [spoke_to_judge]
+	debug "we're now speaking to the judge a second time"
+	> [cathair]
+		say Judge "Hmmm... soft animal hair at the scene of the crime?"
+		say Judge "Did you test it to be sure it is of a cat?"
+		say player "Uh... no... But it is suspicious!"
+		say Judge "Alright, I'll allow it."
+		set_value points += 10
+	> [all_cats_work_for_Fat_Cat]
+		say Judge "That's true"
+		set_value points += 90
+	<
+		say Judge "I don't think that's relevant. DENIED!"
+		set_value strikes += 1
+
+> [!spoke_to_judge]
+	debug "Running cutscene"
+	cut_scene Judge "JudgeEnter"
+	debug "Finished cutscene"
+	debug "Starting dialogue"
+	say Judge "Have I been summoned?"
+	say Judge "Present your evidence"
+	
+	set_global spoke_to_judge true
+	
+set_global esc_finished true
+

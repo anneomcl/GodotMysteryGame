@@ -1,0 +1,63 @@
+
+:use
+
+debug "this is the 'use' event on map_vendor!"
+
+> [!spoke_to_map_vendor]
+
+	say player "hello, I am player"
+	say map_vendor "what do you want?"
+	set_global spoke_to_map_vendor true
+
+>
+	?
+		- "I'd like to buy a map" [!i/map]
+
+			say player "I'd like to buy a map"
+			> [!player_knows_password]
+				say map_vendor "do you know the password?"
+				set_global c/password true
+				?
+					- "Uncle Sven sends his regards" [knows_password]
+						say player "Sven sends his regards"
+						say map_vendor "You're allright"
+						set_global player_knows_password true
+					- "No I don't"
+						say player "No I don't"
+						say map_vendor "Goodbye"
+						stop
+
+			say map_vendor "It'll cost you money"
+			?
+				- "I can't afford it." [!i/money]
+
+					say player "I can't afford it"
+					say map_vendor "Goodbye"
+					stop
+
+				- "Ok, here's my money" [i/money]
+
+					say player "I have this money"
+					say map_vendor "That's enough, here's the map"
+					set_global i/map true
+					set_global i/money false
+
+				- "Nevermind"
+					say map_vendor "Goodbye"
+					stop
+
+		- "Hey, you remind me of the Map Vendor from Monkey Island 1!"
+			say player "Hey, you remind me of the Map Vendor from Monkey Island 1!"
+			say map_vendor "Thanks! That's my favorite game!"
+			set_global c/monkey_island true
+
+		- "What am I supposed to do with this map?" [i/map]
+			say player "What am I supposed to do with this map?"
+			say map_vendor "what map?"
+
+		- "Nevermind"
+			say player "Nevermind"
+			stop
+	repeat
+
+

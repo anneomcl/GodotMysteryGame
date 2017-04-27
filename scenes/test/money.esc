@@ -1,0 +1,6 @@
+
+:use
+debug "this is the 'use' event in money!"
+say player "I found some money! great"
+set_global i/money true
+set_active money false

@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://ui/menu_screen.gd" type="Script" id=1]
+[ext_resource path="res://ui/dialogue_default.fnt" type="BitmapFont" id=2]
+
+[node name="menu" type="Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+script/script = ExtResource( 1 )
+
+[node name="bg" type="Panel" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 254.0
+margin/top = 89.0
+margin/right = 1029.0
+margin/bottom = 614.0
+
+[node name="quit_to_menu" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 498.0
+margin/top = 458.0
+margin/right = 798.0
+margin/bottom = 558.0
+custom_fonts/font = ExtResource( 2 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "QUIT TO MENU"
+flat = false
+
+[node name="load_game_menu" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 494.0
+margin/top = 314.0
+margin/right = 794.0
+margin/bottom = 414.0
+custom_fonts/font = ExtResource( 2 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "LOAD GAME"
+flat = false
+
+[node name="save_game_menu" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 488.0
+margin/top = 151.0
+margin/right = 788.0
+margin/bottom = 263.0
+custom_fonts/font = ExtResource( 2 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "SAVE GAME"
+flat = false
+
+

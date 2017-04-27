@@ -1,0 +1,35 @@
+:use
+
+debug "this is the 'use' event for Checkers the Cat!"
+
+> [!spoke_to_Cat]
+	say Checkers "If I said I DID do it, would you let me out of here?" Checkers_Sad
+	set_global spoke_to_Cat true
+
+> 
+	?
+		- "Talk to Checkers" [spoke_to_Cat]
+			say Checkers "Don't you know? All cats work for Fat Cat..."
+			say player "So you're saying you work for an underground crime lord? ... This is a test for length ... Let's hope this wraps around... La la la... Now this is a test to see how far we can go down."
+			say Checkers "Um...!!" Checkers_Sad
+			say Checkers "Well, I never did claim to be a cat!"
+			set_global c/all_cats_work_for_Fat_Cat true
+
+		- "Accuse Checkers" [spoke_to_Cat] #[c/checkers_work_for_Fat_Cat]
+#			> [!accused_Checkers_previously]
+#				say player "I'm pretty sure you're a cat, and that you work for a criminal!"
+#				say Checkers "!!"
+#				say Checkers "But what does it mean to BE a 'cat'? What is an identity but a series of labels?"
+#				say Checkers "Your feeble uneducated mind may see me as a cat, but I may more accurately label myself as an artist or a mathematician!"
+#				say Checkers "I could be a dragon or a lamprey!"
+#				say Checkers "An amorphous, sentient deity that happened to take this form while on a journey to another dimension!"
+#				say player "Um--"
+#				say Checkers "But really I'm just a dreamer, and a father of two."
+#				say player "bug here, can't start with period......................??"
+#				say Checkers "bug here, can't start witih punctuation/period......................!!"
+#				say Checkers "That is to say, there is no perfect guarantee I am a cat."
+#				say player "<begin tutorial on feasability percentages>"
+#				set_global accused_Checkers_previously true
+#			> [accused_Checkers_previously]
+#				say player "<begin accusation sequence>" */
+			accuse Checkers
