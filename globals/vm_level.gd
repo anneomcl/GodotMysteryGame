@@ -14,7 +14,7 @@ func _walk(params, block):
 		return vm.state_return
 	if !check_obj(params[1], "walk"):
 		return vm.state_return
-	var tpos = vm.game.get_object(params[1]).get_interact_pos()
+	var tpos = vm.game.get_object(params[1]).get_pos()
 
 	if vm.tasks[vm.task_current].skipped:
 		vm.game.get_object(params[0]).teleport_pos(tpos)
@@ -22,13 +22,13 @@ func _walk(params, block):
 
 	var speed = 0
 	if params.size() > 2:
-		speed = real(params[2])
+		speed = int(params[2])
 	if block:
 		current_context.waiting = true
-		vm.game.get_object(params[0]).walk(tpos, speed, current_context)
+		vm.game.get_object(params[0]).walk(tpos, speed, current_context, params[3], params[4], params[5], params[6], int(params[7]))
 		return vm.state_yield
 	else:
-		vm.game.get_object(params[0]).walk(tpos, speed)
+		vm.game.get_object(params[0]).walk(tpos, speed, current_context, params[3], params[4], params[5], params[6], int(params[7]))
 		return vm.state_return
 
 ### commands
@@ -161,7 +161,7 @@ func teleport(params):
 func teleport_pos(params):
 	if !check_obj(params[0], "teleport_pos"):
 		return vm.state_return
-	vm.game.get_object(params[0]).teleport_pos(Vector2(int(params[1]), int(params[2])))
+	vm.game.get_object(params[0]).teleport_pos(int(params[1]), int(params[2]))
 	return vm.state_return
 
 func walk(params):

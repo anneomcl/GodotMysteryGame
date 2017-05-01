@@ -9,18 +9,63 @@ var shapes = []
 var anim_scale_override
 var anim_notify
 
+var walk_destination
+var walk_speed
+var walk_direction
+var walk_context
+
+var task
+
 var state = ""
 export var active = true setget set_active,get_active
 
 export var global_id = ""
 export var talk_animation = "talk"
 
+func _process(time):
+	if task == "walk":
+		walk_direction = walk_destination - get_pos()
+		if(walk_direction.x < 1 && walk_direction.y < 1):
+			task = null
+			set_process(false)
+			if walk_context != null:
+				vm.finished(walk_context, false)
+				walk_context = null
+			return
+		else:
+			move(walk_direction.normalized() * walk_speed)
+
 func modulate(color):
 	for s in sprites:
 		s.set_modulate(color)
 
-func play_anim(p_anim, p_notify = null, p_reverse = false, p_flip = null):
+func _walk(pos, speed, context = null):
+	if walk_destination == null:
+		walk_destination = pos
+	walk_speed = speed
+	walk_context = context
+	task = "walk"
+	set_process(true)
+	
+func walk(pos, speed, context, up, down, left, right, offset):
+	walk_destination = pos
+	if up == "true":
+		walk_destination.y -= offset
+	if down == "true":
+		walk_destination.y += offset
+	if left == "true":
+		walk_destination.x -= offset
+	if right == "true":
+		walk_destination.x += offset
+	_walk(pos, speed, context)
 
+func teleport(obj):
+	set_pos(obj.get_global_pos())
+
+func teleport_pos(x, y):
+	set_pos(Vector2(x, y))
+
+func play_anim(p_anim, p_notify = null, p_reverse = false, p_flip = null):
 	if typeof(p_notify) != typeof(null) && (!has_node("animation") || !get_node("animation").has_animation(p_anim)):
 		print("skipping cut scene '", p_anim, "'")
 		vm.finished(p_notify, false)
