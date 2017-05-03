@@ -28,6 +28,13 @@ var events
 
 signal inventory_closed
 
+var base_path = "res://scenes/test/"
+
+func location_pressed(name):
+	close()
+	#TO-DO: Fading animation
+	game.change_scene([name], vm.level.current_context)
+
 func update_slots(parent, slots, first, current, cursor):
 	var slot = 0
 	for i in range(parent.get_child_count()):
@@ -47,10 +54,10 @@ func update_slots(parent, slots, first, current, cursor):
 		cursor.set_global_pos(slots[s])
 
 func find_first_item():
-	if get_node("i").get_child_count() > 0:
+	if get_node("Menu/Inventory/i").get_child_count() > 0:
 		cur_item = 0
 		cur_clue = -1
-	elif get_node("c").get_child_count() > 0:
+	elif get_node("Menu/Inventory/c").get_child_count() > 0:
 		cur_clue = 0
 		cur_item = -1
 
@@ -61,8 +68,8 @@ func find_first_item():
 func update_pages():
 	if cur_item == -1 && cur_clue == -1:
 		find_first_item()
-	update_slots(get_node("i"), item_slots, first_item, cur_item, item_cursor)
-	update_slots(get_node("c"), clue_slots, first_clue, cur_clue, clue_cursor)
+	update_slots(get_node("Menu/Inventory/i"), item_slots, first_item, cur_item, item_cursor)
+	update_slots(get_node("Menu/Inventory/c"), clue_slots, first_clue, cur_clue, clue_cursor)
 
 
 func global_changed(name):
@@ -88,7 +95,7 @@ func instance_item(p_item):
 	node.get_node("title").hide()
 	node.get_node("points").hide()
 	node.set_meta("item", p_item)
-	get_node("i").add_child(node)
+	get_node("Menu/Inventory/i").add_child(node)
 	node.hide()
 
 func instance_clue(p_clue):
@@ -134,20 +141,20 @@ func update_items():
 	check_instances(inventory.items, "i/")
 	check_instances(inventory.clues, "c/")
 
-	if get_node("i").get_child_count() == 0:
+	if get_node("Menu/Inventory/i").get_child_count() == 0:
 		cur_item = -1
-	if get_node("c").get_child_count() == 0:
+	if get_node("Menu/Inventory/c").get_child_count() == 0:
 		cur_clue = -1
 
 func find_slots():
 	item_slots = []
-	var n = get_node("item_slots")
+	var n = get_node("Menu/Inventory/item_slots")
 	for i in range(n.get_child_count()):
 		var c = n.get_child(i)
 		item_slots.push_back(c.get_global_pos())
 
 	clue_slots = []
-	n = get_node("clue_slots")
+	n = get_node("Menu/Inventory/clue_slots")
 	for i in range(n.get_child_count()):
 		var c = n.get_child(i)
 		clue_slots.push_back(c.get_global_pos())
@@ -170,18 +177,17 @@ func input(event):
 
 	if dir != Vector2():
 		if cur_item != -1:
-			get_node("i").get_child(cur_item).get_node("title").hide()
-			get_node("i").get_child(cur_item).get_node("points").hide()
+			get_node("Menu/Inventory/i").get_child(cur_item).get_node("title").hide()
+			get_node("Menu/Inventory/i").get_child(cur_item).get_node("points").hide()
 		move_cursor(dir)
 		update_pages()
 
 	if cur_item != -1 :
-		get_node("i").get_child(cur_item).get_node("title").show()
-		get_node("i").get_child(cur_item).get_node("points").show()
+		get_node("Menu/Inventory/i").get_child(cur_item).get_node("title").show()
+		get_node("Menu/Inventory/i").get_child(cur_item).get_node("points").show()
 
 	if event.is_action("inventory_toggle"):
 		close()
-		emit_signal("inventory_closed")
 
 	if event.is_action("equip"):
 		equip()
@@ -192,10 +198,10 @@ func input(event):
 func _get_current():
 	var id = null
 	if cur_item != -1:
-		var node = get_node("i").get_child(cur_item)
+		var node = get_node("Menu/Inventory/i").get_child(cur_item)
 		id = "i/"+node.get_meta("item").id
 	elif cur_clue != -1:
-		var node = get_node("c").get_child(cur_clue)
+		var node = get_node("Menu/Inventory/c").get_child(cur_clue)
 		if node != null:
 			id = "c/"+node.get_meta("clue").id
 
@@ -267,11 +273,11 @@ func equip_changed(name):
 		node.get_node("points").hide()
 	add_child(equipped_current)
 	equipped_current.show()
-	equipped_current.set_global_pos(get_node("hand_pos").get_global_pos())
+	equipped_current.set_global_pos(get_node("Menu/Inventory/hand_pos").get_global_pos())
 
 func move_cursor(dir):
-	var it_count = get_node("i").get_child_count()
-	var clue_count = get_node("c").get_child_count()
+	var it_count = get_node("Menu/Inventory/i").get_child_count()
+	var clue_count = get_node("Menu/Inventory/c").get_child_count()
 	if dir.y != 0:
 		if cur_item != -1:
 			cur_item += item_cols * dir.y
@@ -323,6 +329,7 @@ func move_cursor(dir):
 func close():
 	hide()
 	game.remove_hud(self)
+	emit_signal("inventory_closed")
 
 func open():
 	show()
@@ -330,8 +337,8 @@ func open():
 	update_pages()
 
 	if cur_item != -1 :
-		get_node("i").get_child(cur_item).get_node("title").show()
-		get_node("i").get_child(cur_item).get_node("points").show()
+		get_node("Menu/Inventory/i").get_child(cur_item).get_node("title").show()
+		get_node("Menu/Inventory/i").get_child(cur_item).get_node("points").show()
 
 func _ready():
 	game = get_node("/root/game")
@@ -339,17 +346,20 @@ func _ready():
 
 	events = vm.compile("res://game/inventory_events.esc")
 
-	item = get_node("item")
+	item = get_node("Menu/Inventory/item")
 	item.hide()
-	clue = get_node("clue")
+	clue = get_node("Menu/Inventory/clue")
 	clue.hide()
 
-	item_cursor = get_node("item_cursor")
-	clue_cursor = get_node("clue_cursor")
+	item_cursor = get_node("Menu/Inventory/item_cursor")
+	clue_cursor = get_node("Menu/Inventory/clue_cursor")
 
 	inventory = preload("res://game/inventory.gd")
 
 	vm.connect("global_changed", self, "global_changed")
 	game.call_deferred("connect", "object_equipped", self, "equip_changed")
+	
+	get_node("Menu/Map/Waldorf").connect("pressed", self, "location_pressed", [base_path + "TeaRoom.tscn"])
+	get_node("Menu/Map/Office").connect("pressed", self, "location_pressed", [base_path + "SquashSquadOffice.tscn"])
 
 	find_slots()
