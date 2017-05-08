@@ -160,12 +160,12 @@ events_path = "res://scenes/test/map_vendor.esc"
 
 [node name="Bush" type="Sprite" parent="."]
 
-transform/pos = Vector2( 1065.7, 479.224 )
+transform/pos = Vector2( 865.833, 525.489 )
 texture = ExtResource( 5 )
 
 [node name="berries" type="Sprite" parent="."]
 
-transform/pos = Vector2( 1065.7, 479.224 )
+transform/pos = Vector2( 865.833, 525.489 )
 texture = ExtResource( 6 )
 script/script = ExtResource( 4 )
 active = true
@@ -212,6 +212,7 @@ _update_shape_index = 0
 
 [node name="player" parent="." instance=ExtResource( 7 )]
 
+editor/display_folded = true
 transform/pos = Vector2( 640.442, 358.387 )
 z/z = 1
 
@@ -226,6 +227,7 @@ transform/pos = Vector2( 0, 0 )
 
 [node name="Waldorf" type="Sprite" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 211.865, 132.963 )
 transform/scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 8 )
@@ -279,6 +281,7 @@ _update_shape_index = 0
 
 [node name="Checkers" type="Sprite" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 861.114, 111.331 )
 texture = ExtResource( 9 )
 script/script = ExtResource( 4 )
@@ -314,6 +317,7 @@ texture = ExtResource( 10 )
 
 [node name="cathair" type="Sprite" parent="."]
 
+editor/display_folded = true
 texture = ExtResource( 11 )
 modulate = Color( 0.308594, 0.241089, 0.241089, 1 )
 script/script = ExtResource( 4 )

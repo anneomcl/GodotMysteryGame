@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://ui/inventory_screen.gd" type="Script" id=1]
 [ext_resource path="res://globals/white.png" type="Texture" id=2]
+[ext_resource path="res://ui/menu.tscn" type="PackedScene" id=3]
 
 [node name="inventory" type="Control"]
 
@@ -30,8 +31,6 @@ tabs_visible = true
 
 [node name="Inventory" type="Tabs" parent="Menu"]
 
-editor/display_folded = true
-visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
@@ -40,8 +39,26 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 4.0
 margin/top = 32.0
-margin/right = 735.0
-margin/bottom = 473.0
+margin/right = 4.0
+margin/bottom = 4.0
+
+[node name="Analysis" type="Button" parent="Menu/Inventory"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 470.0
+margin/top = 309.0
+margin/right = 60.0
+margin/bottom = 84.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Analysis"
+flat = false
 
 [node name="item" type="Control" parent="Menu/Inventory"]
 
@@ -57,19 +74,19 @@ margin/bottom = -229.0
 
 [node name="icon" type="Sprite" parent="Menu/Inventory/item"]
 
-transform/pos = Vector2( 1, -2 )
-
 [node name="title" type="Label" parent="Menu/Inventory/item"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = -37.0
-margin/top = -89.0
-margin/right = 55.0
-margin/bottom = -58.0
+margin/left = -50.0
+margin/top = 50.0
+margin/right = 42.0
+margin/bottom = 93.0
 text = "this is an item"
+align = 1
+autowrap = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -104,6 +121,7 @@ modulate = Color( 0.183382, 0.179504, 0.675781, 0.404353 )
 
 [node name="clue_cursor" type="Sprite" parent="Menu/Inventory"]
 
+visibility/visible = false
 transform/pos = Vector2( -261.955, 155.489 )
 transform/scale = Vector2( 7.1141, 1 )
 texture = ExtResource( 2 )
@@ -145,60 +163,74 @@ transform/pos = Vector2( 23.294, 88.169 )
 
 [node name="Position2D" type="Position2D" parent="Menu/Inventory/item_slots"]
 
-transform/pos = Vector2( 92.5309, 68.4729 )
+transform/pos = Vector2( 90, 50 )
 
 [node name="Position2D1" type="Position2D" parent="Menu/Inventory/item_slots"]
 
-transform/pos = Vector2( 203.568, 66.6223 )
+transform/pos = Vector2( 200, 50 )
+
+[node name="Position2D8 2" type="Position2D" parent="Menu/Inventory/item_slots"]
+
+transform/pos = Vector2( 300, 48.7722 )
 
 [node name="Position2D2" type="Position2D" parent="Menu/Inventory/item_slots"]
 
-transform/pos = Vector2( 92.5309, 149.9 )
+transform/pos = Vector2( 90, 150 )
 
 [node name="Position2D3" type="Position2D" parent="Menu/Inventory/item_slots"]
 
-transform/pos = Vector2( 209.12, 146.199 )
+transform/pos = Vector2( 200, 150 )
+
+[node name="Position2D8 3" type="Position2D" parent="Menu/Inventory/item_slots"]
+
+transform/pos = Vector2( 300, 148.772 )
 
 [node name="Position2D4" type="Position2D" parent="Menu/Inventory/item_slots"]
 
-transform/pos = Vector2( 85.1284, 240.58 )
+transform/pos = Vector2( 90, 250 )
 
 [node name="Position2D5" type="Position2D" parent="Menu/Inventory/item_slots"]
 
-transform/pos = Vector2( 214.672, 244.282 )
+transform/pos = Vector2( 200, 250 )
+
+[node name="Position2D8" type="Position2D" parent="Menu/Inventory/item_slots"]
+
+transform/pos = Vector2( 300, 248.772 )
 
 [node name="Position2D6" type="Position2D" parent="Menu/Inventory/item_slots"]
 
-transform/pos = Vector2( 86.979, 336.813 )
+transform/pos = Vector2( 90, 350 )
 
 [node name="Position2D7" type="Position2D" parent="Menu/Inventory/item_slots"]
 
-transform/pos = Vector2( 209.12, 333.111 )
+transform/pos = Vector2( 200, 350 )
 
-[node name="clue_slots" type="Position2D" parent="Menu/Inventory"]
+[node name="Position2D8 4" type="Position2D" parent="Menu/Inventory/item_slots"]
 
-editor/display_folded = true
-transform/pos = Vector2( 430.43, 93.721 )
-
-[node name="Position2D" type="Position2D" parent="Menu/Inventory/clue_slots"]
-
-transform/pos = Vector2( 74.0247, 62.921 )
-
-[node name="Position2D1" type="Position2D" parent="Menu/Inventory/clue_slots"]
-
-transform/pos = Vector2( 75.8753, 140.647 )
-
-[node name="Position2D2" type="Position2D" parent="Menu/Inventory/clue_slots"]
-
-transform/pos = Vector2( 81.4272, 222.074 )
-
-[node name="Position2D3" type="Position2D" parent="Menu/Inventory/clue_slots"]
-
-transform/pos = Vector2( 81.4273, 309.053 )
+transform/pos = Vector2( 300, 348.772 )
 
 [node name="hand_pos" type="Position2D" parent="Menu/Inventory"]
 
-transform/pos = Vector2( 286.479, 24.952 )
+transform/pos = Vector2( 581.136, 83.8834 )
+
+[node name="Label" type="Label" parent="Menu/Inventory/hand_pos"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -100.0
+margin/top = 50.0
+margin/right = 118.0
+margin/bottom = 180.0
+text = "Description of item
+
+This is a sample item. In the case it is used for many reasons."
+align = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [node name="Map" type="Tabs" parent="Menu"]
 
@@ -249,6 +281,7 @@ flat = false
 
 [node name="Options" type="Tabs" parent="Menu"]
 
+visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
@@ -257,7 +290,15 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 4.0
 margin/top = 32.0
-margin/right = 735.0
-margin/bottom = 473.0
+margin/right = 4.0
+margin/bottom = 4.0
+
+[node name="menu" parent="Menu/Options" instance=ExtResource( 3 )]
+
+margin/left = -260.0
+margin/top = -100.0
+margin/right = -220.0
+margin/bottom = -60.0
 
 
+[editable path="Menu/Options/menu"]

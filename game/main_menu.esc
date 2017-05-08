@@ -1,4 +1,5 @@
 :load
 
 #change_scene res://scenes/test/main_menu.tscn
-change_scene res://scenes/test/ArchieOffice.tscn
+#change_scene res://scenes/test/ArchieOffice.tscn
+change_scene res://scenes/test/test_scene.tscn
