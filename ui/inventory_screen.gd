@@ -28,17 +28,26 @@ var base_path = "res://scenes/test/"
 
 #Entry point for inventory updates
 func global_changed(name):
+	print(vm.globals)
 	update_items(vm.globals)
 	if is_visible():
 		update_pages()
 
 #Checks all globals and populates the inventory
 #TO-DO Globals should have -> global list (all), items dict, clues dict
-#instead of searching through all
+#instead of searching through all (This is kind of done but not really)
 func update_items(list):
 	for it in list:
-		if it.substr(0, 2) != "i/":
+		if it.substr(0, 2) == "c/" and !game.clues.has(it):
+			game.clues.push_back(it)
+			print(game.clues)
 			continue
+		
+		elif it.substr(0, 2) != "i/":
+			continue
+
+		if(!game.items.has(it)):
+			game.items.push_back(it)
 
 		var in_inv = vm.get_global(it)
 		var instanced = get_node("Menu/Inventory").has_node(it)
@@ -70,15 +79,13 @@ func update_pages():
 		var c = parent.get_child(i)
 		c.show()
 		c.set_global_pos(item_slots[slot_names.find(c.get_name())])
-
-	if current == -1:
-		cursor.hide()
+		
+	if cur_item == -1:
+		item_cursor.hide()
 	else:
-		var s = current - first_item
-		cursor.show()
-		cursor.set_global_pos(item_slots[s])
-		
-		
+		var s = cur_item - first_item
+		item_cursor.show()
+		item_cursor.set_global_pos(item_slots[s])
 
 #HELPER FUNCTIONS FOR ITEMS
 func find_first_item():

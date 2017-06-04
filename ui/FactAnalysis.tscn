@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://ui/fact_analysis.gd" type="Script" id=1]
 [ext_resource path="res://scenes/test/analysisBackground.png" type="Texture" id=2]
 [ext_resource path="res://scenes/test/DialogueBackground.png" type="Texture" id=3]
-[ext_resource path="res://ui/dialogue_default.fnt" type="BitmapFont" id=4]
+[ext_resource path="res://ui/clue.gd" type="Script" id=4]
+[ext_resource path="res://ui/dialogue_default.fnt" type="BitmapFont" id=5]
+[ext_resource path="res://globals/item.gd" type="Script" id=6]
+[ext_resource path="res://globals/white.png" type="Texture" id=7]
 
 [node name="Analysis" type="Control"]
 
@@ -16,11 +19,31 @@ margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 0.0
 script/script = ExtResource( 1 )
+active = true
+global_id = ""
+talk_animation = "talk"
+events_path = "res://ui/ClueAnalysis.esc"
 
 [node name="Background" type="Sprite" parent="."]
 
 transform/pos = Vector2( 640, 360 )
 texture = ExtResource( 2 )
+
+[node name="BackgroundButton" type="TextureButton" parent="Background"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -632.0
+margin/top = -356.0
+margin/right = 640.0
+margin/bottom = 357.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+params/resize_mode = 0
+params/stretch_mode = 0
 
 [node name="Back" type="Button" parent="."]
 
@@ -45,16 +68,17 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 256.0
-margin/top = -143.0
-margin/right = 738.0
-margin/bottom = 57.0
+margin/left = 27.0
+margin/top = -122.0
+margin/right = 509.0
+margin/bottom = 78.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 textures/normal = ExtResource( 3 )
 params/resize_mode = 0
 params/stretch_mode = 0
+script/script = ExtResource( 4 )
 
 [node name="Label" type="Label" parent="Clue"]
 
@@ -63,11 +87,11 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 7.0
-margin/top = 20.0
-margin/right = 308.0
-margin/bottom = 177.0
-custom_fonts/font = ExtResource( 4 )
+margin/left = 44.0
+margin/top = 29.0
+margin/right = 307.0
+margin/bottom = 163.0
+custom_fonts/font = ExtResource( 5 )
 text = "I am a clue."
 align = 1
 autowrap = true
@@ -85,5 +109,21 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 40.0
 margin/bottom = 40.0
+
+[node name="default" type="Node2D" parent="."]
+
+script/script = ExtResource( 6 )
+active = true
+global_id = "default"
+talk_animation = "talk"
+events_path = ""
+
+[node name="cursor" type="Sprite" parent="."]
+
+visibility/opacity = 0.5
+transform/pos = Vector2( 147, -72 )
+transform/scale = Vector2( 3.90249, 1.74355 )
+texture = ExtResource( 7 )
+modulate = Color( 0.390083, 0.373306, 0.910156, 1 )
 
 

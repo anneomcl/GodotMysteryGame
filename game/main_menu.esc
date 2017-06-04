@@ -2,4 +2,17 @@
 
 #change_scene res://scenes/test/main_menu.tscn
 #change_scene res://scenes/test/ArchieOffice.tscn
+
+#The following are globals for debugging
+set_global c/checkers_is_cat true
+set_global c/all_cats_work_for_Fat_Cat true
+set_global password true
+set_global monkey_island true
+
+set_global i/cathair true
+set_active cathair false
+set_global i/money true
+set_active money false
+
+#Scene to show on start-up:
 change_scene res://scenes/test/test_scene.tscn

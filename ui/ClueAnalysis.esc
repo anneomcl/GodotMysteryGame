@@ -1,0 +1,10 @@
+:use
+#This is the pop-up to analyze clues
+
+debug "Analyze clue"
+
+>
+	?
+		- "THEREFORE"
+		- "SUPPORTS"
+		- "CONTRADICTS"

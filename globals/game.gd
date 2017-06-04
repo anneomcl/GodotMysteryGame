@@ -6,6 +6,9 @@ var game_size = Vector2()
 var ui_layer
 var hud_layer
 
+var items = []
+var clues = []
+
 var hud_stack = []
 var ui_stack = []
 
@@ -122,7 +125,7 @@ func accuse(character_name, context):
 		var truth = progress_bar.get_value()
 		progress_bar.set_value(truth + 10)
 		
-		hud_layer.get_node("inventory").update_items()
+		hud_layer.get_node("inventory").update_items(vm.globals)
 		
 	#Reset the progress bar and the judge.
 	progress_bar.set_hidden(true)
