@@ -1,14 +1,23 @@
 :load
 
+#This is the entry point for the entire game
+#Start
+
+#This is the main menu with new game/load game/quit
 #change_scene res://scenes/test/main_menu.tscn
+
+#This is the actual Squash Squad office
 #change_scene res://scenes/test/ArchieOffice.tscn
 
 #The following are globals for debugging
-set_global c/checkers_is_cat true
+set_global c/test true
 set_global c/all_cats_work_for_Fat_Cat true
 set_global password true
 set_global monkey_island true
-
+set_global c/test1 true
+set_global c/checkers_is_cat true
+set_global c/found_employee_badge true
+set_global c/employee_badge_no_pic true
 set_global i/cathair true
 set_active cathair false
 set_global i/money true

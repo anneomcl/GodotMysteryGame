@@ -28,7 +28,6 @@ var base_path = "res://scenes/test/"
 
 #Entry point for inventory updates
 func global_changed(name):
-	print(vm.globals)
 	update_items(vm.globals)
 	if is_visible():
 		update_pages()
@@ -38,10 +37,12 @@ func global_changed(name):
 #instead of searching through all (This is kind of done but not really)
 func update_items(list):
 	for it in list:
-		if it.substr(0, 2) == "c/" and !game.clues.has(it):
-			game.clues.push_back(it)
-			print(game.clues)
-			continue
+		if it.substr(0, 2) == "c/":
+			it.erase(0, 2)
+			if !game.clues.has(it):
+				game.clues.push_back(it)
+				print(game.clues)
+				continue
 		
 		elif it.substr(0, 2) != "i/":
 			continue

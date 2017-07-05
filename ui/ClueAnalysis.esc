@@ -3,8 +3,12 @@
 
 debug "Analyze clue"
 
->
+> [!analysis_selected]
 	?
 		- "THEREFORE"
+			set_global therefore_selected true
 		- "SUPPORTS"
+			set_global supports_selected true
 		- "CONTRADICTS"
+			set_global contradicts_selected true
+	set_global analysis_selected true

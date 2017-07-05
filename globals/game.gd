@@ -240,6 +240,16 @@ func remove_hud(p_node):
 	hud_stack.erase(p_node)
 	vm.set_ui_active(hud_stack.size() != 0 || ui_stack.size() != 0)
 
+func update_global_lists(id):
+	if id.substr(0, 2) == "c/":
+		id.erase(0, 2)
+		if(!clues.has(id)):
+			clues.append(id)
+	elif id.substr(0, 2) == "i/":
+		id.erase(0, 2)
+		if(!items.has(id)):
+			items.append(id)
+
 func _ready():
 	res_cache = preload("res://globals/resource_queue.gd").new()
 	res_cache.start()
@@ -256,3 +266,5 @@ func _ready():
 	set_process_input(true)
 
 	add_user_signal("object_equipped", ["name"])
+	
+	vm.connect("global_changed", self, "update_global_lists")
