@@ -9,6 +9,11 @@ var menu
 var inventory
 var analysis_data
 
+var dragging = false
+var curr_node #node currently selected
+var clue_size
+var clue_distance
+
 var first_clue
 
 var row = 0
@@ -40,7 +45,18 @@ var row_offset = 50
 
 func instance_clue(clue_id, parents, children):
 	var node = get_node("Clue").duplicate()
-	node.set_pos(Vector2(col_width * col + col_offset, row_width * row + row_offset))
+	
+	#get distance from proposed position to parent 1
+	#if distance is not at least clue_size away, add the offset
+	
+	var proposed_position = Vector2(col_width * col + col_offset, row_width * row + row_offset)
+	if parents != null:
+		for parent in parents:
+			var parentNode = get_node("c/" + parent)
+			if (proposed_position.distance_to(parentNode.get_pos()) < clue_distance/4):
+				proposed_position.x += clue_size.x/2
+	
+	node.set_pos(proposed_position)
 	node.id = clue_id
 	node.content = find_clue(clue_id).title
 	node.col = col
@@ -51,7 +67,8 @@ func instance_clue(clue_id, parents, children):
 		clue_id.erase(0, 2)
 	
 	node.set_name(clue_id)
-	node.connect("pressed", self, "clue_pressed", [clue_id])
+	node.connect("button_down", self, "clue_pressed", [clue_id])
+	node.connect("button_up", self, "clue_released", [clue_id])
 	
 	get_node("c").add_child(node)
 	set_curr_row_col()
@@ -67,11 +84,19 @@ func instance_relation(clue_id, parents, children):
 		analysis_data.created_relations[clue_id] = { "parents": [], "children": [] }
 	
 	if children != null:
-		analysis_data.created_relations[clue_id]["children"].push_back(children)
-		draw_relation(clue_id, children)
-	elif (parents != null):
+		for child in children:
+			analysis_data.created_relations[clue_id]["children"].push_back(child)
+			if !analysis_data.created_relations.has(child):
+				analysis_data.created_relations[child] = { "parents": [], "children": [] }
+			analysis_data.created_relations[child]["parents"].push_back(clue_id)
+			draw_relation(clue_id, child)
+
+	if (parents != null):
 		for parent in parents:
 			analysis_data.created_relations[clue_id]["parents"].push_back(parent)
+			if !analysis_data.created_relations.has(parent):
+				analysis_data.created_relations[parent] = { "parents": [], "children": [] }
+			analysis_data.created_relations[parent]["children"].push_back(clue_id)
 			draw_relation(parent, clue_id)
 		
 	print(analysis_data.created_relations)
@@ -92,13 +117,13 @@ func process_clues(first_clue, second_clue):
 		if fact_object.has(relation) and fact_object[relation]["clues"].has(second_clue):
 			if relation == "contradicts":
 				print ("Clue contradicts other clue")
-				print ("Contradict points: " + str(fact_object[relation]["points"]))
-				instance_relation(first_clue, null, second_clue)
+				#print ("Contradict points: " + str(fact_object[relation]["points"]))
+				instance_relation(first_clue, null, [second_clue])
 				
 			if relation == "supports":
 				print("Clue supports other clue: ")
-				print ("Support points: " + str(fact_object[relation]["points"]))
-				instance_relation(first_clue, null, second_clue)
+				#print ("Support points: " + str(fact_object[relation]["points"]))
+				instance_relation(first_clue, null, [second_clue])
 				
 			if relation == "and":
 				var new_clue = fact_object[relation]["result"]
@@ -133,15 +158,15 @@ func draw_relation(parent, child):
 	get_node("c/" + parent).add_child(arrow)
 	arrow.set_pos(clue_size / 2)
 	
-	#Set scale to be long enough to reach the child box
-	var distance = parent_center.distance_to(child_center)
-	if(parent_center.y != child_center.y):
-		distance += clue_size.y * (abs(child_node.row - parent_node.row ) + abs(child_node.col - parent_node.col) - 1)
-	if(parent_center.x == child_center.x):
-		distance += clue_size.y/2  - parent_node.row * clue_size.y/4#- clue_size.y/4 * 2 * (abs(child_node.row - parent_node.row) - 1)# (clue_size.y / 2) * (abs(child_node.row - parent_node.row)/2)
+	update_draw_relation(parent_center, child_center, parent)
 
-	#TODO multiply row_offset by 2 (aka the ROW the child node is in)
-	var arrow_new_size = Vector2(distance + row_offset * child_node.row, arrow.get_rect().size.y)
+func update_draw_relation(parent_center, child_center, parent_id):
+	var arrow = get_node("c/" + parent_id + "/arrow")
+	
+	#Set scale to be long enough to reach the child box
+	var distance = parent_center.distance_to(child_center) * 2
+	
+	var arrow_new_size = Vector2(distance, arrow.get_rect().size.y)
 	arrow.set_size(arrow_new_size)
 	
 	#Set the rotation to point to the child box
@@ -151,37 +176,112 @@ func draw_relation(parent, child):
 
 func clue_pressed(clue_id):
 	var node = get_node("c/" + clue_id)
-	get_node("cursor").set_pos(Vector2(120 + node.get_pos().x, 50 + node.get_pos().y))
-	if vm.get_global("analysis_selected") == false:
-		get_node("cursor").show()
+	dragging = true
+	curr_node = node
 	
-	if vm.get_global("analysis_selected") == true:
-		process_clues(first_clue, clue_id)
-		first_clue = ""
-		vm.set_global("analysis_selected", false)
-		vm.set_global("therefore_selected", false)
-		vm.set_global("supports_selected", false)
-		vm.set_global("contradicts_selected", false)
-		return
+	if (Input.is_action_pressed("combine")):
+		get_node("cursor").set_pos(Vector2(120 + node.get_pos().x, 50 + node.get_pos().y))
+		if vm.get_global("analysis_selected") == false:
+			get_node("cursor").show()
+		
+		if vm.get_global("analysis_selected") == true:
+			process_clues(first_clue, clue_id)
+			first_clue = ""
+			vm.set_global("analysis_selected", false)
+			vm.set_global("therefore_selected", false)
+			vm.set_global("supports_selected", false)
+			vm.set_global("contradicts_selected", false)
+			return
+	
+		if "use" in event_table:
+			vm.run_event(event_table.use, {})
+			first_clue = clue_id
 
-	if "use" in event_table:
-		vm.run_event(event_table.use, {})
-		first_clue = clue_id
+func clue_released(clue_id):
+	dragging = false
+	curr_node = null
 
 func background_pressed():
 	if(vm.can_interact()):
 		get_node("cursor").hide()
 
+
+#TODO do a proper BFS
+func find_all_clicked_nodes(node):
+	if node == null: 
+		return null
+	
+	if !analysis_data.created_relations.has(node):
+		return [node]
+	
+	var nodes = [node]
+	for child in analysis_data.created_relations[node]["children"]:
+		if !nodes.has(child):
+			nodes.push_back(child)
+	for parent in analysis_data.created_relations[node]["parents"]:
+		if !nodes.has(parent):
+			nodes.push_back(parent)
+			
+	return nodes
+
+func drag_box():
+	var pos = get_global_mouse_pos()
+	
+	if Input.is_action_pressed("right_click"):
+		#find all nodes associated with the clicked node (recursively later)
+		var nodes = find_all_clicked_nodes(curr_node.id)
+		
+		#update ALL positions
+		for nodeid in nodes:
+			var node = get_node("c/" + nodeid)
+			
+			#set the position relative to the current node
+			#find the x/y difference between the node and current node
+			#var global_pos = node.get_global_pos()
+			#var offset_global_pos = global_pos - curr_node.get_global_pos()
+			
+			#node.set_global_pos(pos + offset_global_pos)
+			#node.set_pos(node.get_pos() - clue_size / 4)
+	
+	elif Input.is_mouse_button_pressed(BUTTON_LEFT):
+		
+		#TO-DO: Translate the offset into global coords (screen coords)
+		curr_node.set_global_pos(pos)
+		curr_node.set_pos(curr_node.get_pos() - clue_size / 4)
+		
+		if (analysis_data.created_relations.has(curr_node.id)):
+			var children = analysis_data.created_relations[curr_node.id]["children"]
+			var parent_center = curr_node.get_pos() + (clue_size / 2)
+			for child in children:
+				var child_node = get_node("c/" + child)
+				var child_center = child_node.get_pos() + (clue_size / 2)
+				update_draw_relation(parent_center, child_center, curr_node.id)
+	
+			var parents = analysis_data.created_relations[curr_node.id]["parents"]
+			var child_center = curr_node.get_pos() + (clue_size / 2)
+			for parent in parents:
+				var parent_node = get_node("c/" + parent)
+				var parent_center = parent_node.get_pos() + (clue_size / 2)
+				update_draw_relation(parent_center, child_center, parent)
+		
+
+func _fixed_process(delta):
+	if (dragging and Input.is_mouse_button_pressed(BUTTON_LEFT)):
+		drag_box()
+
 func _ready():
 	game = get_node("/root/game")
 	inventory = preload("res://game/inventory.gd")
 	menu = get_node("/root/game/hud_layer/inventory/Menu/Options/menu")
-
+	clue_size = Vector2(get_node("Clue").get_rect().size.x, get_node("Clue").get_rect().size.y)
+	clue_distance = sqrt(clue_size.x * clue_size.x + clue_size.y * clue_size.y)
 	analysis_data = get_node("AnalysisData")
 	
 	get_node("Back").connect("pressed", self, "back_to_game")
 	get_node("Background/BackgroundButton").connect("pressed", self, "background_pressed")
 	
+	set_fixed_process(true)
+
 	if events_path != "":
 		event_table = vm.compile(events_path)
 	

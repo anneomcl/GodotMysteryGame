@@ -7,9 +7,9 @@ debug "this is the 'load' event for the door to Archie's office!"
 	teleport_pos player 550 630
 
 > [!archie_intro_cutscene]
-	#cut_scene camera idle_below
-	#cut_scene camera camera_pan_upward
-	#cut_scene camera idle
+	cut_scene camera idle_below
+	cut_scene camera camera_pan_upward
+	cut_scene camera idle
 
 	#animation of player sipping coffee
 	say player "It was a Tuesday evening when I met Theresa Waldorf for the first time."

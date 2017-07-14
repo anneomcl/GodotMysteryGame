@@ -21,6 +21,7 @@ const fact_relations = {
 	"checkers_is_cat" : {
 		"and" : { "clues" : ["all_cats_work_for_Fat_Cat"],
 		"result" : "checkers_work_for_Fat_Cat" },
+		"points": 90 },
 	"checkers_work_for_Fat_Cat" : {
 	},
 	"employee_badge_no_pic" : {

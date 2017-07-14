@@ -7,7 +7,7 @@
 #change_scene res://scenes/test/main_menu.tscn
 
 #This is the actual Squash Squad office
-#change_scene res://scenes/test/ArchieOffice.tscn
+change_scene res://scenes/test/ArchieOffice.tscn
 
 #The following are globals for debugging
 set_global c/test true
@@ -24,4 +24,4 @@ set_global i/money true
 set_active money false
 
 #Scene to show on start-up:
-change_scene res://scenes/test/test_scene.tscn
+#change_scene res://scenes/test/test_scene.tscn

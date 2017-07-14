@@ -8,19 +8,18 @@
 [ext_resource path="res://scenes/test/Archie.png" type="Texture" id=6]
 [ext_resource path="res://scenes/test/player.tscn" type="PackedScene" id=7]
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 113.984, 49.3823 )
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 9.15087 )
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=3]
 
-resource/name = "camera_center_conversation_up"
 length = 1.0
 loop = false
 step = 0.1
@@ -35,7 +34,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 200 ) ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=4]
 
 length = 2.0
 loop = false
@@ -51,7 +50,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 680 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=5]
 
 length = 3.0
 loop = false
@@ -67,13 +66,13 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 680 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=6]
 
 length = 1.0
 loop = false
 step = 0.1
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=7]
 
 length = 2.0
 loop = false
@@ -141,7 +140,7 @@ events_path = "res://scenes/test/ArchieToSquashSquad.esc"
 
 transform/pos = Vector2( -1.92902, 23.5001 )
 input/pickable = false
-shapes/0/shape = SubResource( 6 )
+shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, -1.27972, 31.1809 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -154,7 +153,7 @@ bounce = 0.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Door/StaticBody2D"]
 
 transform/pos = Vector2( -1.27972, 31.1809 )
-shape = SubResource( 6 )
+shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
@@ -179,7 +178,7 @@ texture = ExtResource( 6 )
 [node name="StaticBody2D" type="StaticBody2D" parent="Archie"]
 
 input/pickable = false
-shapes/0/shape = SubResource( 7 )
+shapes/0/shape = SubResource( 2 )
 shapes/0/transform = Matrix32( 12.8712, 0, 0, 18.6267, -0.038187, -39.8657 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -193,7 +192,7 @@ bounce = 0.0
 
 transform/pos = Vector2( -0.038187, -39.8657 )
 transform/scale = Vector2( 12.8712, 18.6267 )
-shape = SubResource( 7 )
+shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
@@ -214,11 +213,11 @@ events_path = ""
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/camera_center_conversation_up = SubResource( 1 )
-anims/camera_pan_downward = SubResource( 2 )
-anims/camera_pan_upward = SubResource( 3 )
-anims/idle = SubResource( 4 )
-anims/idle_below = SubResource( 5 )
+anims/camera_center_conversation_up = SubResource( 3 )
+anims/camera_pan_downward = SubResource( 4 )
+anims/camera_pan_upward = SubResource( 5 )
+anims/idle = SubResource( 6 )
+anims/idle_below = SubResource( 7 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
