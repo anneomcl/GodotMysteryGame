@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://ui/fact_analysis.gd" type="Script" id=1]
-[ext_resource path="res://scenes/test/analysisBackground.png" type="Texture" id=2]
-[ext_resource path="res://ui/relationLine.png" type="Texture" id=3]
-[ext_resource path="res://scenes/test/DialogueBackground.png" type="Texture" id=4]
-[ext_resource path="res://ui/clue.gd" type="Script" id=5]
-[ext_resource path="res://ui/dialogue_default.fnt" type="BitmapFont" id=6]
-[ext_resource path="res://globals/item.gd" type="Script" id=7]
-[ext_resource path="res://game/fact_relations.gd" type="Script" id=8]
+[ext_resource path="res://globals/item.gd" type="Script" id=2]
+[ext_resource path="res://game/fact_relations.gd" type="Script" id=3]
+[ext_resource path="res://scenes/test/analysisBackground.png" type="Texture" id=4]
+[ext_resource path="res://scenes/test/DialogueBackground.png" type="Texture" id=5]
+[ext_resource path="res://ui/clue.gd" type="Script" id=6]
+[ext_resource path="res://ui/dialogue_default.fnt" type="BitmapFont" id=7]
+[ext_resource path="res://ui/relationLine.png" type="Texture" id=8]
+[ext_resource path="res://globals/white.png" type="Texture" id=9]
 
 [node name="Analysis" type="Control"]
 
@@ -25,28 +26,42 @@ global_id = ""
 talk_animation = "talk"
 events_path = "res://ui/ClueAnalysis.esc"
 
-[node name="Background" type="Sprite" parent="."]
+[node name="center" type="KinematicBody2D" parent="."]
+
+input/pickable = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+
+[node name="camera" type="Camera2D" parent="center"]
 
 transform/pos = Vector2( 640, 360 )
-texture = ExtResource( 2 )
+transform/scale = Vector2( 20, 11 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 10.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
 
-[node name="BackgroundButton" type="TextureButton" parent="Background"]
+[node name="canvas" type="CanvasLayer" parent="."]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = -640.0
-margin/top = -360.0
-margin/right = 632.0
-margin/bottom = 353.0
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-params/resize_mode = 0
-params/stretch_mode = 0
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
 
-[node name="Back" type="Button" parent="."]
+[node name="Back" type="Button" parent="canvas"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -62,6 +77,77 @@ shortcut = null
 text = "BACK"
 flat = false
 
+[node name="default" type="Node2D" parent="."]
+
+script/script = ExtResource( 2 )
+active = true
+global_id = "default"
+talk_animation = "talk"
+events_path = ""
+
+[node name="AnalysisData" type="Node" parent="."]
+
+script/script = ExtResource( 3 )
+
+[node name="Background" type="Sprite" parent="."]
+
+transform/pos = Vector2( 640, 360 )
+transform/scale = Vector2( 10, 10 )
+texture = ExtResource( 4 )
+
+[node name="BackgroundButton" type="TextureButton" parent="Background"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -629.0
+margin/top = -353.0
+margin/right = 643.0
+margin/bottom = 360.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="Clue" type="TextureButton" parent="."]
+
+rect/scale = Vector2( 0.5, 0.5 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 7461.0
+margin/top = -1597.0
+margin/right = 7943.0
+margin/bottom = -1397.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 5 )
+params/resize_mode = 0
+params/stretch_mode = 0
+script/script = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="Clue"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 482.0
+margin/bottom = 200.0
+custom_fonts/font = ExtResource( 7 )
+text = "I am a clue."
+align = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [node name="arrow" type="TextureButton" parent="."]
 
 visibility/behind_parent = true
@@ -76,83 +162,9 @@ margin/bottom = -105.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-textures/normal = ExtResource( 3 )
+textures/normal = ExtResource( 8 )
 params/resize_mode = 1
 params/stretch_mode = 0
-
-[node name="Clue" type="TextureButton" parent="."]
-
-rect/scale = Vector2( 0.5, 0.5 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = -200.0
-margin/right = 482.0
-margin/bottom = 0.0
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-textures/normal = ExtResource( 4 )
-params/resize_mode = 0
-params/stretch_mode = 0
-script/script = ExtResource( 5 )
-
-[node name="Label" type="Label" parent="Clue"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 482.0
-margin/bottom = 200.0
-custom_fonts/font = ExtResource( 6 )
-text = "I am a clue."
-align = 1
-autowrap = true
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="Clue1" type="TextureButton" parent="."]
-
-rect/scale = Vector2( 0.5, 0.5 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = -200.0
-margin/right = 482.0
-margin/bottom = 0.0
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-textures/normal = ExtResource( 4 )
-params/resize_mode = 0
-params/stretch_mode = 0
-script/script = ExtResource( 5 )
-
-[node name="Label" type="Label" parent="Clue1"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 482.0
-margin/bottom = 200.0
-custom_fonts/font = ExtResource( 6 )
-text = "I am a clue."
-align = 1
-autowrap = true
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
 [node name="c" type="Control" parent="."]
 
@@ -165,20 +177,12 @@ margin/top = 0.0
 margin/right = 40.0
 margin/bottom = 40.0
 
-[node name="default" type="Node2D" parent="."]
-
-script/script = ExtResource( 7 )
-active = true
-global_id = "default"
-talk_animation = "talk"
-events_path = ""
-
 [node name="cursor" type="Sprite" parent="."]
 
+visibility/visible = false
 visibility/opacity = 0.5
-
-[node name="AnalysisData" type="Node" parent="."]
-
-script/script = ExtResource( 8 )
+transform/pos = Vector2( 118.536, -148.562 )
+transform/scale = Vector2( 4.16966, 1.88815 )
+texture = ExtResource( 9 )
 
 

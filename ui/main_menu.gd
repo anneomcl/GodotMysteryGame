@@ -25,8 +25,9 @@ func load_globals(globals, curr_scene):
 		vm.set_global(item, globals[item])
 		if(globals[item] == true and item.substr(0, 1) == "i"):
 			item.erase(0, 2)
-			var item_node = curr_scene.get_node(item)
-			item_node.set_active(false)
+			#TODO: Check when and if items need to be set_active(false)
+			#var item_node = curr_scene.get_node(item)
+			#item_node.set_active(false)
 
 func load_pressed():
 	var save = File.new()

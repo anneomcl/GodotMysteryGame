@@ -4,6 +4,11 @@ export(String,FILE) var events_path = ""
 
 var event_table = {}
 
+var zoom_step = 2
+var scroll_speed = 20 
+var camera
+var move_direction = Vector2(0, 0)
+
 var game
 var menu
 var inventory
@@ -180,9 +185,9 @@ func clue_pressed(clue_id):
 	curr_node = node
 	
 	if (Input.is_action_pressed("combine")):
-		get_node("cursor").set_pos(Vector2(120 + node.get_pos().x, 50 + node.get_pos().y))
-		if vm.get_global("analysis_selected") == false:
-			get_node("cursor").show()
+		#get_node("cursor").set_pos(Vector2(120 + node.get_pos().x, 50 + node.get_pos().y))
+		#if vm.get_global("analysis_selected") == false:
+			#TO-DO, fix cursor maybe get_node("cursor").show()
 		
 		if vm.get_global("analysis_selected") == true:
 			process_clues(first_clue, clue_id)
@@ -268,6 +273,27 @@ func drag_box():
 func _fixed_process(delta):
 	if (dragging and Input.is_mouse_button_pressed(BUTTON_LEFT)):
 		drag_box()
+	elif Input.is_action_pressed("zoom_in"):
+		var new_zoom = Vector2(camera.get_zoom().x + zoom_step * delta, camera.get_zoom().y + zoom_step * delta)
+		camera.set_zoom(Vector2(new_zoom.x, new_zoom.y))
+	elif Input.is_action_pressed("zoom_out"):
+		var new_zoom = Vector2(camera.get_zoom().x - zoom_step * delta, camera.get_zoom().y - zoom_step * delta)
+		camera.set_zoom(Vector2(new_zoom.x, new_zoom.y))
+	
+	move_direction = Vector2(0,0)
+	if(Input.is_action_pressed("ui_left")):
+		move_direction += Vector2(-1, 0)
+	if(Input.is_action_pressed("ui_right")):
+		move_direction += Vector2(1, 0)
+	if(Input.is_action_pressed("ui_up")):
+		move_direction += Vector2(0, -1)
+	if(Input.is_action_pressed("ui_down")):
+		move_direction += Vector2(0, 1)
+	if move_direction != Vector2(0, 0):
+		get_node("center").move(move_direction * scroll_speed)
+
+func _input(event):
+	return
 
 func _ready():
 	game = get_node("/root/game")
@@ -276,8 +302,9 @@ func _ready():
 	clue_size = Vector2(get_node("Clue").get_rect().size.x, get_node("Clue").get_rect().size.y)
 	clue_distance = sqrt(clue_size.x * clue_size.x + clue_size.y * clue_size.y)
 	analysis_data = get_node("AnalysisData")
+	camera = get_node("center/camera")
 	
-	get_node("Back").connect("pressed", self, "back_to_game")
+	get_node("canvas/Back").connect("pressed", self, "back_to_game")
 	get_node("Background/BackgroundButton").connect("pressed", self, "background_pressed")
 	
 	set_fixed_process(true)
