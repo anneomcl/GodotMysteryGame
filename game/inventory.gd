@@ -15,6 +15,8 @@ const clues = [
 	{ "id": "found_employee_badge", "title" : "We found an employee badge reading: 'Checkers the Cat, associate of Fat Cat'" },
 	{ "id": "employee_badge_no_pic", "title": "The employee badge doesn't have a picture or ID, not sure if it's legit." },
 	{ "id": "test", "title": "test 1" },
-	{ "id": "test1", "title": "test 2" }
+	{ "id": "test1", "title": "test 2" },
+	{ "id": "tier3_test", "title": "Test for 3rd tier" },
+	{ "id": "tier3_test2", "title": "Test for 3rd tier (CHILD)" }
 ]
 

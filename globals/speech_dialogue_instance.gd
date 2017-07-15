@@ -106,6 +106,8 @@ func display_portrait(avatar_id):
 			else:
 				c.hide()
 
+#To create a custom event:
+#params: [character name, speech], null, false (not a choice, just dialogue)
 func start(params, p_context, p_is_choice):
 	context = p_context
 	dialog_task = vm.task_current
@@ -117,7 +119,8 @@ func start(params, p_context, p_is_choice):
 	else:
 		character_name = params[0]
 		character = vm.game.get_object(params[0])
-		character.set_speaking(true)
+		if character != null:
+			character.set_speaking(true)
 		add_speech(params[1], 0)
 	
 	var avatar_id = null
@@ -158,7 +161,7 @@ func _queue_free():
 
 func clear_dialogue():
 	vm.finished(context, false)
-	if !is_choice:
+	if !is_choice and character != null:
 		character.set_speaking(false)
 	stop()
 

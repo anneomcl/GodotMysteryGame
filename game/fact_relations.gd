@@ -14,6 +14,12 @@ var created_relations = {
 #		Finally, factRelations["CLUEID"]["AND"]["result"] gives a resultant fact for "AND"
 #If clue not found in "clues" array for a relation, give default response.
 const fact_relations = {
+	"tier3_test" : {
+		"and": { "clues": ["checkers_work_for_Fat_Cat"],
+		"result" : "tier3_test2"},
+		"points" : 1 },
+	"tier3_test2" : {
+	},
 	"all_cats_work_for_Fat_Cat" : {
 		"and": { "clues" : ["checkers_is_cat"],
 		"result" :"checkers_work_for_Fat_Cat" },

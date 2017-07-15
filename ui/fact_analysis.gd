@@ -119,6 +119,8 @@ func process_clues(first_clue, second_clue):
 		var relation = get_selected_relation()
 		var fact_object = analysis_data.fact_relations[first_clue]
 		
+		var a = fact_object[relation]["clues"].has(second_clue)
+		
 		if fact_object.has(relation) and fact_object[relation]["clues"].has(second_clue):
 			if relation == "contradicts":
 				print ("Clue contradicts other clue")
@@ -138,11 +140,12 @@ func process_clues(first_clue, second_clue):
 					game.clues.append("c/" + new_clue)
 					vm.set_global("c/" + new_clue, true)
 				else:
+					game.get_node("speech_dialogue_player").start(["", "Clue already found!"], vm.level.current_context, false)
 					print("Clue already found")
 		else:
-			print(analysis_data.default)
+			game.get_node("speech_dialogue_player").start(["", analysis_data.default], vm.level.current_context, false)
 	else:
-		print(analysis_data.default)
+		game.get_node("speech_dialogue_player").start(["", analysis_data.default], vm.level.current_context, false)
 	
 	print(first_clue)
 	print(second_clue)
@@ -191,12 +194,13 @@ func clue_pressed(clue_id):
 		
 		if vm.get_global("analysis_selected") == true:
 			process_clues(first_clue, clue_id)
-			first_clue = ""
 			vm.set_global("analysis_selected", false)
 			vm.set_global("therefore_selected", false)
 			vm.set_global("supports_selected", false)
 			vm.set_global("contradicts_selected", false)
 			return
+			
+		first_clue = ""
 	
 		if "use" in event_table:
 			vm.run_event(event_table.use, {})
@@ -211,21 +215,28 @@ func background_pressed():
 		get_node("cursor").hide()
 
 
-#TODO do a proper BFS
+#Modified BFS to search all connected nodes
 func find_all_clicked_nodes(node):
 	if node == null: 
 		return null
 	
-	if !analysis_data.created_relations.has(node):
-		return [node]
-	
 	var nodes = [node]
-	for child in analysis_data.created_relations[node]["children"]:
-		if !nodes.has(child):
-			nodes.push_back(child)
-	for parent in analysis_data.created_relations[node]["parents"]:
-		if !nodes.has(parent):
-			nodes.push_back(parent)
+	if !analysis_data.created_relations.has(node):
+		return nodes
+	
+	var queue = [node]
+	while queue.size() > 0:
+		var curr = queue.back()
+		queue.pop_back()
+		if analysis_data.created_relations.has(curr):
+			for child in analysis_data.created_relations[curr]["children"]:
+				if !nodes.has(child):
+					nodes.push_back(child)
+					queue.push_back(child)
+			for parent in analysis_data.created_relations[curr]["parents"]:
+				if !nodes.has(parent):
+					nodes.push_back(parent)
+					queue.push_back(parent)
 			
 	return nodes
 
@@ -236,17 +247,19 @@ func drag_box():
 		#find all nodes associated with the clicked node (recursively later)
 		var nodes = find_all_clicked_nodes(curr_node.id)
 		
+		var curr_node_pos = curr_node.get_pos()
+		curr_node.set_global_pos(pos)
+		curr_node.set_pos(curr_node.get_pos() - clue_size / 4)
+		var curr_node_pos_diff = curr_node_pos - curr_node.get_pos()
+		
 		#update ALL positions
 		for nodeid in nodes:
-			var node = get_node("c/" + nodeid)
-			
-			#set the position relative to the current node
-			#find the x/y difference between the node and current node
-			#var global_pos = node.get_global_pos()
-			#var offset_global_pos = global_pos - curr_node.get_global_pos()
-			
-			#node.set_global_pos(pos + offset_global_pos)
-			#node.set_pos(node.get_pos() - clue_size / 4)
+			if nodeid != curr_node.id:
+				var node = get_node("c/" + nodeid)
+				var node_pos = node.get_pos()
+				
+				var new_pos = -curr_node_pos_diff + node_pos
+				node.set_pos(new_pos)
 	
 	elif Input.is_mouse_button_pressed(BUTTON_LEFT):
 		

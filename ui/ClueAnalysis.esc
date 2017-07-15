@@ -11,4 +11,7 @@ debug "Analyze clue"
 			set_global supports_selected true
 		- "CONTRADICTS"
 			set_global contradicts_selected true
+		- "BACK"
+			set_global analysis_selected false
+			stop
 	set_global analysis_selected true
