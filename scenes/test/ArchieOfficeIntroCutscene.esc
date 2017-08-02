@@ -2,6 +2,8 @@
 
 debug "this is the 'load' event for the door to Archie's office!"
 
+set_global archie_intro_cutscene true
+
 > [archie_intro_cutscene]
 	teleport_pos Archie 650 150
 	teleport_pos player 550 630

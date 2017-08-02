@@ -13,12 +13,13 @@ var created_relations = {
 #       Then, fact_relations["CLUEID"]["points"] gives the feasability points for that clue
 #		Finally, factRelations["CLUEID"]["AND"]["result"] gives a resultant fact for "AND"
 #If clue not found in "clues" array for a relation, give default response.
-const fact_relations = {
+var fact_relations = {
 	"tier3_test" : {
 		"and": { "clues": ["checkers_work_for_Fat_Cat"],
 		"result" : "tier3_test2"},
 		"points" : 1 },
 	"tier3_test2" : {
+		"points" : -1
 	},
 	"all_cats_work_for_Fat_Cat" : {
 		"and": { "clues" : ["checkers_is_cat"],
@@ -29,15 +30,158 @@ const fact_relations = {
 		"result" : "checkers_work_for_Fat_Cat" },
 		"points": 90 },
 	"checkers_work_for_Fat_Cat" : {
+		"points": -1
 	},
 	"employee_badge_no_pic" : {
-		"contradicts": { "clues" : ["checkers_work_for_Fat_Cat"]},
+		"contradicts": { "clues" : ["found_employee_badge"]},
 		"points" : 50
 	},
 	"found_employee_badge" : {
 		"supports" : { "clues" : ["checkers_work_for_Fat_Cat"]},
 		"points" : 100
-	}
+	},
+	
+	#Scenario 0 Relations
+	"general1" : {
+		"points" : 100
+	},
+	"general2" : {
+		"and" : { "clues" : ["bee1", "archie4", "archie6", "eyy1"],
+		"result" : ["general3", "general3", "general4", "general5"]},
+		"points" : 100
+	},
+	"archie1" : { 
+		"and" : { "clues" : ["archie3"],
+		"result" : ["general2"]},
+		"points" : 90
+	},
+	"archie2" : { 
+		"points" : 90
+	},
+	"archie3" : { 
+		"and" : { "clues" : ["archie1"] },
+		"result" : { "result" : ["general2"] },
+		"points" : 90
+	},
+	"archie4" : { 
+		"and" : { "clues": ["general2"],
+		"result" : ["general3"] },
+		"supports" : { "clues": ["bee1"] },
+		"points" : 90
+	},
+	"archie5" : {
+		"contradicts" : { "clues" : ["general4"] },
+		"and" : { "clues" : ["general7"],
+		"result" : ["general8"] },
+		"points" : 99
+	},
+	"archie6" : {
+		"and" : { "clues" : ["general2"],
+		"result" : ["general4"] },
+		"points" : 99
+	},
+	"bee1" : { 
+		"and" : { "clues" : ["general2"],
+		"result" : ["general3"]},
+		"points" : 90
+	},
+	"bee2" : { 
+		"supports" : { "clues" : ["eyy2"] },
+		"contradicts" : { "clues" : ["general4"] },
+		"and" : { "clues" : ["bee3", "general2", "eyy4"],
+		"result" : ["eyy3", "general3", "bee5"] },
+		"points" : 90
+	},
+	"bee3" : { 
+		"and" : { "clues" : ["bee2"],
+		"result" : ["eyy3"] },
+		"points" : 90
+	},
+	"bee5" : {
+		"supports" : { "clues" : ["general3"] },
+		"points" : -1
+	},
+	"general3" : {
+		"points" : -1
+	},
+	"general4" : {
+		"points" : -1
+	},
+	"general5" : {
+		"points" : -1
+	},
+	"general6" : {
+		"and" : { "clues" : ["library1"],
+		"result" : ["general7"]},
+		"points" : -1
+	},
+	"general7" : {
+		"contradicts" : { "clues" : ["general5"] },
+		"points" : -1
+	},
+	"general8" : {
+		"contradicts" : { "clues" : ["general5"] },
+		"points" : -1
+	},
+	"general9" : {
+		"supports" : { "clues" : ["general3"] },
+		"contradicts" : { "clues" : ["general5"] },
+		"points" : -1
+	},
+	"library1" : {
+		"and" : { "clues" : ["library1"],
+		"result" : ["general7"]},
+		"points" : 99
+	},
+	"eyy1" : {
+		"and" : { "clues" : ["general2"],
+		"result" : ["general5"]},
+		"points" : 90
+	},
+	"eyy2" : {
+		"supports" : { "clues" : ["bee2"] },
+		"contradicts" :  { "clues" : ["general4"] },
+		"points" : 90
+	},
+	"eyy3" : {
+		"supports" : { "clues" : ["general5"]},
+		"points" : -1
+	},
+	"eyy4" : { 
+		"contradicts" : {"clues" : ["general4", "bee2", "general5", "eyy3"] },
+		"points" : 90
+	},
+	"eyy5" : {
+		"supports" : { "clues" : ["general7"] },
+		"points" : 90
+	},
+	"kitchen1" : {
+		"supports" : { "clues" : ["bee1"]},
+		"points" : 99
+	},
+	"kitchen2" : {
+		"supports" : { "clues" : ["eyy4"] },
+		"points" : 99
+	},
+	"office1" : {
+		"and" : { "clues" : ["secretary2"],
+		"result" : ["general6"] },
+		"supports" : { "clues" : ["general5"] },
+		"points" : 99
+	},
+	"office2" : {
+		"supports" : { "clues" : ["general9"]},
+		"points" : 99
+	},
+	"secretary1" : {
+		"supports" : { "clues" : ["archie5"]},
+		"points" : 90
+	},
+	"secretary2" : {
+		"and" : { "clues" : ["office1"],
+		"result" : ["general6"] },
+		"points" : 50
+	},
 }
 
 const default = "This doesn't make sense to me..."

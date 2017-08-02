@@ -219,6 +219,7 @@ func get_all_globals():
 func set_global(name, val):
 	globals[name] = val
 	emit_signal("global_changed", name)
+	print("set " + name + " to " + str(val))
 	
 	#TO-DO: Refactor this. This is a hack.
 	if(name == "esc_finished" && val == true):

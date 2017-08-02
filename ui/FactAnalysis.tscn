@@ -4,11 +4,11 @@
 [ext_resource path="res://globals/item.gd" type="Script" id=2]
 [ext_resource path="res://game/fact_relations.gd" type="Script" id=3]
 [ext_resource path="res://scenes/test/analysisBackground.png" type="Texture" id=4]
-[ext_resource path="res://scenes/test/DialogueBackground.png" type="Texture" id=5]
-[ext_resource path="res://ui/clue.gd" type="Script" id=6]
-[ext_resource path="res://ui/dialogue_default.fnt" type="BitmapFont" id=7]
-[ext_resource path="res://ui/relationLine.png" type="Texture" id=8]
-[ext_resource path="res://globals/white.png" type="Texture" id=9]
+[ext_resource path="res://globals/white.png" type="Texture" id=5]
+[ext_resource path="res://ui/relationLineand.png" type="Texture" id=6]
+[ext_resource path="res://ui/clue.gd" type="Script" id=7]
+[ext_resource path="res://scenes/test/DialogueBackground.png" type="Texture" id=8]
+[ext_resource path="res://ui/dialogue_default.fnt" type="BitmapFont" id=9]
 
 [node name="Analysis" type="Control"]
 
@@ -111,61 +111,6 @@ shortcut = null
 params/resize_mode = 0
 params/stretch_mode = 0
 
-[node name="Clue" type="TextureButton" parent="."]
-
-rect/scale = Vector2( 0.5, 0.5 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 7461.0
-margin/top = -1597.0
-margin/right = 7943.0
-margin/bottom = -1397.0
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-textures/normal = ExtResource( 5 )
-params/resize_mode = 0
-params/stretch_mode = 0
-script/script = ExtResource( 6 )
-
-[node name="Label" type="Label" parent="Clue"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 482.0
-margin/bottom = 200.0
-custom_fonts/font = ExtResource( 7 )
-text = "I am a clue."
-align = 1
-autowrap = true
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="arrow" type="TextureButton" parent="."]
-
-visibility/behind_parent = true
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 299.0
-margin/top = -125.0
-margin/right = 499.0
-margin/bottom = -105.0
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-textures/normal = ExtResource( 8 )
-params/resize_mode = 1
-params/stretch_mode = 0
-
 [node name="c" type="Control" parent="."]
 
 focus/ignore_mouse = false
@@ -183,6 +128,85 @@ visibility/visible = false
 visibility/opacity = 0.5
 transform/pos = Vector2( 118.536, -148.562 )
 transform/scale = Vector2( 4.16966, 1.88815 )
-texture = ExtResource( 9 )
+texture = ExtResource( 5 )
+
+[node name="arrow" type="TextureButton" parent="."]
+
+visibility/behind_parent = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 200.0
+margin/bottom = 20.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 6 )
+params/resize_mode = 1
+params/stretch_mode = 0
+
+[node name="Clue" type="Node2D" parent="."]
+
+transform/scale = Vector2( 1, 1 )
+z/z = -1
+script/script = ExtResource( 7 )
+
+[node name="ClueButton" type="TextureButton" parent="Clue"]
+
+rect/scale = Vector2( 0.5, 0.5 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 482.0
+margin/bottom = 200.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 8 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="Label" type="Label" parent="Clue/ClueButton"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 482.0
+margin/bottom = 200.0
+custom_fonts/font = ExtResource( 9 )
+text = "I am a clue."
+align = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="points" type="Label" parent="Clue/ClueButton"]
+
+rect/scale = Vector2( 1.5, 1.5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 393.0
+margin/top = 147.0
+margin/right = 450.0
+margin/bottom = 179.0
+custom_fonts/font = ExtResource( 9 )
+text = "000"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 

@@ -159,7 +159,7 @@ _update_shape_index = 0
 
 [node name="Archie" type="KinematicBody2D" parent="."]
 
-transform/pos = Vector2( -240.193, 328.603 )
+transform/pos = Vector2( 297.049, 383.968 )
 transform/scale = Vector2( 0.5, 0.5 )
 input/pickable = false
 collision/layers = 1
@@ -167,9 +167,9 @@ collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 5 )
 active = true
-global_id = "Archie"
+global_id = "archie"
 talk_animation = "talk"
-events_path = ""
+events_path = "res://scenes/test/Archie.esc"
 
 [node name="Sprite" type="Sprite" parent="Archie"]
 

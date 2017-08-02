@@ -124,7 +124,7 @@ func is_comment(line):
 
 func get_indent(line):
 	for i in range(0, line.length()):
-		if line[i] != " " && line[i] != "\t":
+		if line[i] != "\t": #&& line[i] != " "
 			return i
 
 func is_event(line):

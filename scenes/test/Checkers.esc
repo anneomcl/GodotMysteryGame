@@ -6,7 +6,7 @@ debug "this is the 'use' event for Checkers the Cat!"
 	say Checkers "If I said I DID do it, would you let me out of here?" Checkers_Sad
 	set_global spoke_to_Cat true
 
-> 
+>
 	?
 		- "Talk to Checkers" [spoke_to_Cat]
 			say Checkers "Don't you know? All cats work for Fat Cat..."

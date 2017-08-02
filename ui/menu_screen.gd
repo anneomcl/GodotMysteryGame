@@ -10,7 +10,10 @@ func save():
 		pos_x = player.get_pos().x,
 		pos_y = player.get_pos().y,
 		current_scene = game.current_scene.get_filename(),
-		globals = vm.get_all_globals()
+		globals = vm.get_all_globals(),
+		clues = vm.game.clues,
+		relations = vm.game.relations,
+		facts = vm.game.facts
 	}
 	
 	return save_dict

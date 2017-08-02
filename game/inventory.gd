@@ -7,7 +7,8 @@ const items = [
 ]
 
 const clues = [
-	{ "id": "checkers_work_for_Fat_Cat", "points": 80, "title": "Checkers is an associate of the dastardly Fat Cat!" },
+	#UI testing facts
+	{ "id": "checkers_work_for_Fat_Cat", "title": "Checkers is an associate of the dastardly Fat Cat!" },
 	{ "id": "checkers_is_cat", "title": "The suspect, Checkers, is a black cat" },
 	{ "id": "all_cats_work_for_Fat_Cat", "title": "All cats work for Fat Cat" },
 	{ "id": "password", "title": "Map Vendor Password", "description": "The map vendor needs a password. I could try the one from Monkey Island" },
@@ -17,6 +18,39 @@ const clues = [
 	{ "id": "test", "title": "test 1" },
 	{ "id": "test1", "title": "test 2" },
 	{ "id": "tier3_test", "title": "Test for 3rd tier" },
-	{ "id": "tier3_test2", "title": "Test for 3rd tier (CHILD)" }
+	{ "id": "tier3_test2", "title": "Test for 3rd tier (CHILD)" },
+	
+	#Scenario 0 facts	
+	{ "id": "general1", "title": "A plate and cookies were stolen from the kitchen." },
+	{ "id": "general2", "title": "Everyone who was in the kitchen from 4PM to 4:30PM is a suspect." },
+	{ "id": "general3", "title": "Bee could have taken the cookies." },
+	{ "id": "general4", "title": "Archie himself could have taken the cookies on his way back to the office from 4PM to 4:05PM." },
+	{ "id": "general5", "title": "Eyy could have taken the cookies." },
+	{ "id": "general6", "title": "Lemon fairies could be lured to Eyy's desk." },
+	{ "id": "general7", "title": "Someone could be trying to sabotage Eyy" },
+	{ "id": "general8", "title": "You, Archie or Bee could be trying to sabotage Eyy." },
+	{ "id": "general9", "title": "Bee could be trying to sabotage Eyy." },
+	{ "id": "archie1", "title": "Archie left the cookies in the kitchen at 4PM." },
+	{ "id": "archie2", "title": "The lemon butter spritz cookies are a special family recipe." },
+	{ "id": "archie3", "title": "Archie noticed the cookies and plate were gone at 4:30PM." },
+	{ "id": "archie4", "title": "Archie saw Bee in the kitchen at 4PM."},
+	{ "id": "archie5", "title": "Archie, Ey, Bee, you and secretary are the only people in the office. Everyone else is on a case."},
+	{ "id": "archie6", "title": "You and Archie were in his office talking from 4:05PM until 4:30PM. It's unclear where he was from 4PM to 4:05PM." },
+	{ "id": "eyy1", "title": "Eyy went to the break room sometime after 4PM and saw Archie on his way there." },
+	{ "id": "eyy2", "title": "While in the break room, Eyy took a handful of cookies, made tea, and went back to his desk." },
+	{ "id": "eyy3", "title": "Eyy was alone in the break room from 4:05PM onwards." },
+	{ "id": "eyy4", "title": "Eyy quickly ate a handful of cookies over the table and ran to the bathroom, he didn't come out until at least 4:30PM" },
+	{ "id": "eyy5", "title" : "Eyy has had a lot of indigestion, sudden impulses, and fatigue in the past few weeks."},
+	{ "id": "library1", "title": "Lemon fairies are known to be annoying and troubling for people, in the worst case some people are never able to leave their house.." },
+	{ "id": "kitchen1", "title": "There is brown liquid and there are traces of coffee grounds in the sink." },
+	{ "id": "kitchen2", "title": "There are crumbs all over the table." },
+	{ "id": "bee1", "title": "Bee was in the break room at 4PM, washing her coffee mug in the sink." },
+	{ "id": "bee2", "title": "Bee saw Eyy walk in the break room and take a cookie after Archie left, at ~4:03 PM." },
+	{ "id": "bee3", "title": "Bee left the break room around ~4:05PM." },
+	{ "id": "bee4", "title": "Bee took one cookie on her way out of the kitchen." },
+	{ "id": "bee5", "title": "Bee was alone in the kitchen from ~4:05PM onward." },
+	{ "id": "secretary1", "title": "Secretary Nadir did not see anyone walk in the police station from 4PM to 4:30PM." },
+	{ "id": "secretary2", "title": "There are nefarious lemon fairies that are attracted by anything that looks, smells or tastes like lemons" },
+	{ "id": "office1", "title" : "<inventory items: lemon things found in desk>" },
+	{ "id": "office2", "title" : "<inventory item: bulletin board performance, 1) Eyy... 5) Bee" },
 ]
-
