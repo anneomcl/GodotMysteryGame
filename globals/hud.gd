@@ -24,7 +24,7 @@ func _on_hint_pressed():
 func _on_menu_pressed():
 	printt("menu pressed")
 	if vm.can_save() && vm.can_interact() && vm.menu_enabled():
-		get_node("/root/main").load_menu("res://game/ui/main_menu.xml")
+		get_node("/root/main").load_menu("res://game/ui/start_menu.xml")
 	else:
 		#get_tree().call_group(0, "game", "ui_blocked")
 		if vm.menu_enabled():

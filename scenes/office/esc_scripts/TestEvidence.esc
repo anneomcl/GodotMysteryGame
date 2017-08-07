@@ -1,0 +1,6 @@
+
+:use
+say player "I found evidence."
+set_global i/office1 true
+set_global c/office1 true
+set_active office1 false

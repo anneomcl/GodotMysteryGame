@@ -124,7 +124,7 @@ func get_resource(path):
 			return res
 	else:
 		_unlock("return")
-		return ResourceLoader.load(path)
+	return ResourceLoader.load(path)
 
 func thread_process():
 	_wait("thread_process")

@@ -1,0 +1,4 @@
+:use
+debug "this is the 'use' event for the door from the office to outside!"
+change_scene res://scenes/office/SquashSquadOffice.tscn
+teleport_pos player -550 -600

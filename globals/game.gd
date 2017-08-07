@@ -195,7 +195,7 @@ func change_scene(params, context):
 
 func start_new_game():
 	vm.clear()
-	var events = vm.compile("res://game/main_menu.esc")
+	var events = vm.compile("res://ui/start_menu.esc")
 	vm.run_event(events["load"], {})
 
 func execute_cutscene(scene):

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://ui/menu_screen.gd" type="Script" id=1]
-[ext_resource path="res://ui/dialogue_default.fnt" type="BitmapFont" id=2]
+[ext_resource path="res://ui/font/dialogue_default.fnt" type="BitmapFont" id=2]
 
 [node name="menu" type="Control"]
 

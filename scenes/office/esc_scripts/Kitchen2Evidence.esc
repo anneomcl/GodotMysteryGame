@@ -1,0 +1,6 @@
+
+:use
+say player "I found evidence."
+set_global i/kitchen2 true
+set_global c/kitchen2 true
+set_active kitchen2 false

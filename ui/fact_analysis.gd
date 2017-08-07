@@ -241,7 +241,7 @@ func draw_relation(parent, child, relation):
 	var child_node = get_node("c/" + child)
 	var child_center = child_node.get_pos() + (clue_size / 2)
 	var parent_center = parent_node.get_pos() + (clue_size / 2)
-	arrow.set_normal_texture(load("res://ui/relationLine" + relation + ".png"))
+	arrow.set_normal_texture(load("res://ui/graphics/relationLine" + relation + ".png"))
 	
 	#Set position relative to the parent clue box
 	get_node("c/" + parent + "/ClueButton").add_child(arrow)
@@ -400,7 +400,7 @@ func _input(event):
 
 func _ready():
 	game = get_node("/root/game")
-	inventory = preload("res://game/inventory.gd")
+	inventory = preload("res://game/data/inventory.gd")
 	menu = get_node("/root/game/hud_layer/inventory/Menu/Options/menu")
 	clue_size = Vector2(get_node("Clue/ClueButton").get_rect().size.x, get_node("Clue/ClueButton").get_rect().size.y)
 	clue_distance = sqrt(clue_size.x * clue_size.x + clue_size.y * clue_size.y)

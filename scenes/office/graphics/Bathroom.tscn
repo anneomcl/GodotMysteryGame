@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://scenes/office/Room.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/office/player.tscn" type="PackedScene" id=2]
+
+[node name="Bathroom" type="Node"]
+
+[node name="Room" parent="." instance=ExtResource( 1 )]
+
+editor/display_folded = true
+
+[node name="Floor" parent="Room"]
+
+transform/scale = Vector2( 0.5, 0.5 )
+
+[node name="TestWall" parent="Room"]
+
+transform/pos = Vector2( -467.621, 3.09088 )
+transform/scale = Vector2( 0.5, 0.5 )
+
+[node name="TestWall1" parent="Room"]
+
+transform/pos = Vector2( 443.277, -12.3635 )
+transform/scale = Vector2( 0.5, 0.5 )
+
+[node name="TestWall2" parent="Room"]
+
+transform/pos = Vector2( -2.13106, -318.359 )
+transform/scale = Vector2( 0.5, 1 )
+
+[node name="TestWall3" parent="Room"]
+
+transform/pos = Vector2( -5.22195, 284.36 )
+transform/scale = Vector2( 0.5, 1 )
+
+[node name="DoorToArchie" parent="Room"]
+
+transform/pos = Vector2( -7.43921, 290.61 )
+events_path = "res://scenes/office/esc_scripts/ArchieToSquashSquad.esc"
+
+[node name="player" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( -6.00079, -74.3522 )
+
+
+[editable path="Room"]

@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://scenes/office/Room.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/office/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/office/TestEvidence.tscn" type="PackedScene" id=3]
+
+[node name="Kitchen" type="Node"]
+
+[node name="Room" parent="." instance=ExtResource( 1 )]
+
+editor/display_folded = true
+
+[node name="DoorToArchie" parent="Room"]
+
+transform/rot = 180.0
+events_path = "res://scenes/office/esc_scripts/ArchieToSquashSquad.esc"
+
+[node name="player" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( -2.8833, 389.82 )
+
+[node name="kitchen1" parent="." instance=ExtResource( 3 )]
+
+transform/pos = Vector2( -415.139, -185.307 )
+global_id = "kitchen1"
+events_path = "res://scenes/office/esc_scripts/Kitchen1Evidence.esc"
+
+[node name="kitchen2" parent="." instance=ExtResource( 3 )]
+
+transform/pos = Vector2( -20.9573, -179.755 )
+global_id = "kitchen2"
+events_path = "res://scenes/office/esc_scripts/Kitchen2Evidence.esc"
+
+
+[editable path="Room"]

@@ -1,0 +1,14 @@
+:use
+
+debug "this is the 'use' event for B!"
+
+set_global spoke_to_B false
+
+> [spoke_to_B]
+	say player "Can you go over a few details again?"
+	stop
+> [!spoke_to_B]
+	say player "Uh, hey, B."
+	set_global c/bee1 true
+	set_global c/bee2 true
+	set_global c/bee3 true

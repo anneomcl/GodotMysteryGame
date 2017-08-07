@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=1]
 
-[ext_resource path="res://ui/main_menu.gd" type="Script" id=1]
+[ext_resource path="res://ui/start_menu.gd" type="Script" id=1]
 [ext_resource path="res://scenes/test/MainMenu.png" type="Texture" id=2]
-[ext_resource path="res://ui/dialogue_default.fnt" type="BitmapFont" id=3]
+[ext_resource path="res://ui/font/dialogue_default.fnt" type="BitmapFont" id=3]
 
-[node name="main_menu" type="Control"]
+[node name="start_menu" type="Control"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true

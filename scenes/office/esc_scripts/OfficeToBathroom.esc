@@ -1,0 +1,3 @@
+:use
+debug "this is the 'use' event for the door from the office to bathroom!"
+change_scene res://scenes/office/bathroom.tscn

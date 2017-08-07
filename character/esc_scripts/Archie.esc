@@ -1,0 +1,88 @@
+:use
+debug "this is the 'use' event for Archie!"
+
+> [spoke_to_archie, i/office2, c/office2]
+	?
+		- "Can I have the keys to everyone's desks?" 
+			say player "And maybe the bathroom?"
+			say archie "Sure."
+
+			#archie gives you office master keys
+			#set_global c/office1 true
+			#set_global i/office1 true
+
+			stop
+
+		- "I have a few questions"
+			say player "Could you answer a few questions?"
+
+		- "Nevermind"
+			stop
+
+> [!spoke_to_archie]
+	set_global spoke_to_archie true
+
+	#say archie "What the--?! Kid, put that down, and get over here. We've got your first case!"
+	#say player "OMG"
+	#say archie "Don't get your hopes up too much, this is a basic one."
+	#say archie "My cookies were stolen! And the plate too!"
+	set_global c/general1 true
+	#say archie "I left them in the break room at 4PM."
+	#say archie "I wanted to show them off, they're a family recipe, an heirloom, a treasure!"
+	set_global c/archie1 true
+	set_global c/archie2 true
+	#say archie "Kid, you need to get to the bottom of this and find out who did it. No member of my team can exhibit unruly morals, much less the sin of gluttony!"
+	#say player "It's explained that the player needs to learn how real cases are conducted, and this just so happens to be a matter of personal importance to Archie."
+	
+> [spoke_to_archie]
+	?
+		- "I have a few questions"
+			say player "Could you answer a few questions?"
+			>
+				?
+					- "When did you last see the cookies?"
+						set_global c/archie3 true
+						#say archie "I went to check on how well, uh, how well-received they were at around 4:30PM."
+						#say player "Are you sure it was 4:30?"
+						#say archie "Of course! I always take tea at 4:30, and I always have a tasty something or other when I do. Do you doubt my memory?"
+						#say player "You told me to ask questions!"
+						#say archie "*ahem* I suppose... I did, yes. Carry on."
+					- "Was there anyone else in the kitchen?"
+						set_global c/archie4 true
+					- "Who do YOU think it is?" [!asked_archie_who]
+						set_global asked_archie_who true
+						#say archie "No one who deserves to be on this team, that's for sure!"
+						?
+							- "How do you know it wasn't me?"
+								#say player "How do you know it isn't me?"
+								#say archie "Kid, take this seriously! I'm giving you one chance! One!"
+								#say player "Right, sorry!"
+								#say archie "You can make any mistake you want, but only make it once. The only failure on this team is a repeated mistake, got that?"
+								#say player "*gulp*"
+								#say archie "And your biggest mistake right now is not keeping tabs on what you're doing, and when you're doing it."
+								#say archie "So I'll ask you: what WERE you doing from 4:00 to 4:30?"
+								#say player "Well, I've been trying to hook up the magic filesystem in your office all afternoon, which reminds me..."
+								#say player "*gurgle*"
+								#say player "I forgot to eat lunch."
+								#say player "But you were there the whole time... At 4 you went to set the cookies in the kitchen... And you came back a few minutes later. I guess I didn't look at the clock, and I don't know what you were doing in those few minutes."
+								#say archie "Ho ho! Correct observation. Of course, my claim "
+								#say archie "And then in the 3 minutes I was gone, you wasted no time in your dress-up make-believe."
+
+								
+								set_global c/archie5 true
+								set_global c/archie6 true
+
+								#say player "Ahahaha...yeah... I guess that did happen."
+								#say player "(>"
+							- How do I know it's not you?"
+								say player "How do I know you didn't make all this up?"
+								say archie "*raises eyebrow image*"
+								say player "You know, to test me? To give the intern a controlled learning experience with no real stakes?"
+								say archie "*laughing face* If you can prove that I set this all up, then by all means, feel free to prosecute me for providing on-the-job experience."
+								say player "I'll take it."
+					- "Nevermind"
+						stop
+				repeat
+		- "Nevermind"
+			stop	
+	say player "Okay, I'll start my investigation."

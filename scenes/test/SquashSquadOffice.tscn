@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://globals/scene.gd" type="Script" id=1]
 [ext_resource path="res://scenes/test/OfficeFloor.png" type="Texture" id=2]
 [ext_resource path="res://scenes/test/OfficeHallway.png" type="Texture" id=3]
-[ext_resource path="res://scenes/test/TestWall.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/office/TestWall.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/test/Door.png" type="Texture" id=5]
 [ext_resource path="res://globals/item.gd" type="Script" id=6]
 [ext_resource path="res://scenes/test/player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/test/Archie.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -17,72 +18,73 @@ extents = Vector2( 10, 13.4588 )
 
 script/script = ExtResource( 1 )
 
-[node name="Floor" type="Sprite" parent="."]
+[node name="Room" type="Node" parent="."]
+
+editor/display_folded = true
+
+[node name="Floor" type="Sprite" parent="Room"]
 
 texture = ExtResource( 2 )
 
-[node name="Hallway" type="Sprite" parent="."]
+[node name="Hallway" type="Sprite" parent="Room"]
 
 transform/pos = Vector2( 1795.4, 263.523 )
 transform/rot = 90.0
 texture = ExtResource( 3 )
 
-[node name="Walls" type="Node" parent="."]
+[node name="Walls" type="Node" parent="Room"]
 
 editor/display_folded = true
 
-[node name="TestWall" parent="Walls" instance=ExtResource( 4 )]
+[node name="TestWall" parent="Room/Walls" instance=ExtResource( 4 )]
 
-[node name="TestWall1" parent="Walls" instance=ExtResource( 4 )]
+[node name="TestWall1" parent="Room/Walls" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 2728.6, 231.938 )
 transform/scale = Vector2( 1, 0.562065 )
 
-[node name="TestWall2" parent="Walls" instance=ExtResource( 4 )]
+[node name="TestWall2" parent="Room/Walls" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 910.035, -312.501 )
 transform/scale = Vector2( 1, 0.613608 )
 
-[node name="TestWall6" parent="Walls" instance=ExtResource( 4 )]
+[node name="TestWall6" parent="Room/Walls" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 899.761, 516.298 )
 transform/scale = Vector2( 1, 0.219757 )
 
-[node name="TestWall 2" parent="Walls" instance=ExtResource( 4 )]
+[node name="TestWall 2" parent="Room/Walls" instance=ExtResource( 4 )]
 
 editor/display_folded = true
 transform/pos = Vector2( 2.03314, -626.507 )
 transform/rot = 90.0
 transform/scale = Vector2( 1, 1.56532 )
 
-[node name="CollisionShape2D" parent="Walls/TestWall 2/StaticBody2D"]
-
-transform/pos = Vector2( -2.78949, -2.34366 )
-
-[node name="TestWall3" parent="Walls" instance=ExtResource( 4 )]
+[node name="TestWall3" parent="Room/Walls" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( -6.37628, 605.483 )
 transform/rot = 90.0
 transform/scale = Vector2( 1, 1.56532 )
 
-[node name="TestWall4" parent="Walls" instance=ExtResource( 4 )]
+[node name="TestWall4" parent="Room/Walls" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 1828.43, 437.293 )
 transform/rot = 90.0
 transform/scale = Vector2( 1, 1.54875 )
 
-[node name="CollisionShape2D" parent="Walls/TestWall4/StaticBody2D"]
-
-transform/pos = Vector2( 0.608215, -2.00903 )
-
-[node name="TestWall5" parent="Walls" instance=ExtResource( 4 )]
+[node name="TestWall5" parent="Room/Walls" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 1811.61, 21.0237 )
 transform/rot = 90.0
 transform/scale = Vector2( 1, 1.54875 )
 
-[node name="Door" type="Sprite" parent="."]
+[node name="Doors" type="Node" parent="Room"]
 
+editor/display_folded = true
+
+[node name="DoorToArchie" type="Sprite" parent="Room/Doors"]
+
+editor/display_folded = true
 transform/pos = Vector2( 1770.2, 0 )
 texture = ExtResource( 5 )
 script/script = ExtResource( 6 )
@@ -91,7 +93,7 @@ global_id = "SquashToArchie"
 talk_animation = "talk"
 events_path = "res://scenes/test/SquashToArchie.esc"
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Door"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Room/Doors/DoorToArchie"]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
@@ -104,7 +106,104 @@ constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Door/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room/Doors/DoorToArchie/StaticBody2D"]
+
+transform/pos = Vector2( -1.15686, -74.8076 )
+transform/scale = Vector2( 15.1608, 7.90535 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="DoorToKitchen" type="Sprite" parent="Room/Doors"]
+
+editor/display_folded = true
+transform/pos = Vector2( 571.525, -643.86 )
+texture = ExtResource( 5 )
+script/script = ExtResource( 6 )
+active = true
+global_id = "OfficeToKitchen"
+talk_animation = "talk"
+events_path = "res://scenes/test/OfficeToKitchen.esc"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Room/Doors/DoorToKitchen"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 15.1608, 0, 0, 7.90535, -1.15686, -74.8076 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room/Doors/DoorToKitchen/StaticBody2D"]
+
+transform/pos = Vector2( -1.15686, -74.8076 )
+transform/scale = Vector2( 15.1608, 7.90535 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="DoorToBathroom" type="Sprite" parent="Room/Doors"]
+
+editor/display_folded = true
+transform/pos = Vector2( -551.805, -643.86 )
+texture = ExtResource( 5 )
+script/script = ExtResource( 6 )
+active = true
+global_id = "OfficOfficeToBathroom"
+talk_animation = "talk"
+events_path = "res://scenes/test/OfficeToBathroom.esc"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Room/Doors/DoorToBathroom"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 15.1608, 0, 0, 7.90535, -1.15686, -74.8076 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room/Doors/DoorToBathroom/StaticBody2D"]
+
+transform/pos = Vector2( -1.15686, -74.8076 )
+transform/scale = Vector2( 15.1608, 7.90535 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="DoorToOutside" type="Sprite" parent="Room/Doors"]
+
+editor/display_folded = true
+transform/pos = Vector2( 3.01031, 568.514 )
+transform/rot = -180.0
+texture = ExtResource( 5 )
+script/script = ExtResource( 6 )
+active = true
+global_id = "SquashToOutside"
+talk_animation = "talk"
+events_path = "res://scenes/test/OfficeToOutside.esc"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Room/Doors/DoorToOutside"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 15.1608, 0, 0, 7.90535, -1.15686, -74.8076 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room/Doors/DoorToOutside/StaticBody2D"]
 
 transform/pos = Vector2( -1.15686, -74.8076 )
 transform/scale = Vector2( 15.1608, 7.90535 )
@@ -116,7 +215,16 @@ _update_shape_index = 0
 
 transform/pos = Vector2( 1762.43, 165.662 )
 
+[node name="B" parent="." instance=ExtResource( 8 )]
 
-[editable path="Walls/TestWall 2"]
-[editable path="Walls/TestWall3"]
-[editable path="Walls/TestWall4"]
+transform/pos = Vector2( 297.049, 383.968 )
+global_id = "bee"
+events_path = "res://scenes/test/Bee.esc"
+
+[node name="A" parent="." instance=ExtResource( 8 )]
+
+transform/pos = Vector2( 294.26, -12.1423 )
+global_id = "eyy"
+events_path = "res://scenes/test/Eyy.esc"
+
+

@@ -1,4 +1,4 @@
-extends "main_menu.gd"
+extends "start_menu.gd"
 
 func save():
 	#TODO: Add more things to the "save" group as needed, will need loop in save_pressed
@@ -28,7 +28,7 @@ func save_pressed():
 	
 func quit_to_menu_pressed():
 	close()
-	game.change_scene(["res://scenes/test/main_menu.tscn"], vm.level.current_context)
+	game.change_scene(["res://scenes/test/start_menu.tscn"], vm.level.current_context)
 
 func load_menu_pressed():
 	load_pressed()

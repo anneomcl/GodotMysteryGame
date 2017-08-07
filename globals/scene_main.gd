@@ -4,4 +4,4 @@ func show_credits():
 	get_node("/root/main").load_menu(Globals.get("ui/credits"))
 
 func _ready():
-	get_node("/root/main").load_menu(Globals.get("ui/main_menu"))
+	get_node("/root/main").load_menu(Globals.get("ui/start_menu"))

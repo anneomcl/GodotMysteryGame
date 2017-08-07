@@ -1,6 +1,6 @@
 extends "res://globals/interactive.gd"
 
-var speed = 3
+var speed = 10
 var move_direction = Vector2(0, 0)
 var target
 var area

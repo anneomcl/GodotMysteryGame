@@ -322,8 +322,6 @@ func _ready():
 	game = get_node("/root/game")
 	vm = get_node("/root/vm")
 
-	events = vm.compile("res://game/inventory_events.esc")
-
 	item = get_node("Menu/Inventory/item")
 	item.hide()
 
@@ -331,7 +329,7 @@ func _ready():
 
 	get_node("Menu/Inventory/Analysis").connect("pressed", self, "open_fact_analysis")
 
-	inventory = preload("res://game/inventory.gd")
+	inventory = preload("res://game/data/inventory.gd")
 
 	vm.connect("global_changed", self, "global_changed")
 	game.call_deferred("connect", "object_equipped", self, "equip_changed")

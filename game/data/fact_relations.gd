@@ -46,8 +46,8 @@ var fact_relations = {
 		"points" : 100
 	},
 	"general2" : {
-		"and" : { "clues" : ["bee1", "archie4", "archie6", "eyy1"],
-		"result" : ["general3", "general3", "general4", "general5"]},
+		"and" : { "clues" : ["bee1", "archie4", "archie6", "eyy1", "bee2"],
+		"result" : ["general3", "general3", "general4", "general5", "general5"]},
 		"points" : 100
 	},
 	"archie1" : { 
@@ -59,8 +59,8 @@ var fact_relations = {
 		"points" : 90
 	},
 	"archie3" : { 
-		"and" : { "clues" : ["archie1"] },
-		"result" : { "result" : ["general2"] },
+		"and" : { "clues" : ["archie1"],
+		"result" : ["general2"] },
 		"points" : 90
 	},
 	"archie4" : { 
@@ -76,11 +76,12 @@ var fact_relations = {
 		"points" : 99
 	},
 	"archie6" : {
-		"and" : { "clues" : ["general2"],
-		"result" : ["general4"] },
+		"and" : { "clues" : ["general2", "general8"],
+		"result" : ["general4", "general9"] },
 		"points" : 99
 	},
 	"bee1" : { 
+		"supports" : { "clues" : ["archie4"] },
 		"and" : { "clues" : ["general2"],
 		"result" : ["general3"]},
 		"points" : 90
@@ -89,12 +90,16 @@ var fact_relations = {
 		"supports" : { "clues" : ["eyy2"] },
 		"contradicts" : { "clues" : ["general4"] },
 		"and" : { "clues" : ["bee3", "general2", "eyy4"],
-		"result" : ["eyy3", "general3", "bee5"] },
+		"result" : ["eyy3", "general5", "bee5"] },
 		"points" : 90
 	},
 	"bee3" : { 
 		"and" : { "clues" : ["bee2"],
 		"result" : ["eyy3"] },
+		"points" : 90
+	},
+	"bee4" : {
+		"contradicts" : { "clues" : ["general3"] },
 		"points" : 90
 	},
 	"bee5" : {
@@ -116,10 +121,14 @@ var fact_relations = {
 		"points" : -1
 	},
 	"general7" : {
+		"and" : { "clues" : ["archie5", "office2"],
+		"result" : ["general8", "general8"] },
 		"contradicts" : { "clues" : ["general5"] },
 		"points" : -1
 	},
 	"general8" : {
+		"and" : { "clues" : ["archie6"],
+		"result" : ["general9"] },
 		"contradicts" : { "clues" : ["general5"] },
 		"points" : -1
 	},
@@ -129,13 +138,15 @@ var fact_relations = {
 		"points" : -1
 	},
 	"library1" : {
-		"and" : { "clues" : ["library1"],
+		"and" : { "clues" : ["general6"],
 		"result" : ["general7"]},
 		"points" : 99
 	},
 	"eyy1" : {
 		"and" : { "clues" : ["general2"],
 		"result" : ["general5"]},
+		"contradicts" : { "clues" : ["general4"] },
+		"supports" : { "clues" : ["archie1"] },
 		"points" : 90
 	},
 	"eyy2" : {
@@ -148,7 +159,9 @@ var fact_relations = {
 		"points" : -1
 	},
 	"eyy4" : { 
-		"contradicts" : {"clues" : ["general4", "bee2", "general5", "eyy3"] },
+		"and" : { "clues" : ["bee2"],
+		"result" : ["bee5"] },
+		"contradicts" : {"clues" : [ "general5" ] },#"general4",, "eyy3"] },
 		"points" : 90
 	},
 	"eyy5" : {
@@ -164,7 +177,7 @@ var fact_relations = {
 		"points" : 99
 	},
 	"office1" : {
-		"and" : { "clues" : ["secretary2"],
+		"and" : { "clues" : ["secretary1"],
 		"result" : ["general6"] },
 		"supports" : { "clues" : ["general5"] },
 		"points" : 99
@@ -174,10 +187,6 @@ var fact_relations = {
 		"points" : 99
 	},
 	"secretary1" : {
-		"supports" : { "clues" : ["archie5"]},
-		"points" : 90
-	},
-	"secretary2" : {
 		"and" : { "clues" : ["office1"],
 		"result" : ["general6"] },
 		"points" : 50

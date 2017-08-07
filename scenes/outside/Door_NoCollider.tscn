@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://globals/item.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[node name="DoorToOffice" type="Sprite"]
+
+transform/pos = Vector2( -6.29388, 323.503 )
+script/script = ExtResource( 1 )
+active = true
+global_id = ""
+talk_animation = "talk"
+events_path = "res://scenes/outside/esc_scripts/OutsideToOffice.esc"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 5.95493, 0, 0, 5.72306, 7.22837, -61.3998 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+transform/pos = Vector2( 7.22837, -61.3998 )
+transform/scale = Vector2( 5.95493, 5.72306 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+

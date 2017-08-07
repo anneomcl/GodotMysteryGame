@@ -2,13 +2,13 @@
 
 [ext_resource path="res://ui/fact_analysis.gd" type="Script" id=1]
 [ext_resource path="res://globals/item.gd" type="Script" id=2]
-[ext_resource path="res://game/fact_relations.gd" type="Script" id=3]
-[ext_resource path="res://scenes/test/analysisBackground.png" type="Texture" id=4]
+[ext_resource path="res://game/data/fact_relations.gd" type="Script" id=3]
+[ext_resource path="res://ui/graphics/analysisBackground.png" type="Texture" id=4]
 [ext_resource path="res://globals/white.png" type="Texture" id=5]
-[ext_resource path="res://ui/relationLineand.png" type="Texture" id=6]
+[ext_resource path="res://ui/graphics/relationLineand.png" type="Texture" id=6]
 [ext_resource path="res://ui/clue.gd" type="Script" id=7]
-[ext_resource path="res://scenes/test/DialogueBackground.png" type="Texture" id=8]
-[ext_resource path="res://ui/dialogue_default.fnt" type="BitmapFont" id=9]
+[ext_resource path="res://ui/graphics/DialogueBackground.png" type="Texture" id=8]
+[ext_resource path="res://ui/font/dialogue_default.fnt" type="BitmapFont" id=9]
 
 [node name="Analysis" type="Control"]
 
