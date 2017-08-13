@@ -1,0 +1,8 @@
+:use
+debug "this is the 'use' event for Librarian!"
+
+say librarian "Hi, here's your test clue."
+set_global c/secretary1 true
+
+say librarian "Wow you found the keyword in the library."
+set_global c/library1 true

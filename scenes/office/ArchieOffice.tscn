@@ -1,17 +1,24 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://scenes/test/ArchieOffice.gd" type="Script" id=1]
 [ext_resource path="res://scenes/test/OfficeFloor.png" type="Texture" id=2]
-[ext_resource path="res://scenes/office/TestWall.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/test/Door.png" type="Texture" id=4]
-[ext_resource path="res://globals/item.gd" type="Script" id=5]
-[ext_resource path="res://scenes/test/Archie.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/test/player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/test/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/office/TestWall.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/test/Door.png" type="Texture" id=5]
+[ext_resource path="res://globals/item.gd" type="Script" id=6]
+[ext_resource path="res://scenes/test/Archie.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/office/graphics/Desk.png" type="Texture" id=8]
+[ext_resource path="res://scenes/office/Bookshelf.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 113.984, 49.3823 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 108.707, 68.5175 )
 
 [node name="ArchieOffice" type="Node2D"]
 
@@ -19,29 +26,35 @@ script/script = ExtResource( 1 )
 
 [node name="Floor" type="Sprite" parent="."]
 
-transform/pos = Vector2( 645.887, 372.103 )
-transform/scale = Vector2( 0.726823, 0.649029 )
+transform/pos = Vector2( 650.546, 262.617 )
+transform/scale = Vector2( 0.726823, 0.8 )
 texture = ExtResource( 2 )
+
+[node name="player" parent="." instance=ExtResource( 3 )]
+
+editor/display_folded = true
+transform/pos = Vector2( 669.591, -37.982 )
+z/z = 1
 
 [node name="Walls" type="Node" parent="."]
 
-[node name="TestWall" parent="Walls" instance=ExtResource( 3 )]
+editor/display_folded = true
+
+[node name="TestWall" parent="Walls" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( -16.3527, 383.873 )
-transform/scale = Vector2( 1, 0.746571 )
 
-[node name="TestWall 2" parent="Walls" instance=ExtResource( 3 )]
+[node name="TestWall 2" parent="Walls" instance=ExtResource( 4 )]
 
-transform/pos = Vector2( 1318.68, 382.125 )
-transform/scale = Vector2( 1, 0.762576 )
+transform/pos = Vector2( 1314.02, 309.911 )
 
-[node name="TestWall4" parent="Walls" instance=ExtResource( 3 )]
+[node name="TestWall4" parent="Walls" instance=ExtResource( 4 )]
 
-transform/pos = Vector2( 654.556, -25.7354 )
+transform/pos = Vector2( 638.25, -242.378 )
 transform/rot = 90.0
 transform/scale = Vector2( 1, 1.19338 )
 
-[node name="TestWall3" parent="Walls" instance=ExtResource( 3 )]
+[node name="TestWall3" parent="Walls" instance=ExtResource( 4 )]
 
 editor/display_folded = true
 transform/pos = Vector2( 646.146, 756.347 )
@@ -52,8 +65,8 @@ transform/scale = Vector2( 1, 1.19338 )
 
 transform/pos = Vector2( 648.759, 736.143 )
 transform/scale = Vector2( 1.17784, 0.580103 )
-texture = ExtResource( 4 )
-script/script = ExtResource( 5 )
+texture = ExtResource( 5 )
+script/script = ExtResource( 6 )
 active = true
 global_id = "ArchieToSquash"
 talk_animation = "talk"
@@ -80,11 +93,45 @@ shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="Archie" parent="." instance=ExtResource( 6 )]
+[node name="Archie" parent="." instance=ExtResource( 7 )]
 
-[node name="player" parent="." instance=ExtResource( 7 )]
+[node name="Desk" type="Node2D" parent="."]
 
 editor/display_folded = true
-transform/pos = Vector2( 662.602, 132.071 )
+transform/pos = Vector2( 20.9657, -116.475 )
+transform/scale = Vector2( 1, 0.8 )
+z/z = 2
+
+[node name="Sprite" type="Sprite" parent="Desk"]
+
+transform/pos = Vector2( 649.929, 454.251 )
+texture = ExtResource( 8 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Desk"]
+
+transform/pos = Vector2( 647.599, 475.216 )
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 2.3, 0, 0, 1.7, 2, 4.7511 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Desk/StaticBody2D"]
+
+transform/pos = Vector2( 2, 4.7511 )
+transform/scale = Vector2( 2.3, 1.7 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Bookshelf" parent="." instance=ExtResource( 9 )]
+
+transform/pos = Vector2( 1085.54, -284.198 )
+transform/scale = Vector2( 0.7, 0.7 )
 
 

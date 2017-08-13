@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://globals/item.gd" type="Script" id=1]
+[ext_resource path="res://scenes/office/graphics/bookshelf.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 143.32, 184.599 )
+
+[node name="Bookshelf" type="Node2D"]
+
+script/script = ExtResource( 1 )
+active = true
+global_id = ""
+talk_animation = "talk"
+events_path = "res://scenes/office/esc_scripts/Bookshelf.esc"
+
+[node name="Sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -2.32953, -114.145 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+
+transform/pos = Vector2( -2.32953, -114.145 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+

@@ -4,7 +4,6 @@ func _ready():
 #This should contain created_relations["CLUEID"]["children"] will give children (curr node affects
 #a child's score), and ...["parents"] will give parents (the nodes that affect curr's score)
 var created_relations = {
-	"default_clue" : { "parents" : ["default_parent"], "children" : ["default_child"] },
 }
 
 #When checking the relations of two facts, 

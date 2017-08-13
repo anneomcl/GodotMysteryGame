@@ -49,6 +49,12 @@ transform/pos = Vector2( 1181.55, -633.586 )
 transform/scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
+[node name="DoorToTavern" parent="Tavern" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( -12.4456, 321.452 )
+global_id = "DoorToTavern"
+events_path = "res://scenes/outside/esc_scripts/OutsideToTavern.esc"
+
 [node name="Library" type="Sprite" parent="."]
 
 transform/pos = Vector2( 78.7704, -621.039 )
@@ -58,6 +64,7 @@ texture = ExtResource( 5 )
 [node name="DoorToLibrary" parent="Library" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 0, 315 )
+global_id = "DoorToLibrary"
 events_path = "res://scenes/outside/esc_scripts/OutsideToLibrary.esc"
 
 [node name="player" parent="." instance=ExtResource( 6 )]

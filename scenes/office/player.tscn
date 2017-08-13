@@ -19,6 +19,7 @@ extents = Vector2( 83.2711, 131.321 )
 
 transform/pos = Vector2( 640.442, 360.387 )
 transform/scale = Vector2( 1, 0.9375 )
+z/z = 1
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 5, 0, 0, 10, 0, 0 )

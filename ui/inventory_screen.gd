@@ -272,7 +272,8 @@ func open():
 		get_node("Menu/Inventory/i").get_node(slot_names[cur_item]).get_node("points").show()
 		
 func open_fact_analysis():
-	get_node("Menu/Options/menu").save_pressed()
+	get_node("Menu/Options/menu").save_pressed("tempsave")
+
 	game.change_scene(["res://ui/FactAnalysis.tscn"], vm.level.current_context)
 	close()
 	

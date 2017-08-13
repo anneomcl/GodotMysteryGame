@@ -1,0 +1,4 @@
+:use
+debug "this is the 'use' event for the door from the outside to office!"
+change_scene res://scenes/outside/Outside.tscn
+teleport_pos player 1150 -50

@@ -1,33 +1,65 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://scenes/office/Room.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/office/player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/office/TestEvidence.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/office/Desk.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/office/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/office/TestEvidence.tscn" type="PackedScene" id=4]
 
 [node name="Kitchen" type="Node"]
 
 [node name="Room" parent="." instance=ExtResource( 1 )]
 
-editor/display_folded = true
+[node name="Floor" parent="Room"]
+
+transform/pos = Vector2( -271.501, 129.873 )
+transform/scale = Vector2( 0.710969, 0.690819 )
+
+[node name="TestWall" parent="Room"]
+
+transform/pos = Vector2( -940.524, 9.27261 )
+
+[node name="TestWall1" parent="Room"]
+
+transform/pos = Vector2( 357.642, 86.5443 )
+
+[node name="TestWall2" parent="Room"]
+
+transform/pos = Vector2( -233.946, -287.451 )
 
 [node name="DoorToArchie" parent="Room"]
 
 transform/rot = 180.0
-events_path = "res://scenes/office/esc_scripts/ArchieToSquashSquad.esc"
+events_path = "res://scenes/office/esc_scripts/KitchenToOffice.esc"
 
-[node name="player" parent="." instance=ExtResource( 2 )]
+[node name="Table" parent="Room" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( -562.538, 58.7266 )
+transform/scale = Vector2( 0.7, 1 )
+
+[node name="CounterSink" parent="Room" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 117.453, -182.361 )
+transform/scale = Vector2( 1, 0.7 )
+
+[node name="Desk" parent="Room" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 262.724, 24.7269 )
+transform/rot = -90.0
+transform/scale = Vector2( 0.7, 0.7 )
+
+[node name="player" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( -2.8833, 389.82 )
 
-[node name="kitchen1" parent="." instance=ExtResource( 3 )]
+[node name="kitchen1" parent="." instance=ExtResource( 4 )]
 
-transform/pos = Vector2( -415.139, -185.307 )
+transform/pos = Vector2( 42.0099, -222.021 )
 global_id = "kitchen1"
 events_path = "res://scenes/office/esc_scripts/Kitchen1Evidence.esc"
 
-[node name="kitchen2" parent="." instance=ExtResource( 3 )]
+[node name="kitchen2" parent="." instance=ExtResource( 4 )]
 
-transform/pos = Vector2( -20.9573, -179.755 )
+transform/pos = Vector2( -563.902, 33.4907 )
 global_id = "kitchen2"
 events_path = "res://scenes/office/esc_scripts/Kitchen2Evidence.esc"
 

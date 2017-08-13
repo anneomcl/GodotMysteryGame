@@ -9,9 +9,7 @@ var hud_layer
 var items = []
 var clues = []
 var relations = {}
-var clue_positions = {
-	"default_clue" : Vector2(0, 0),
-}
+var clue_positions = {}
 var facts = {}
 var analysis_camera_pos = Vector2(0, 0)
 var analysis_camera_zoom = Vector2(1, 1)
@@ -69,11 +67,11 @@ func _input(event):
 
 	else:
 		if event.is_action("inventory_toggle"):
-			if event.is_pressed() && !event.is_echo():
+			if event.is_pressed() && !event.is_echo() && current_scene.get_name() != "Analysis":
 				inventory_open()
 
 		if event.is_action("menu_request"):
-			if event.is_pressed() && !event.is_echo():
+			if event.is_pressed() && !event.is_echo() && current_scene.get_name() != "Analysis":
 				menu_open()
 
 func prompt_judge():

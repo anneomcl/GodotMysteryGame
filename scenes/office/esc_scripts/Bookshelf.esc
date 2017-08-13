@@ -1,0 +1,10 @@
+:use
+
+>
+	?
+		- "Interviewing Suspects"
+		- "My Moonlight Gnome"
+			say player "I didn't know Archie was a fan too...!!"
+		- "Gathering Evidence"
+		- "Law and Analysis"
+		- "Courtroom Etiquette for Dummies"

@@ -35,7 +35,7 @@ func back_to_game():
 	for clue in vm.game.clues:
 		var clue_pos = get_node("c/" + clue).get_pos()
 		vm.game.clue_positions[clue] = clue_pos
-	menu.load_pressed()
+	menu.load_pressed("tempsave")
 	
 func find_clue(id):
 	if id.substr(0, 2) == "c/":
@@ -96,7 +96,8 @@ func instance_clues():
 			get_node("c/" + clue).set_pos(vm.game.clue_positions[clue])
 
 func instance_relations():
-	for clueid in game.relations.keys():
+	print(analysis_data.created_relations)
+	for clueid in analysis_data.created_relations.keys():
 		#TO-DO: Document that ONLY the "children" reference is initialized
 		#To avoid double-initializing the relations but maintaining the 2-way look-up
 		#Also, the "children" array is the only one with a ref to the relation type
@@ -395,9 +396,6 @@ func _fixed_process(delta):
 	if move_direction != Vector2(0, 0):
 		get_node("center").move(move_direction * scroll_speed)
 
-func _input(event):
-	return
-
 func _ready():
 	game = get_node("/root/game")
 	inventory = preload("res://game/data/inventory.gd")
@@ -417,7 +415,8 @@ func _ready():
 	
 	get_node("center").set_pos(vm.game.analysis_camera_pos)
 	get_node("center/camera").set_zoom(vm.game.analysis_camera_zoom)
-	analysis_data.created_relations = vm.game.relations
+	if vm.game.relations.keys().size() > 0:
+		analysis_data.created_relations = vm.game.relations
 	if vm.game.facts.keys().size() > 0:
 		analysis_data.fact_relations = vm.game.facts
 	
