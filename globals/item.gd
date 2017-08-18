@@ -5,7 +5,7 @@ export(String,FILE) var events_path = ""
 var event_table = {}
 
 func interact(params):
-	if "use" in event_table:
+	if "use" in event_table and !is_hidden():
 		vm.run_event(event_table.use, {})
 
 func _input(ev):

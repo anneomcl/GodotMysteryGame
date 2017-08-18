@@ -164,39 +164,17 @@ func interact():
 	else:
 		print("warning: event use not found for item ", id)
 
-
-#DEPRECATED: COMBINE CLUES FROM INVENTORY TO-DO REMOVE THIS FOR ANALYSIS WINDOW
-func combine():
-	var current = _get_current()
-	if current == null:
-		return
-
-	var equipped = game.get_equipped()
-	if current == equipped or equipped == null:
-		return
-
-	var ev_name = "combine "+current+" "+equipped
-	if ev_name in events:
-		close()
-		vm.run_event(events[ev_name], {})
-		return
-
-	ev_name = "combine "+equipped+" "+current
-	if ev_name in events:
-		close()
-		vm.run_event(events[ev_name], {})
-		return
-
-	close()
-	vm.run_event(events.combine_fallback, {})
-
-
 #EQUIPPED ITEM
 func equip():
 	var id = _get_current()
 	if id == null:
 		return
 
+	var label = get_node("Menu/Inventory/Label")
+	var desc = find_item(id).description
+	label.set_text(desc)
+	if game.equipped == id:
+		label.set_text("")
 	game.equip(id)
 
 func equip_changed(name):
@@ -224,7 +202,6 @@ func equip_changed(name):
 	add_child(equipped_current)
 	equipped_current.show()
 	equipped_current.set_global_pos(get_node("Menu/Inventory/hand_pos").get_global_pos())
-
 
 #CURSOR MOVEMENT
 func move_cursor(dir):
@@ -254,7 +231,6 @@ func move_cursor(dir):
 		if cur_item >= first_item + item_slots.size():
 			first_item = cur_item - item_slots.size()
 
-
 #OPEN AND CLOSE MENU WINDOWS
 #OPTIONS, MAP, INVENTORY
 func close():
@@ -272,10 +248,10 @@ func open():
 		get_node("Menu/Inventory/i").get_node(slot_names[cur_item]).get_node("points").show()
 		
 func open_fact_analysis():
-	get_node("Menu/Options/menu").save_pressed("tempsave")
-
-	game.change_scene(["res://ui/FactAnalysis.tscn"], vm.level.current_context)
-	close()
+	if game.current_scene.get_name() != "Analysis":
+		get_node("Menu/Options/menu").save_pressed("tempsave")
+		game.change_scene(["res://ui/FactAnalysis.tscn"], vm.level.current_context)
+		close()
 	
 func location_pressed(name):
 	close()
@@ -315,9 +291,6 @@ func input(event):
 
 	if event.is_action("equip"):
 		equip()
-
-	if event.is_action("combine"):
-		combine()
 
 func _ready():
 	game = get_node("/root/game")

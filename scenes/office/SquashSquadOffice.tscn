@@ -84,7 +84,7 @@ transform/scale = Vector2( 1, 1.54875 )
 
 [node name="DoorToArchie" parent="Room/Doors" instance=ExtResource( 5 )]
 
-transform/pos = Vector2( 1780.52, -25.8115 )
+transform/pos = Vector2( 1783.31, 35.5575 )
 events_path = "res://scenes/office/esc_scripts/SquashToArchie.esc"
 
 [node name="DoorToKitchen" type="Sprite" parent="Room/Doors"]

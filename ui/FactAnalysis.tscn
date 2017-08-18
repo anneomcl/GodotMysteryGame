@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://ui/fact_analysis.gd" type="Script" id=1]
 [ext_resource path="res://globals/item.gd" type="Script" id=2]
@@ -6,9 +6,8 @@
 [ext_resource path="res://ui/graphics/analysisBackground.png" type="Texture" id=4]
 [ext_resource path="res://globals/white.png" type="Texture" id=5]
 [ext_resource path="res://ui/graphics/relationLineand.png" type="Texture" id=6]
-[ext_resource path="res://ui/clue.gd" type="Script" id=7]
-[ext_resource path="res://ui/graphics/DialogueBackground.png" type="Texture" id=8]
-[ext_resource path="res://ui/font/dialogue_default.fnt" type="BitmapFont" id=9]
+[ext_resource path="res://ui/Clue.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ui/InventoryClue.tscn" type="PackedScene" id=8]
 
 [node name="Analysis" type="Control"]
 
@@ -148,65 +147,8 @@ textures/normal = ExtResource( 6 )
 params/resize_mode = 1
 params/stretch_mode = 0
 
-[node name="Clue" type="Node2D" parent="."]
+[node name="Clue" parent="." instance=ExtResource( 7 )]
 
-transform/scale = Vector2( 1, 1 )
-z/z = -1
-script/script = ExtResource( 7 )
-
-[node name="ClueButton" type="TextureButton" parent="Clue"]
-
-rect/scale = Vector2( 0.5, 0.5 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 482.0
-margin/bottom = 200.0
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-textures/normal = ExtResource( 8 )
-params/resize_mode = 0
-params/stretch_mode = 0
-
-[node name="Label" type="Label" parent="Clue/ClueButton"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 482.0
-margin/bottom = 200.0
-custom_fonts/font = ExtResource( 9 )
-text = "I am a clue."
-align = 1
-autowrap = true
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="points" type="Label" parent="Clue/ClueButton"]
-
-rect/scale = Vector2( 1.5, 1.5 )
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 393.0
-margin/top = 147.0
-margin/right = 450.0
-margin/bottom = 179.0
-custom_fonts/font = ExtResource( 9 )
-text = "000"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+[node name="ItemClue" parent="." instance=ExtResource( 8 )]
 
 

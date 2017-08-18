@@ -67,7 +67,7 @@ func _input(event):
 
 	else:
 		if event.is_action("inventory_toggle"):
-			if event.is_pressed() && !event.is_echo() && current_scene.get_name() != "Analysis":
+			if event.is_pressed() && !event.is_echo(): #&& current_scene.get_name() != "Analysis":
 				inventory_open()
 
 		if event.is_action("menu_request"):

@@ -50,15 +50,31 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 470.0
-margin/top = 309.0
-margin/right = 60.0
-margin/bottom = 84.0
+margin/left = 469.0
+margin/top = 326.0
+margin/right = 61.0
+margin/bottom = 67.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Analysis"
 flat = false
+
+[node name="Label" type="Label" parent="Menu/Inventory"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 480.0
+margin/top = 185.0
+margin/right = 698.0
+margin/bottom = 273.0
+align = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [node name="item" type="Control" parent="Menu/Inventory"]
 
@@ -212,25 +228,6 @@ transform/pos = Vector2( 300, 348.772 )
 [node name="hand_pos" type="Position2D" parent="Menu/Inventory"]
 
 transform/pos = Vector2( 581.136, 83.8834 )
-
-[node name="Label" type="Label" parent="Menu/Inventory/hand_pos"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = -100.0
-margin/top = 50.0
-margin/right = 118.0
-margin/bottom = 180.0
-text = "Description of item
-
-This is a sample item. In the case it is used for many reasons."
-align = 1
-autowrap = true
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
 [node name="Map" type="Tabs" parent="Menu"]
 
