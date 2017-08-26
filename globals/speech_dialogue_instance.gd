@@ -174,6 +174,15 @@ func anim_finished():
 	else:
 		ready = true
 
+func hide_clue_received():
+	var indicator = get_node("anchor/clue_received")
+	indicator.hide()
+
+func show_clue_received(name):
+	if name.substr(0, 2) == "c/":
+		var indicator = get_node("anchor/clue_received")
+		indicator.show()
+
 func _ready():
 	hide()
 	
@@ -195,6 +204,8 @@ func _ready():
 	animation = get_node("animation")
 	animation.connect("finished", self, "anim_finished")
 	
+	vm.connect("global_changed", self, "show_clue_received", ["name"])
+
 	#get_node("anchor/scroll").set_theme(preload("res://game/globals/dialog_theme.xml"))
 	
 	add_to_group("game")
