@@ -9,6 +9,39 @@ set_global spoke_to_B false
 	stop
 > [!spoke_to_B]
 	say player "Uh, hey, B."
-	set_global c/bee1 true
-	set_global c/bee2 true
-	set_global c/bee3 true
+	say bee "Hey, what's up?"
+	say player "Mind if I ask you a few questions?"
+	say bee "Oh, did you get your first case?!"
+	say player "Yeah!"
+	say bee "Go ahead, shoot."
+	?
+		- "What are you working on right now?"
+		- "Were you in the kitchen between 4 and 4:30PM?
+			say player "Were you in the kitchen between 4 and 4:30PM? Approximately?"
+			say bee "Yeah, I suppose I was there around 4ish. I was washing out my mug."
+			say bee "I fell asleep at my desk late last night and in the morning the coffee grounds were all... dry and crusty on the bottom."
+			say bee "So I told myself 'No more coffee after 3! Wash it and be done for the night!'"
+			say player "Wow, you must be really busy."
+			say bee "That's why everyone's out today, responding to cases."
+			say player "Hmmm..."
+			set_global bee_overworked true
+			set_global bee_everyone_out true
+			say player "Anyway, you say you were in there around 4PM. Was anyone else in there? Or heading in? Heading out?"
+			say bee "Well Archie came in with his newest baked good... lemon cookies? And then Eyy came in just as Archie went out. And then I left soon after Eyy came in."
+			say bee "...Yeah, I'm pretty sure that's how it went. Oh, I also took a cookie on the way out, if that's relevant. I wasn't paying too much attention though, if you know what I mean."
+			say player "Hm, yeah... makes sense. So what time did you leave then? If you had to guess?"
+			say bee "I was in there for maybe 5 minutes?"
+			say player "*nod* *nod* Hmmm, yes, yes..."
+			say player "*whisper* So should I write... like, 4:05PM? Is it okay if it isn't exact?"
+			say bee "You probably shouldn't ask your witnesses how to do your job *laugh*"
+			say player "Right, sorry!"
+			say player "I just really want to do a good job..."
+			say bee "You're doing fine so far. And yeah, go ahead and write 4:05."
+			say player "Cool."
+
+			set_global c/bee1 true
+			set_global c/bee2 true
+			set_global c/bee3 true
+			set_global c/bee4 true
+		- "Do you have any tips for me?"
+	stop

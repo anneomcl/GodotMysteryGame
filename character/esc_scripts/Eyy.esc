@@ -2,15 +2,52 @@
 
 debug "this is the 'use' event for A!"
 
-set_global spoke_to_A false
+> [c/eyy4]
+	say Eyy "....................................."
+	say player "I don't think he'll tell me anything new."
 
-> [spoke_to_A]
-	say player "Can you go over a few details again?"
+> [c/office1]
+	say player "I'll be straight: We found the cookies in your desk."
+	say Eyy "..."
+	say player "I want to know the truth, why are they in there?"
+	say Eyy "*gurgle, upset face*"
+	say Eyy "Ugh hold on... *runs to bathroom*"
+	say Eyy "I've been having a lot of indigestion, impulses to... do things outside of my control. Compulsions."
+	say Eyy "I took one cookie, had a bite, and felt a need to consume all of them, so I ate a handful, right there, over the table."
+	say Eyy "Ran to the bathroom, didn't get back to my desk till 4:30."
+	say Eyy "...So that's my story."
+	say player "Hmmmmmmmmmmm......"
+	say player "I've done that before, except with pickles. Jars of pickles. They're mostly water, but man, there's something addictive about that salty brine, you know?"
+	say Eyy "... *disgruntled*"
+	say player "Hey, wait, did I make you mad?"
+	say Eyy "I'm not proud of what's been happening to me. Or, what I'm doing to myself? I'm not sure anymore."
+	say Eyy "..."
+	say Eyy "Here's a tip, if you want folks to talk when you're on a case, try to understand them."
+	say player "Oh, uh, yeah. I definitely get the munchies, y'know? Nothing to be ashamed of."
+	say Eyy "That's-- Nevermind."
+	say player "Right! So you ate a handful of cookies... and then, took them? Or...?"
+	say Eyy "..."
+	say player "Or someone framed you...?"
+	say Eyy "..."
+	say player "Aw man, I wasted my opportunity just when he was opening up."
+	set_global c/eyy4 true
 	stop
 > [!spoke_to_A]
 	say player "Hi A."
+	say Eyy "..."
+	say player "Uh... A?"
+	say Eyy "..."
+	say player "It's so awkward asking him questions... I always feel like I'm interrupting some critical... something."
+	say player "Uh, I'm working on a case."
+	say Eyy "...?"
+	say player "Could you tell me what you were doing between, maybe, 4PM and now?"
+	say Eyy "*He turns toward you*"
+	say Eyy "I was on my way to refill my Food Flask a bit after 4 o'clock. Otherwise I've been here."
+	say player "Did you see anyone in the kitchen? Anyone on their way in or out?"
+	say Eyy "I saw Archie walking out on my way in... And then Bee at the sink."
+	say player "So what did you do in the kitchen once you got there?"
+	say Eyy "
 	set_global c/eyy1 true
 	set_global c/eyy2 true
 
-	#set_global c/eyy4 true
 	stop

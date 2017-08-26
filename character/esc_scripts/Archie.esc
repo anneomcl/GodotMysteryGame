@@ -1,39 +1,42 @@
 :use
 debug "this is the 'use' event for Archie!"
 
-> [spoke_to_archie, i/office2, c/office2]
-	?
-		- "Can I have the keys to everyone's desks?" 
-			say player "And maybe the bathroom?"
-			say archie "Sure."
-
-			#archie gives you office master keys
-			#set_global c/office1 true
-			#set_global i/office1 true
-
-			stop
-
-		- "I have a few questions"
-			say player "Could you answer a few questions?"
-
-		- "Nevermind"
-			stop
-
-> [!spoke_to_archie]
-	set_global spoke_to_archie true
-
-	#say archie "What the--?! Kid, put that down, and get over here. We've got your first case!"
-	#say player "OMG"
-	#say archie "Don't get your hopes up too much, this is a basic one."
-	#say archie "My cookies were stolen! And the plate too!"
-	set_global c/general1 true
-	#say archie "I left them in the break room at 4PM."
-	#say archie "I wanted to show them off, they're a family recipe, an heirloom, a treasure!"
-	set_global c/archie1 true
+> [intro]
+	set_global intro false
+	say archie "Hey kid, you need to solve this mystery!"
 	set_global c/archie2 true
-	#say archie "Kid, you need to get to the bottom of this and find out who did it. No member of my team can exhibit unruly morals, much less the sin of gluttony!"
-	#say player "It's explained that the player needs to learn how real cases are conducted, and this just so happens to be a matter of personal importance to Archie."
-	
+	say archie "My cookies were stolen, along with my largest ceramic platter!"
+	say archie "They were a special family recipe, it's no wonder someone would want to pilfer the lot..."
+	say 
+	set_global c/general1 true
+	say archie "I left them in the kitchen at 4PM"
+	set_global c/archie1 true
+	say archie "If you're serious about being a Harvest Knight, it's high time you learn how we operate."
+	say archie "Start by investigating the scene of the crime for evidence."
+	say player "The kitchen."
+	say archie "Right. Then question everyone in the office. Paint a picture of everything that happened, find the truth."
+	say archie "Come back after you've gathered more clues, and we'll go from there."
+	set_global intro false
+	set_global spoke_to_archie true
+	stop
+
+
+
+
+
+
+
+> [intro_analysis] #set this once you've talked to Eyy, Bee, and picked up evidence from kitchen
+	say archie "Press TAB and click on the Analysis window to start matching facts together"
+
+
+
+
+
+
+
+
+
 > [spoke_to_archie]
 	?
 		- "I have a few questions"
@@ -42,12 +45,27 @@ debug "this is the 'use' event for Archie!"
 				?
 					- "When did you last see the cookies?"
 						set_global c/archie3 true
-						#say archie "I went to check on how well, uh, how well-received they were at around 4:30PM."
-						#say player "Are you sure it was 4:30?"
-						#say archie "Of course! I always take tea at 4:30, and I always have a tasty something or other when I do. Do you doubt my memory?"
-						#say player "You told me to ask questions!"
-						#say archie "*ahem* I suppose... I did, yes. Carry on."
+						say archie "I went to check on how well, uh, how well-received they were at around 4:30PM."
+						say player "Are you sure it was 4:30?"
+						say archie "Of course! I always take tea at 4:30, and I always have a tasty something or other when I do. Do you doubt my memory?"
+						say player "You told me to ask questions!"
+						say archie "*ahem* I suppose... I did, yes. Carry on."
+						say player "So anyone in the kitchen from 4 to 4:30 could have taken the cookies?"
+						say archie "That's what I would assume."
+						say player "Hmmmm..."
+						set_global c/general2 true
 					- "Was there anyone else in the kitchen?"
+						say archie "I saw Bee there, she took one and then started doing something or other by the sink."
+						say player "You think it was her then?"
+						say archie "I think... I hope, at least, that no one on my team would break their oaths as knights for something like this..."
+						
+					- "Where is everyone?" [checked_empty_desk]
+						say player "I don't see the others here today... Have they been around?"
+						say archie "We've been swamped with cases lately, they've all been out on cases. Likely won't be back until later this evening."
+						say player "Hmmm... So it's just been you, me, Eyy and Bee here all day?"
+						say archie "That's fair to say."
+						say player "Well that really narrows it down!"
+						say archie "Unless someone snuck in?"
 						set_global c/archie4 true
 					- "Who do YOU think it is?" [!asked_archie_who]
 						set_global asked_archie_who true
@@ -86,3 +104,30 @@ debug "this is the 'use' event for Archie!"
 		- "Nevermind"
 			stop	
 	say player "Okay, I'll start my investigation."
+
+
+
+
+
+
+
+
+	
+#After you've found evidence of the performance reports
+> [spoke_to_archie, i/office2, c/office2]
+	?
+		- "Can I have the keys to everyone's desks?" 
+			say player "And maybe the bathroom?"
+			say archie "Sure."
+
+			#archie gives you office master keys
+			#set_global c/office1 true
+			#set_global i/office1 true
+
+			stop
+
+		- "I have a few questions"
+			say player "Could you answer a few questions?"
+
+		- "Nevermind"
+			stop
