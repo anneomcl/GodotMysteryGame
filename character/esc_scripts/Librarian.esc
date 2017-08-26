@@ -1,8 +1,8 @@
 :use
 debug "this is the 'use' event for Librarian!"
 
-say librarian "Hi, here's your test clue."
+say librarian "Hi, here's your test clue, lemon fairies are attracted to lemony things."
 set_global c/secretary1 true
 
-say librarian "Wow you found the keyword in the library."
+say librarian "Wow you found the keyword in the library. Lemon fairies are nefarious beings that prey upon people with minty, melony, and lemony fresh scents surrounding them. "
 set_global c/library1 true

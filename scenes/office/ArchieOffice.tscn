@@ -1,19 +1,15 @@
 [gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://scenes/test/ArchieOffice.gd" type="Script" id=1]
-[ext_resource path="res://scenes/test/OfficeFloor.png" type="Texture" id=2]
-[ext_resource path="res://scenes/test/player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/office/TestWall.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/test/Door.png" type="Texture" id=5]
-[ext_resource path="res://globals/item.gd" type="Script" id=6]
-[ext_resource path="res://scenes/test/Archie.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/office/graphics/Desk.png" type="Texture" id=8]
-[ext_resource path="res://scenes/office/Bookshelf.tscn" type="PackedScene" id=9]
-
-[sub_resource type="RectangleShape2D" id=1]
-
-custom_solver_bias = 0.0
-extents = Vector2( 113.984, 49.3823 )
+[ext_resource path="res://scenes/office/graphics/defaultBackground.png" type="Texture" id=2]
+[ext_resource path="res://scenes/test/OfficeFloor.png" type="Texture" id=3]
+[ext_resource path="res://scenes/office/graphics/ArchieDeskBottom.png" type="Texture" id=4]
+[ext_resource path="res://scenes/office/graphics/ArchieDeskTop.png" type="Texture" id=5]
+[ext_resource path="res://scenes/test/player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/office/TestWall.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/office/Door.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/test/Archie.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/office/Bookshelf.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=2]
 
@@ -24,95 +20,51 @@ extents = Vector2( 108.707, 68.5175 )
 
 script/script = ExtResource( 1 )
 
-[node name="Floor" type="Sprite" parent="."]
+[node name="Background" type="Sprite" parent="."]
 
-transform/pos = Vector2( 650.546, 262.617 )
-transform/scale = Vector2( 0.726823, 0.8 )
+transform/pos = Vector2( 813.054, 132.631 )
+transform/scale = Vector2( 3.94586, 2.44477 )
+z/z = -1
 texture = ExtResource( 2 )
 
-[node name="player" parent="." instance=ExtResource( 3 )]
+[node name="Background1" type="Sprite" parent="."]
 
-editor/display_folded = true
-transform/pos = Vector2( 669.591, -37.982 )
-z/z = 1
+transform/pos = Vector2( 813.054, 132.631 )
+transform/scale = Vector2( 3.94586, 2.44477 )
+z/z = -1
+texture = ExtResource( 2 )
 
-[node name="Walls" type="Node" parent="."]
+[node name="Floor" type="Sprite" parent="."]
 
-editor/display_folded = true
-
-[node name="TestWall" parent="Walls" instance=ExtResource( 4 )]
-
-transform/pos = Vector2( -16.3527, 383.873 )
-
-[node name="TestWall 2" parent="Walls" instance=ExtResource( 4 )]
-
-transform/pos = Vector2( 1314.02, 309.911 )
-
-[node name="TestWall4" parent="Walls" instance=ExtResource( 4 )]
-
-transform/pos = Vector2( 638.25, -242.378 )
-transform/rot = 90.0
-transform/scale = Vector2( 1, 1.19338 )
-
-[node name="TestWall3" parent="Walls" instance=ExtResource( 4 )]
-
-editor/display_folded = true
-transform/pos = Vector2( 646.146, 756.347 )
-transform/rot = 90.0
-transform/scale = Vector2( 1, 1.19338 )
-
-[node name="Door" type="Sprite" parent="Walls"]
-
-transform/pos = Vector2( 648.759, 736.143 )
-transform/scale = Vector2( 1.17784, 0.580103 )
-texture = ExtResource( 5 )
-script/script = ExtResource( 6 )
-active = true
-global_id = "ArchieToSquash"
-talk_animation = "talk"
-events_path = "res://scenes/office/esc_scripts/ArchieToSquashSquad.esc"
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Walls/Door"]
-
-transform/pos = Vector2( -1.92902, 23.5001 )
-input/pickable = false
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, -1.27972, 31.1809 )
-shapes/0/trigger = false
-collision/layers = 1
-collision/mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Door/StaticBody2D"]
-
-transform/pos = Vector2( -1.27972, 31.1809 )
-shape = SubResource( 1 )
-trigger = false
-_update_shape_index = 0
-
-[node name="Archie" parent="." instance=ExtResource( 7 )]
+transform/pos = Vector2( 648.517, 295.715 )
+transform/scale = Vector2( 0.750921, 0.787312 )
+texture = ExtResource( 3 )
 
 [node name="Desk" type="Node2D" parent="."]
 
 editor/display_folded = true
 transform/pos = Vector2( 20.9657, -116.475 )
 transform/scale = Vector2( 1, 0.8 )
+
+[node name="bottom" type="Sprite" parent="Desk"]
+
+transform/pos = Vector2( 650.279, 541.812 )
+transform/scale = Vector2( 0.624186, 0.817776 )
+texture = ExtResource( 4 )
+
+[node name="top" type="Sprite" parent="Desk"]
+
+transform/pos = Vector2( 649.812, 413.329 )
+transform/scale = Vector2( 0.623923, 0.543937 )
 z/z = 2
-
-[node name="Sprite" type="Sprite" parent="Desk"]
-
-transform/pos = Vector2( 649.929, 454.251 )
-texture = ExtResource( 8 )
+texture = ExtResource( 5 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Desk"]
 
 transform/pos = Vector2( 647.599, 475.216 )
 input/pickable = false
 shapes/0/shape = SubResource( 2 )
-shapes/0/transform = Matrix32( 2.3, 0, 0, 1.7, 2, 4.7511 )
+shapes/0/transform = Matrix32( 2.3, 0, 0, 0.799515, 1.99994, -35.5086 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -123,15 +75,73 @@ bounce = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Desk/StaticBody2D"]
 
-transform/pos = Vector2( 2, 4.7511 )
-transform/scale = Vector2( 2.3, 1.7 )
+transform/pos = Vector2( 1.99994, -35.5086 )
+transform/scale = Vector2( 2.3, 0.799515 )
 shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
-[node name="Bookshelf" parent="." instance=ExtResource( 9 )]
+[node name="player" parent="." instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 669.591, -37.982 )
+z/z = 1
+
+[node name="Walls" type="Node" parent="."]
+
+editor/display_folded = true
+
+[node name="TestWall" parent="Walls" instance=ExtResource( 7 )]
+
+transform/pos = Vector2( -47.1757, 258.9 )
+transform/scale = Vector2( 1, 0.961257 )
+
+[node name="TestWall 2" parent="Walls" instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 1331.14, 276.207 )
+transform/scale = Vector2( 1, 0.935265 )
+
+[node name="TestWall4" parent="Walls" instance=ExtResource( 7 )]
+
+editor/display_folded = true
+transform/pos = Vector2( 642.112, -254.969 )
+transform/rot = 90.0
+transform/scale = Vector2( 1.65336, 1.23272 )
+
+[node name="StaticBody2D" parent="Walls/TestWall4"]
+
+transform/pos = Vector2( 21.6168, 0 )
+
+[node name="CollisionShape2D" parent="Walls/TestWall4/StaticBody2D"]
+
+transform/pos = Vector2( 33.9118, -6.94196 )
+
+[node name="TestWall3" parent="Walls" instance=ExtResource( 7 )]
+
+editor/display_folded = true
+transform/pos = Vector2( 641.424, 783.56 )
+transform/rot = 90.0
+transform/scale = Vector2( 1.03054, 1.18127 )
+
+[node name="Door" parent="Walls" instance=ExtResource( 8 )]
+
+transform/pos = Vector2( 632.812, 796.088 )
+transform/scale = Vector2( 1, 0.355456 )
+events_path = "res://scenes/office/esc_scripts/ArchieToSquashSquad.esc"
+
+[node name="Archie" parent="." instance=ExtResource( 9 )]
+
+editor/display_folded = true
+
+[node name="CollisionShape2D" parent="Archie/StaticBody2D"]
+
+transform/pos = Vector2( -1.14469, -131.023 )
+transform/scale = Vector2( 17.5191, 20.4345 )
+
+[node name="Bookshelf" parent="." instance=ExtResource( 10 )]
 
 transform/pos = Vector2( 1085.54, -284.198 )
 transform/scale = Vector2( 0.7, 0.7 )
 
 
+[editable path="Walls/TestWall4"]
+[editable path="Archie"]

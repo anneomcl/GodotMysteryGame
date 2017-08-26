@@ -1,6 +1,6 @@
 
 :use
-say player "I found evidence."
+say player "There's some brown grainy looking particles in the sink... If I had to guess? Probably coffee grounds."
 set_global i/kitchen1 true
 set_global c/kitchen1 true
 set_active kitchen1 false

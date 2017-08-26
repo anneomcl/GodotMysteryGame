@@ -1,6 +1,7 @@
 
 :use
-say player "I found evidence."
+say player "This is the table where Archie left the cookies. There are crumbs all over."
+say player "...Why would the thief leave this mess behind? Something must have happened before they were taken..."
 set_global i/kitchen2 true
 set_global c/kitchen2 true
 set_active kitchen2 false
