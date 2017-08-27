@@ -11,7 +11,7 @@
 [ext_resource path="res://scenes/test/Archie.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/office/Bookshelf.tscn" type="PackedScene" id=10]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 108.707, 68.5175 )
@@ -63,7 +63,7 @@ texture = ExtResource( 5 )
 
 transform/pos = Vector2( 647.599, 475.216 )
 input/pickable = false
-shapes/0/shape = SubResource( 2 )
+shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 2.3, 0, 0, 0.799515, 1.99994, -35.5086 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -77,7 +77,7 @@ bounce = 0.0
 
 transform/pos = Vector2( 1.99994, -35.5086 )
 transform/scale = Vector2( 2.3, 0.799515 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
@@ -97,8 +97,8 @@ transform/scale = Vector2( 1, 0.961257 )
 
 [node name="TestWall 2" parent="Walls" instance=ExtResource( 7 )]
 
-transform/pos = Vector2( 1331.14, 276.207 )
-transform/scale = Vector2( 1, 0.935265 )
+transform/pos = Vector2( 1341.42, 273.225 )
+transform/scale = Vector2( 1, 0.935424 )
 
 [node name="TestWall4" parent="Walls" instance=ExtResource( 7 )]
 
@@ -124,8 +124,8 @@ transform/scale = Vector2( 1.03054, 1.18127 )
 
 [node name="Door" parent="Walls" instance=ExtResource( 8 )]
 
-transform/pos = Vector2( 632.812, 796.088 )
-transform/scale = Vector2( 1, 0.355456 )
+transform/pos = Vector2( 632.812, 802.457 )
+transform/scale = Vector2( 1, 0.299097 )
 events_path = "res://scenes/office/esc_scripts/ArchieToSquashSquad.esc"
 
 [node name="Archie" parent="." instance=ExtResource( 9 )]

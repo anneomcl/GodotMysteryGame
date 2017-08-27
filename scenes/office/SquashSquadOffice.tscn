@@ -205,7 +205,7 @@ events_path = "res://character/esc_scripts/Bee.esc"
 editor/display_folded = true
 transform/pos = Vector2( 40.8262, 42.6543 )
 transform/scale = Vector2( 0.3, 0.3 )
-global_id = "eyy"
+global_id = "Eyy"
 events_path = "res://character/esc_scripts/Eyy.esc"
 
 [node name="office1" parent="." instance=ExtResource( 10 )]

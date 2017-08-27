@@ -282,7 +282,7 @@ func read_dialog_option(state, level, errors):
 	var tk_end = get_token(state.line, 0, state.line_count, errors)
 	var tk = trim(state.line.substr(0, tk_end))
 	if tk != "*" && tk != "-":
-		errors.append("line "+str(state.line_count)+": Ivalid dialog option")
+		errors.append("line "+str(state.line_count)+": Invalid dialog option")
 		read_line(state)
 		return false
 	tk_end += 1

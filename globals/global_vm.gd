@@ -31,6 +31,7 @@ var ui_active = false
 
 #delete
 signal esc_finished
+signal global_changed
 
 func set_ui_active(p_active):
 	ui_active = p_active
@@ -221,7 +222,6 @@ func set_global(name, val):
 	emit_signal("global_changed", name)
 	print("set " + name + " to " + str(val))
 	
-	#TO-DO: Refactor this. This is a hack.
 	if(name == "esc_finished" && val == true):
 		emit_signal("esc_finished")
 

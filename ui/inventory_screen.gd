@@ -27,7 +27,7 @@ signal inventory_closed
 var base_path = "res://scenes/test/"
 
 #Entry point for inventory updates
-func global_changed(name):
+func inv_global_changed(name):
 	update_items(vm.globals)
 	if is_visible():
 		update_pages()
@@ -305,7 +305,7 @@ func _ready():
 
 	inventory = preload("res://game/data/inventory.gd")
 
-	vm.connect("global_changed", self, "global_changed")
+	vm.connect("global_changed", self, "inv_global_changed")
 	game.call_deferred("connect", "object_equipped", self, "equip_changed")
 	
 	get_node("Menu/Map/Waldorf").connect("pressed", self, "location_pressed", [base_path + "TeaRoom.tscn"])

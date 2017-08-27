@@ -6,6 +6,8 @@ var game_size = Vector2()
 var ui_layer
 var hud_layer
 
+var indicator
+
 var items = []
 var clues = []
 var relations = {}
@@ -58,6 +60,14 @@ func dialog(params, level):
 func _process(time):
 	check_screen()
 
+func hide_clue_received():
+	if indicator != null:
+		indicator.hide()
+
+func show_clue_received(id):
+	if id.substr(0, 2) == "c/" and indicator != null:
+		indicator.show()
+		
 func _input(event):
 	if ui_stack.size() > 0:
 		ui_stack[ui_stack.size()-1].input(event)
@@ -273,3 +283,7 @@ func _ready():
 	add_user_signal("object_equipped", ["name"])
 	
 	vm.connect("global_changed", self, "update_global_lists")
+	
+	indicator = get_node("hud_layer/clue_indicator")
+	vm.connect("global_changed", self, "show_clue_received")
+	
