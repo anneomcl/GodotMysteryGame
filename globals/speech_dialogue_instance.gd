@@ -71,6 +71,8 @@ func add_choices():
 	var i = 0
 	has_multiple_choices = false
 	for choice in cmd:
+		if !vm.test(choice):
+			continue
 		add_speech(choice.params[0], i)
 		i += 1
 		has_multiple_choices = true
