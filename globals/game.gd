@@ -48,8 +48,9 @@ func get_object(name):
 	return objects[name]
 
 func object_exit_scene(name):
-	if name != "player" and !persist_scene:
-		objects.erase(name)
+	return
+	#if name != "player" and !persist_scene:
+		#objects.erase(name)
 
 func say(params, level):
 	get_node("speech_dialogue_player").start(params, level, false)

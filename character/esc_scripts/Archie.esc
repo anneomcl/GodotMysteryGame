@@ -19,7 +19,9 @@ debug "this is the 'use' event for Archie!"
 	set_global spoke_to_archie true
 	stop
 
-> [c/bee1, c/bee2, c/bee3, c/eyy1, c/archie1, c/archie2, c/archie3, c/archie4, c/archie5, c/archie6]
+#change this back, shortened for testing purposes.
+#> [c/bee1, c/bee2, c/bee3, c/eyy1, c/archie1, c/archie2, c/archie3, c/archie4, c/archie5, c/archie6]
+> [c/bee1, c/eyy1]
 	#set this once you've talked to Eyy, Bee, and picked up evidence from kitchen
 	say archie "Press TAB and click on the Analysis window to start matching facts together"
 	say archie "(This is a tutorial for guiding you through understanding how to grab evidence)"
@@ -58,7 +60,6 @@ debug "this is the 'use' event for Archie!"
 						say player "You told me to ask questions!"
 						say archie "*ahem* I suppose... I did, yes. Carry on."
 						say player "So anyone in the kitchen from 4 to 4:30 could have taken the cookies?"
-						set_global c/general2 true
 						say archie "That's what I would assume."
 						say player "Hmmmm..."
 					- "Was there anyone else in the kitchen?"
@@ -109,6 +110,8 @@ debug "this is the 'use' event for Archie!"
 					say player "You know, to test me? To give the intern a controlled learning experience with no real stakes?"
 					say archie "//*laughing face* If you can prove that I set this all up, then by all means, feel free to prosecute me for providing on-the-job experience."
 					say player "I'll take it."
+				- Nevermind
+					stop
 			repeat
 		- "Any tips?"
 			say player "Do you have any tips for me?"

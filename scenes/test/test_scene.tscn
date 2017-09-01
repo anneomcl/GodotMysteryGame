@@ -2,7 +2,7 @@
 
 [ext_resource path="res://globals/scene.gd" type="Script" id=1]
 [ext_resource path="res://scenes/test/Grass.png" type="Texture" id=2]
-[ext_resource path="res://scenes/office/evidence.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/office/TestEvidence.tscn" type="PackedScene" id=3]
 [ext_resource path="res://globals/item.gd" type="Script" id=4]
 [ext_resource path="res://scenes/test/Bush_Bare.png" type="Texture" id=5]
 [ext_resource path="res://scenes/test/Bush_Berries.png" type="Texture" id=6]
@@ -104,6 +104,7 @@ texture = ExtResource( 5 )
 
 [node name="berries" type="Sprite" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 865.833, 525.489 )
 texture = ExtResource( 6 )
 script/script = ExtResource( 4 )
@@ -303,6 +304,7 @@ _update_shape_index = 0
 
 [node name="Judge" type="Sprite" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 1976.38, 356.242 )
 texture = ExtResource( 12 )
 script/script = ExtResource( 4 )

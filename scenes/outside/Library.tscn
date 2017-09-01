@@ -12,7 +12,6 @@ editor/display_folded = true
 
 [node name="DoorToArchie" parent="Room"]
 
-editor/display_folded = false
 transform/rot = 180.0
 global_id = ""
 events_path = "res://scenes/outside/esc_scripts/LibraryToOutside.esc"
