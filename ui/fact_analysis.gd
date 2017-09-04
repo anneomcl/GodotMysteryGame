@@ -128,31 +128,52 @@ func instance_clues():
 			get_node("c/" + clue).set_pos(vm.game.clue_positions[clue])
 
 func instance_relations():
-	print(analysis_data.created_relations)
 	for clueid in analysis_data.created_relations.keys():
-		#TO-DO: Document that ONLY the "children" reference is initialized
-		#To avoid double-initializing the relations but maintaining the 2-way look-up
-		#Also, the "children" array is the only one with a ref to the relation type
 		for child in game.relations[clueid]["children"]:
 			draw_relation(clueid, child[0], child[1])
+
+func validate_relation(parent, child):
+	print(analysis_data.created_relations)
+	var nodes = [parent]
+	var queue = [parent]
+	while queue.size() > 0:
+		var curr = queue.back()
+		queue.pop_back()
+		if analysis_data.created_relations.has(curr):
+			#check if child already has path to parent (score already propagated)
+			for c in analysis_data.created_relations[curr]["children"]:
+				if child == c[0]:
+					return false
+				elif !nodes.has(c[0]):
+					nodes.push_back(c[0])
+					queue.push_back(c[0])
+			#check if child is already a parent of parent (avoid cycles)
+			for p in analysis_data.created_relations[curr]["parents"]:
+				if child == p[0]:
+					return false
+				elif !nodes.has(p[0]):
+					nodes.push_back(p[0])
+					queue.push_back(p[0])
+		
+	return true
 
 func instance_relation(clue_id, parents, children, relation):
 	print("Relation: " + str(clue_id) + str(parents) + str(children))
 	
 	if !analysis_data.created_relations.has(clue_id):
 		analysis_data.created_relations[clue_id] = { "parents": [], "children": [] }
-	
+
 	if children != null:
 		for child in children:
 			analysis_data.created_relations[clue_id]["children"].push_back([child, relation])
 			if !analysis_data.created_relations.has(child):
 				analysis_data.created_relations[child] = { "parents": [], "children": [] }
-			analysis_data.created_relations[child]["parents"].push_back(clue_id)
+			analysis_data.created_relations[child]["parents"].push_back([clue_id, relation])
 			draw_relation(clue_id, child, relation)
 
 	if (parents != null):
 		for parent in parents:
-			analysis_data.created_relations[clue_id]["parents"].push_back(parent)
+			analysis_data.created_relations[clue_id]["parents"].push_back([parent, relation])
 			if !analysis_data.created_relations.has(parent):
 				analysis_data.created_relations[parent] = { "parents": [], "children": [] }
 			analysis_data.created_relations[parent]["children"].push_back([clue_id, relation])
@@ -228,10 +249,15 @@ func process_clues(first_clue, second_clue):
 		var relation = get_selected_relation()
 		var fact_object = analysis_data.fact_relations[first_clue]
 		
+		if (!(validate_relation(first_clue, second_clue)) or 
+		(relation == "and" 
+		and (!validate_relation(first_clue, fact_object[relation]["result"][fact_object[relation]["clues"].find(second_clue)]) 
+		or !validate_relation(second_clue, fact_object[relation]["result"][fact_object[relation]["clues"].find(second_clue)])))):
+			print("Error: Child relation already exists or relation would create cycle")
+			game.get_node("speech_dialogue_player").start(["", analysis_data.default], vm.level.current_context, false)
+	
 		if fact_object.has(relation) and fact_object[relation]["clues"].has(second_clue):
 			if relation == "contradicts":
-				print ("Clue contradicts other clue")
-				#print ("Contradict points: " + str(fact_object[relation]["points"]))
 				instance_relation(first_clue, null, [second_clue], relation)
 				update_points([first_clue], second_clue, "contradicts")
 				update_children_points(second_clue)
@@ -410,9 +436,9 @@ func drag_box():
 			var parents = analysis_data.created_relations[curr_node.id]["parents"]
 			var child_center = curr_node.get_pos() + (clue_size / 2)
 			for parent in parents:
-				var parent_node = get_node("c/" + parent)
+				var parent_node = get_node("c/" + parent[0])
 				var parent_center = parent_node.get_pos() + (clue_size / 2)
-				update_draw_relation(parent_center, child_center, parent, curr_node.id)
+				update_draw_relation(parent_center, child_center, parent[0], curr_node.id)
 		
 
 func _fixed_process(delta):

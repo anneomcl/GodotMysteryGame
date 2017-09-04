@@ -30,6 +30,7 @@ var failures = 0
 var persist_scene = false
 
 var vm
+var animation
 
 func register_object(name, val):
 	objects[name] = val
@@ -61,13 +62,17 @@ func dialog(params, level):
 func _process(time):
 	check_screen()
 
-func hide_clue_received():
+func hide_clue_received(animate):
 	if indicator != null:
-		indicator.hide()
+		if animate:
+			animation.play("fade_out_indicator")
+		else:
+			indicator.hide()
 
 func show_clue_received(id):
 	if id.substr(0, 2) == "c/" and indicator != null:
 		indicator.show()
+		animation.play("fade_in_indicator")
 		
 func _input(event):
 	if ui_stack.size() > 0:
@@ -196,10 +201,8 @@ func change_scene(params, context):
 	if scene == null:
 		print("error: failed to instance new scene ", params[0])
 		return
-
 	get_node("/root").add_child(scene)
 	set_current_scene(scene)
-
 	vm.finished(context, false)
 
 func start_new_game():
@@ -285,6 +288,7 @@ func _ready():
 	
 	vm.connect("global_changed", self, "update_global_lists")
 	
+	animation = get_node("hud_layer/animation")
 	indicator = get_node("hud_layer/clue_indicator")
 	vm.connect("global_changed", self, "show_clue_received")
 	

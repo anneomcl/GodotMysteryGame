@@ -217,6 +217,13 @@ func get_global(name):
 func get_all_globals():
 	return globals
 
+func set_global_gd(name, val, indicate):
+	if indicate:
+		game.show_clue_received()
+	else:
+		game.hide_clue_received(false)
+	set_global(name, val)
+
 func set_global(name, val):
 	globals[name] = val
 	emit_signal("global_changed", name)

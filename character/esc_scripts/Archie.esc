@@ -112,7 +112,6 @@ debug "this is the 'use' event for Archie!"
 					say player "I'll take it."
 				- Nevermind
 					stop
-			repeat
 		- "Any tips?"
 			say player "Do you have any tips for me?"
 			say archie "I'd recommend you study up. The bookshelf back there has all of my old textbooks from my trainee days. You can check out the library as well."

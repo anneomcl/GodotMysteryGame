@@ -1,24 +1,20 @@
 :use
 debug "this is the 'use' event for Librarian!"
 
-#remove if possible
-> [initial]
-    say player "Woah a library (initial)"
-    set_global library_initial false
-    set_global initial false
-    stop
-
 > [!library_initial]
-    say librarian "Hi, here's your test clue, lemon fairies are attracted to lemony things."
-    set_global c/secretary1 true
-    set_global library_initial true
-    stop
+	say librarian "Hi, here's your test clue, lemon fairies are attracted to lemony things."
+	set_global c/secretary1 true
+	set_global library_initial true
+	stop
 
 > [library_initial]
-    say librarian "Let's chat"
-    stop
-
-#can_analyze set in Archie.esc
-> [can_analyze, library_initial]
-    say librarian "Wow you found the keyword in the library. Lemon fairies are nefarious beings that prey upon people with minty, melony, and lemony fresh scents surrounding them. "
-    set_global c/library1 true
+	say librarian "Let's chat"
+	?
+		- "Now I can analyze things and use the computer" [can_analyze, library_initial]
+			set_global c/library1 true
+			say librarian "Wow you found the keyword in the library. Lemon fairies are nefarious beings that prey upon people with minty, melony, and lemony fresh scents surrounding them. "
+		- "What's up?"
+			say player "So... what's it like to be a ghost?"
+			say librarian "Rude."
+		- "Nevermind"
+			stop

@@ -13,6 +13,7 @@ var cmd
 
 var is_choice
 var has_multiple_choices
+var choice_size = 1
 var choice_offset = 15
 var avatar_scale = Vector2(.25, .25)
 
@@ -23,12 +24,26 @@ var label
 
 var animation
 var ready = false
-var option_selected
+var option_selected = 0
 var dialog_task
 
 func input(event):
-	if event.is_action_pressed("ui_accept") and !is_choice:
-		selected(0)
+	if event.is_action_pressed("ui_accept"):
+		selected(option_selected)
+	if event.is_action_pressed("ui_up") or event.is_action_pressed("walk_up"):
+		if option_selected == 0:
+			return
+		else:
+			container.get_child(option_selected).get_node("cursor").hide()
+			option_selected -= 1
+			container.get_child(option_selected).get_node("cursor").show()
+	if event.is_action_pressed("ui_down") or event.is_action_pressed("walk_down"):
+		if option_selected == (choice_size - 1):
+			return
+		else:
+			container.get_child(option_selected).get_node("cursor").hide()
+			option_selected += 1
+			container.get_child(option_selected).get_node("cursor").show()
 	pass
 
 func selected(n):
@@ -39,6 +54,7 @@ func selected(n):
 		animation.play("hide")
 	else:
 		clear_dialogue()
+		choice_size = 1
 		if is_choice:
 			vm.add_level(cmd[option_selected].params[1], false, dialog_task)
 	ready = false
@@ -47,8 +63,8 @@ func add_speech(text, id):
 	var it = item.duplicate()
 	var but = it.get_node("button")
 	var lab = but.get_node("label")
+	var cur = it.get_node("cursor")
 	lab.set_text(text)
-
 	but.connect("pressed", self, "selected", [id])
 
 	if is_choice:
@@ -56,22 +72,33 @@ func add_speech(text, id):
 		var size = it.get_custom_minimum_size()
 		size.y = size.y * height_ratio
 		but.set_size(size)
-		handle_choice_offsets(it, but, lab, choice_offset, id)
+		handle_choice_offsets(it, but, lab, cur, choice_offset, id)
+	else:
+		cur.hide()
 
 	container.add_child(it)
 	
-func handle_choice_offsets(it, but, lab, offset, i):
+func handle_choice_offsets(it, but, lab, cur, offset, i):
 	if has_multiple_choices:
 		var new_pos = it.get_pos() + (Vector2(0, offset) * i)
 		it.set_pos(new_pos)
 		but.set_pos(new_pos)
-		lab.set_pos(new_pos)
+		lab.set_pos(new_pos + Vector2(50, 0))
+		cur.set_pos(new_pos + Vector2(0, offset) * (i + 1)) #needs to match cursor offset
+
+		if (i == 0):
+			option_selected = 0
+			cur.show() #the first option is defaulted to selected
+		else:
+			cur.hide()
+			choice_size += 1
 
 func add_choices():
 	var i = 0
 	has_multiple_choices = false
 	for choice in cmd:
 		if !vm.test(choice):
+			i += 1
 			continue
 		add_speech(choice.params[0], i)
 		i += 1
@@ -147,6 +174,10 @@ func _on_mouse_exit(button):
 
 func stop():
 	hide()
+	if vm.game.indicator_on:
+		vm.game.hide_clue_received(true)
+	else:
+		vm.game.hide_clue_received(false)
 	while container.get_child_count() > 0:
 		var c = container.get_child(0)
 		container.remove_child(c)
@@ -165,7 +196,6 @@ func clear_dialogue():
 	vm.finished(context, false)
 	if !is_choice and character != null:
 		character.set_speaking(false)
-	vm.game.get_node("hud_layer/clue_indicator").hide()
 	stop()
 
 func anim_finished():
@@ -176,7 +206,7 @@ func anim_finished():
 		clear_dialogue()
 	else:
 		ready = true
-
+	
 func _ready():
 	hide()
 	
@@ -197,6 +227,6 @@ func _ready():
 	
 	animation = get_node("animation")
 	animation.connect("finished", self, "anim_finished")
-	#get_node("anchor/scroll").set_theme(preload("res://game/globals/dialog_theme.xml"))
 	
+	self.connect("exit_tree", self, "clear_dialogue")
 	add_to_group("game")

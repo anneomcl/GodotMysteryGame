@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://globals/white.png" type="Texture" id=1]
+
+[node name="cursor" type="Sprite"]
+
+visibility/visible = false
+visibility/opacity = 0.5
+transform/pos = Vector2( 118.536, -148.562 )
+transform/scale = Vector2( 4.16966, 1.88815 )
+texture = ExtResource( 1 )
+
+
