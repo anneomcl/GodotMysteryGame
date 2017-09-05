@@ -230,6 +230,7 @@ func update_children_points(node):
 					var potential_parents = analysis_data.created_relations[child_id]["parents"]
 					var other_parent = null
 					for p in potential_parents:
+						p = p[0] #the id, not the relation
 						if p != curr and analysis_data.fact_relations[p].has("and"):
 							if analysis_data.fact_relations[p]["and"]["result"].has(child_id):
 								other_parent = p
@@ -392,9 +393,9 @@ func find_all_clicked_nodes(node):
 					nodes.push_back(child[0])
 					queue.push_back(child[0])
 			for parent in analysis_data.created_relations[curr]["parents"]:
-				if !nodes.has(parent):
-					nodes.push_back(parent)
-					queue.push_back(parent)
+				if !nodes.has(parent[0]):
+					nodes.push_back(parent[0])
+					queue.push_back(parent[0])
 			
 	return nodes
 

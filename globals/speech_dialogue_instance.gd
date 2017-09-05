@@ -13,6 +13,7 @@ var cmd
 
 var is_choice
 var has_multiple_choices
+var option_mapping = {}
 var choice_size = 1
 var choice_offset = 15
 var avatar_scale = Vector2(.25, .25)
@@ -29,7 +30,10 @@ var dialog_task
 
 func input(event):
 	if event.is_action_pressed("ui_accept"):
-		selected(option_selected)
+		if has_multiple_choices:
+			selected(int(option_mapping[str(option_selected)]))
+		else:
+			selected(option_selected)
 	if event.is_action_pressed("ui_up") or event.is_action_pressed("walk_up"):
 		if option_selected == 0:
 			return
@@ -95,13 +99,20 @@ func handle_choice_offsets(it, but, lab, cur, offset, i):
 
 func add_choices():
 	var i = 0
+	var j = 0
 	has_multiple_choices = false
 	for choice in cmd:
 		if !vm.test(choice):
+			option_mapping[str(i)] = str(i + 1)
 			i += 1
 			continue
-		add_speech(choice.params[0], i)
+		if i > 0:
+			option_mapping[str(i)] = str(int(option_mapping[str(i - 1)]) + 1)
+		else:
+			option_mapping[str(0)] = str(0)
+		add_speech(choice.params[0], j)
 		i += 1
+		j += 1
 		has_multiple_choices = true
 
 func create_new_avatar(avatar, avatar_id):
@@ -173,11 +184,8 @@ func _on_mouse_exit(button):
 	button.get_node("label").add_color_override("font_color_shadow", mouse_exit_shadow_color)
 
 func stop():
+	vm.game.hide_clue_received(false)
 	hide()
-	if vm.game.indicator_on:
-		vm.game.hide_clue_received(true)
-	else:
-		vm.game.hide_clue_received(false)
 	while container.get_child_count() > 0:
 		var c = container.get_child(0)
 		container.remove_child(c)

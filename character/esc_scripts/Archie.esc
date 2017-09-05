@@ -28,93 +28,101 @@ debug "this is the 'use' event for Archie!"
 	set_global can_analyze true
 
 #After you've found all the relevant evidence you can.
-> [spoke_to_archie, i/office2, c/office2, c/library1]
+> [spoke_to_archie, i/office2, c/office2, c/library1, !c/office1, !has_keys]
 	?
 		- "Can I have the keys to everyone's desks?" 
 			say player "And maybe the bathroom?"
 			say archie "Sure."
 
 			#archie gives you office master keys
+			set_global has_keys true
 			#set_global c/office1 true
 			#set_global i/office1 true
 
 			stop
 
-		- "I have a few questions"
-			say player "Could you answer a few questions?"
-
 		- "Nevermind"
 			stop
 
 > [spoke_to_archie]
-	?
-		- "I have a few questions"
-			say player "Could you answer a few questions?"
-			>
-				?
-					- "When did you last see the cookies?"
-						set_global c/archie3 true
-						say archie "I went to check on how well, uh, how well-received they were at around 4:30PM."
-						say player "Are you sure it was 4:30?"
-						say archie "Of course! I always take tea at 4:30, and I always have a tasty something or other when I do. Do you doubt my memory?"
-						say player "You told me to ask questions!"
-						say archie "*ahem* I suppose... I did, yes. Carry on."
-						say player "So anyone in the kitchen from 4 to 4:30 could have taken the cookies?"
-						say archie "That's what I would assume."
-						say player "Hmmmm..."
-					- "Was there anyone else in the kitchen?"
-						set_global c/archie4 true
-						say archie "I saw Bee there, she took one and then started doing something or other by the sink."
-						say player "You think it was her then?"
-						say archie "I think... I hope, at least, that no one on my team would break their oaths as knights for something like this..."
-					- "Where is everyone?" [checked_empty_desk]
-						say player "I don't see the others here today... Have they been around?"
-						say archie "We've been swamped with cases lately, they've all been out on cases. Likely won't be back until later this evening."
-						say player "Hmmm... So it's just been you, me, Eyy and Bee here all day?"
-						set_global c/archie5 true
-						say archie "That's fair to say."
-						say player "Well that really narrows it down!"
-						say archie "Unless someone snuck in?"
-					- "Nevermind"
-						stop
-		- "Who do YOU think it is?"
-			say archie "No one who deserves to be on this team, that's for sure!"
-			?
-				- "How do you know it wasn't me?"
-					say player "How do you know it isn't me?"
-					say archie "Kid, take this seriously! I'm giving you one chance! One!"
-					say player "Right, sorry!"
-					say archie "You can make mistakes, but only once. The only failure on this team is a repeated mistake, got it?"
-					say player "*gulp*"
-					say archie "And your biggest mistake right now is not keeping tabs on what you're doing, and when you're doing it."
-					say archie "Always keep a meticulous record of your day, especially when on a case."
-					say player "*...Got it."
-					say archie "So: what were you doing from 4:00 to 4:30? Stealing lemon butter crisps?"
-					say player "Well... Hmm... What was I doing?"
-					say archie "*mean look* ..."
-					say player "Uhhh, right! I was trying to hook up the magic filesystem in your office all afternoon. I was in the corner fiddling with the auxilliary tentacle..."
-					say player "I had been working on it -- mmmmm, pretty much since I came in this morning. Which reminds me..."
-					say player "*gurgle*"
-					say player "I forgot to eat lunch."
-					say player "But you were there from lunchtime onwards. And then at 4, or around 4, you went to set the cookies in the kitchen... And you came back a few minutes later. I guess I didn't look at the clock, and I don't know what you were doing in those few minutes."
-					say archie "Hmmmm. Good enough. Work on developing an eye for detail."
-					say archie "We live in an ever-changing world, with scientific magic moving as quickly as it is. You can never be too detailed in your recollections. Things may not always be as they seem."
-					set_global c/archie6 true
-					say archie "So your story is that you were here all day, installing the file system. At 4 you saw me leave. I was unaccounted for in the following few minutes."
-					say archie "During which, you wasted no time in playing make-believe."
-					say player "Ahahaha...yeah... I guess that did happen."
-					say archie "Then we have been in here ever since. And now it's -- let's see... half past four."
-				- How do I know it's not you?"
-					say player "How do I know you didn't make all this up?"
-					say archie "*raises eyebrow image*"
-					say player "You know, to test me? To give the intern a controlled learning experience with no real stakes?"
-					say archie "//*laughing face* If you can prove that I set this all up, then by all means, feel free to prosecute me for providing on-the-job experience."
-					say player "I'll take it."
-				- Nevermind
-					stop
-		- "Any tips?"
-			say player "Do you have any tips for me?"
-			say archie "I'd recommend you study up. The bookshelf back there has all of my old textbooks from my trainee days. You can check out the library as well."
-			say player "Alright, will do. Thanks."
-		- "Nevermind"
-			stop	
+	>
+		?
+			- "I have a few questions"
+				say player "Could you answer a few questions?"
+				>
+					?
+						- "When did you last see the cookies?"
+							set_global c/archie3 true
+							say archie "I went to check on how well, uh, how well-received they were at around 4:30PM."
+							say player "Are you sure it was 4:30?"
+							say archie "Of course! I always take tea at 4:30, and I always have a tasty something or other when I do. Do you doubt my memory?"
+							say player "You told me to ask questions!"
+							say archie "*ahem* I suppose... I did, yes. Carry on."
+							say player "So anyone in the kitchen from 4 to 4:30 could have taken the cookies?"
+							say archie "That's what I would assume."
+							say player "Hmmmm..."
+						- "Was there anyone else in the kitchen?"
+							set_global c/archie4 true
+							say archie "I saw Bee there, she took one and then started doing something or other by the sink."
+							say player "You think it was her then?"
+							say archie "I think... I hope, at least, that no one on my team would break their oaths as knights for something like this..."
+						- "Where is everyone?" [checked_empty_desk, has keys]
+							say player "I don't see the others here today... Have they been around?"
+							say archie "We've been swamped with cases lately, they've all been out on cases. Likely won't be back until later this evening."
+							say player "Hmmm... So it's just been you, me, Eyy and Bee here all day?"
+							set_global c/archie5 true
+							say archie "That's fair to say."
+							say player "Well that really narrows it down!"
+							say archie "Unless someone snuck in?"
+						- "test option"
+							say player "is the bug still there?"
+						- Nevermind
+							set_global nevermind true
+					repeat [!nevermind]
+					set_global nevermind false
+			- "Who do YOU think it is?"
+				say archie "No one who deserves to be on this team, that's for sure!"
+				>
+					?
+						- "How do you know it wasn't me?"
+							say player "How do you know it isn't me?"
+							say archie "Kid, take this seriously! I'm giving you one chance! One!"
+							say player "Right, sorry!"
+							say archie "You can make mistakes, but only once. The only failure on this team is a repeated mistake, got it?"
+							say player "*gulp*"
+							say archie "And your biggest mistake right now is not keeping tabs on what you're doing, and when you're doing it."
+							say archie "Always keep a meticulous record of your day, especially when on a case."
+							say player "*...Got it."
+							say archie "So: what were you doing from 4:00 to 4:30? Stealing lemon butter crisps?"
+							say player "Well... Hmm... What was I doing?"
+							say archie "*mean look* ..."
+							say player "Uhhh, right! I was trying to hook up the magic filesystem in your office all afternoon. I was in the corner fiddling with the auxilliary tentacle..."
+							say player "I had been working on it -- mmmmm, pretty much since I came in this morning. Which reminds me..."
+							say player "*gurgle*"
+							say player "I forgot to eat lunch."
+							say player "But you were there from lunchtime onwards. And then at 4, or around 4, you went to set the cookies in the kitchen... And you came back a few minutes later. I guess I didn't look at the clock, and I don't know what you were doing in those few minutes."
+							say archie "Hmmmm. Good enough. Work on developing an eye for detail."
+							say archie "We live in an ever-changing world, with scientific magic moving as quickly as it is. You can never be too detailed in your recollections. Things may not always be as they seem."
+							set_global c/archie6 true
+							say archie "So your story is that you were here all day, installing the file system. At 4 you saw me leave. I was unaccounted for in the following few minutes."
+							say archie "During which, you wasted no time in playing make-believe."
+							say player "Ahahaha...yeah... I guess that did happen."
+							say archie "Then we have been in here ever since. And now it's -- let's see... half past four."
+						- How do I know it's not you?"
+							say player "How do I know you didn't make all this up?"
+							say archie "*raises eyebrow image*"
+							say player "You know, to test me? To give the intern a controlled learning experience with no real stakes?"
+							say archie "//*laughing face* If you can prove that I set this all up, then by all means, feel free to prosecute me for providing on-the-job experience."
+							say player "I'll take it."
+						- Nevermind
+							set_global nevermind true
+					repeat [!nevermind]
+					set_global nevermind false
+			repeat
+			- "Any tips?"
+				say player "Do you have any tips for me?"
+				say archie "I'd recommend you study up. The bookshelf back there has all of my old textbooks from my trainee days. You can check out the library as well."
+				say player "Alright, will do. Thanks."
+			- "Nevermind"
+				stop
+		repeat

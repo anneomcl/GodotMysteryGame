@@ -10,13 +10,13 @@
 change_scene res://scenes/office/ArchieOffice.tscn
 
 #The following are for Scenario 0
-#set_global c/archie1 true
-#set_global c/archie2 true
-#set_global c/archie3 true
-#set_global c/archie4 true
-#set_global c/archie5 true
-#set_global c/archie6 true
-#set_global c/general1 true
+set_global c/archie1 true
+set_global c/archie2 true
+set_global c/archie3 true
+set_global c/archie4 true
+set_global c/archie5 true
+set_global c/archie6 true
+set_global c/general1 true
 #set_global c/eyy1 true
 #set_global c/eyy2 true
 #set_global c/eyy4 true

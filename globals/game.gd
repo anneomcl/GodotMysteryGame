@@ -28,6 +28,7 @@ var equipped
 var failures = 0
 
 var persist_scene = false
+var indicator_off = false
 
 var vm
 var animation
@@ -66,14 +67,13 @@ func hide_clue_received(animate):
 	if indicator != null:
 		if animate:
 			animation.play("fade_out_indicator")
-		else:
-			indicator.hide()
+		indicator.hide()
 
 func show_clue_received(id):
 	if id.substr(0, 2) == "c/" and indicator != null:
 		indicator.show()
 		animation.play("fade_in_indicator")
-		
+
 func _input(event):
 	if ui_stack.size() > 0:
 		ui_stack[ui_stack.size()-1].input(event)
