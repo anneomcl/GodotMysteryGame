@@ -169,7 +169,8 @@ func start(params, p_context, p_is_choice):
 	display_portrait(avatar_id)
 	
 	if(character_name != null):
-		get_node("anchor/name").set_text(character_name)
+		get_node("anchor/avatars/name").show()
+		get_node("anchor/avatars/name").set_text(character_name)
 	
 	ready = false
 	animation.play("show_basic")

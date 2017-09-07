@@ -51,10 +51,10 @@ drag_margin/h_enabled = true
 drag_margin/v_enabled = true
 smoothing/enable = false
 smoothing/speed = 5.0
-drag_margin/left = 0.2
-drag_margin/top = 0.2
-drag_margin/right = 0.2
-drag_margin/bottom = 0.2
+drag_margin/left = 0.0
+drag_margin/top = 0.0
+drag_margin/right = 0.0
+drag_margin/bottom = 0.0
 
 [node name="Sprite" type="Sprite" parent="."]
 

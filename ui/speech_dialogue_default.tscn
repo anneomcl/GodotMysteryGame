@@ -137,6 +137,7 @@ tracks/2/keys = {
 
 anchor/right = 1
 anchor/bottom = 1
+rect/scale = Vector2( 0.8, 0.8 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -156,35 +157,32 @@ mouse_exit_shadow_color = Color( 1, 1, 1, 1 )
 
 [node name="anchor" type="Node2D" parent="."]
 
-visibility/visible = false
-transform/pos = Vector2( 373.302, 425.803 )
-transform/scale = Vector2( 1, 1e-05 )
-
 [node name="bg" type="TextureFrame" parent="anchor"]
 
+visibility/opacity = 0.6
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -937.0
-margin/top = -430.0
-margin/right = 384.0
-margin/bottom = -91.0
+margin/left = -575.0
+margin/top = 0.0
+margin/right = 746.0
+margin/bottom = 339.0
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 0
 
 [node name="scroll" type="ScrollContainer" parent="anchor"]
 
-rect/min_size = Vector2( 800, 229 )
+rect/min_size = Vector2( 800, 275 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -520.0
-margin/top = -385.0
-margin/right = 321.0
-margin/bottom = -142.0
+margin/left = -150.0
+margin/top = 25.0
+margin/right = 691.0
+margin/bottom = 268.0
 scroll/horizontal = false
 scroll/vertical = true
 
@@ -203,8 +201,7 @@ alignment = 0
 
 [node name="avatars" type="Node2D" parent="anchor"]
 
-editor/display_folded = true
-transform/pos = Vector2( -719.321, -263.376 )
+transform/pos = Vector2( -275, 150 )
 transform/scale = Vector2( 4.52689, 3.88018 )
 
 [node name="default" type="Sprite" parent="anchor/avatars"]
@@ -212,17 +209,20 @@ transform/scale = Vector2( 4.52689, 3.88018 )
 transform/scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 3 )
 
-[node name="name" type="Label" parent="anchor"]
+[node name="name" type="Label" parent="anchor/avatars"]
 
+rect/scale = Vector2( 0.3, 0.3 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = -840.0
-margin/top = -152.0
-margin/right = -800.0
-margin/bottom = -120.0
+margin/left = -35.0
+margin/top = 30.0
+margin/right = 193.0
+margin/bottom = 62.0
 custom_fonts/font = ExtResource( 4 )
+text = "name"
+align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -234,10 +234,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -150.0
-margin/top = 0.0
-margin/right = 650.0
-margin/bottom = 29.0
+margin/left = -3.0
+margin/top = 20.0
+margin/right = 797.0
+margin/bottom = 49.0
 
 [node name="button" type="TextureButton" parent="item"]
 

@@ -20,8 +20,7 @@ debug "this is the 'use' event for Archie!"
 	stop
 
 #change this back, shortened for testing purposes.
-#> [c/bee1, c/bee2, c/bee3, c/eyy1, c/archie1, c/archie2, c/archie3, c/archie4, c/archie5, c/archie6]
-> [c/bee1, c/eyy1]
+> [c/bee1, c/eyy1, c/kitchen1]
 	#set this once you've talked to Eyy, Bee, and picked up evidence from kitchen
 	say archie "Press TAB and click on the Analysis window to start matching facts together"
 	say archie "(This is a tutorial for guiding you through understanding how to grab evidence)"
@@ -36,8 +35,6 @@ debug "this is the 'use' event for Archie!"
 
 			#archie gives you office master keys
 			set_global has_keys true
-			#set_global c/office1 true
-			#set_global i/office1 true
 
 			stop
 
@@ -74,14 +71,16 @@ debug "this is the 'use' event for Archie!"
 							say archie "That's fair to say."
 							say player "Well that really narrows it down!"
 							say archie "Unless someone snuck in?"
-						- "test option"
-							say player "is the bug still there?"
 						- Nevermind
 							set_global nevermind true
 					repeat [!nevermind]
 					set_global nevermind false
-			- "Who do YOU think it is?"
+			#has talked to A and B, is a little confused. get an additional fact.
+			- "Who do YOU think it is?" [c/eyy1, c/bee1, checked_empty_desk]
+				say player "I talked to A and B... but I'm not sure who it could be."
 				say archie "No one who deserves to be on this team, that's for sure!"
+				say player "Right, I mean-- I don't want to accuse anyone, it doesn't make sense..."
+				say archie "Kid, you have to rely on facts. What we want and what justice requires, they don't always match up."
 				>
 					?
 						- "How do you know it wasn't me?"
