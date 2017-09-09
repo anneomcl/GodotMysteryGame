@@ -28,7 +28,6 @@ var equipped
 var failures = 0
 
 var persist_scene = false
-var indicator_off = false
 
 var vm
 var animation

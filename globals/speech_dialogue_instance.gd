@@ -169,7 +169,7 @@ func start(params, p_context, p_is_choice):
 	display_portrait(avatar_id)
 	
 	if(character_name != null):
-		get_node("anchor/avatars/name").show()
+		#get_node("anchor/avatars/name").show() disable this for now
 		get_node("anchor/avatars/name").set_text(character_name)
 	
 	ready = false
@@ -237,5 +237,18 @@ func _ready():
 	animation = get_node("animation")
 	animation.connect("finished", self, "anim_finished")
 	
+	var player_pos = vm.game.current_player.get_global_pos()
+	var game_height = (Globals.get("display/game_height"))
+	var game_width = (Globals.get("display/game_width"))
+	
+	#TO-DO: Change to offset factors
+	if player_pos.y < game_height/2:
+		set_pos(Vector2(game_width * .25 + 165, .75 * game_height - 10))
+	else:
+		set_pos(Vector2(game_width * .25 + 165, 0 * game_height - 110))
+
+	var indicator = vm.game.indicator
+	indicator.set_pos(get_node("anchor/indicator").get_global_pos())
+
 	self.connect("exit_tree", self, "clear_dialogue")
 	add_to_group("game")

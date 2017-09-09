@@ -9,7 +9,7 @@ func interact(params):
 		vm.run_event(event_table.use, {})
 
 func _input(ev):
-	if ev.is_action_pressed("use"):
+	if ev.is_action_pressed("use") and !vm.ui_active:
 		if has_node("Area2D") and get_node("Area2D").get_overlapping_areas().size() > 0:
 			interact(null)
 
@@ -19,4 +19,3 @@ func _ready():
 
 	if events_path != "":
 		event_table = vm.compile(events_path)
-

@@ -4,12 +4,11 @@ var speed = 10
 var move_direction = Vector2(0, 0)
 var target
 var area
-var player_camera_zoom = Vector2(1.5, 1.5)
+var player_camera_zoom = Vector2(1.25, 1.25)
 
 var inventory = []
 
 var canMove = true
-var canInteract = false
 
 func _ready():
 	set_process_input(true)
@@ -17,9 +16,6 @@ func _ready():
 	vm.game.set_current_player(self)
 	area = get_node("area")
 	get_node("Camera2D").set_zoom(player_camera_zoom)
-	get_node("Camera2D").set_v_drag_enabled(false)
-	get_node("Camera2D").set_h_drag_enabled(false)
-	get_node("Camera2D").set_pos(Vector2(0, 100))
 
 func _fixed_process(delta):
 	if(vm.can_interact()):

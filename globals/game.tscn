@@ -63,7 +63,7 @@ visibility/visible = false
 [node name="clue_indicator" type="Sprite" parent="hud_layer"]
 
 visibility/opacity = 0.0
-transform/pos = Vector2( 1250, 425 )
+transform/pos = Vector2( 1100, 450 )
 transform/scale = Vector2( 0.25, 0.25 )
 z/z = 2
 texture = ExtResource( 4 )

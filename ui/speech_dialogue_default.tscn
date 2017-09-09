@@ -137,15 +137,14 @@ tracks/2/keys = {
 
 anchor/right = 1
 anchor/bottom = 1
-rect/scale = Vector2( 0.8, 0.8 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 539.0
-margin/top = 398.0
-margin/right = -58.0
-margin/bottom = -203.0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 513.0
+margin/bottom = 250.0
 script/script = ExtResource( 1 )
 __meta__ = {
 "__editor_plugin_screen__": "2D"
@@ -164,10 +163,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -575.0
+margin/left = -432.0
 margin/top = 0.0
 margin/right = 746.0
-margin/bottom = 339.0
+margin/bottom = 300.0
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 0
@@ -211,6 +210,7 @@ texture = ExtResource( 3 )
 
 [node name="name" type="Label" parent="anchor/avatars"]
 
+visibility/visible = false
 rect/scale = Vector2( 0.3, 0.3 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -226,6 +226,10 @@ align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="indicator" type="Position2D" parent="anchor"]
+
+transform/pos = Vector2( 700, 40 )
 
 [node name="item" type="Control" parent="."]
 
@@ -281,6 +285,7 @@ max_lines_visible = -1
 [node name="cursor" parent="item" instance=ExtResource( 5 )]
 
 visibility/visible = true
+visibility/opacity = 1.0
 transform/pos = Vector2( 0, 15 )
 transform/scale = Vector2( 0.284009, 1.63048 )
 texture = ExtResource( 6 )
