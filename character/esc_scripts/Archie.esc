@@ -12,7 +12,7 @@ debug "this is the 'use' event for Archie!"
 	say archie "I left them in the kitchen at 4PM"
 	say archie "If you're serious about being a Harvest Knight, it's high time you learn how we operate."
 	say archie "Start by investigating the scene of the crime for evidence."
-	say player "The kitchen."
+	say player "So, look around the kitchen?" player_default
 	say archie "Right. Then question everyone in the office. Paint a picture of everything that happened, find the truth."
 	say archie "Come back after you've gathered more clues, and we'll go from there."
 	set_global intro false
@@ -51,9 +51,9 @@ debug "this is the 'use' event for Archie!"
 						- "When did you last see the cookies?"
 							set_global c/archie3 true
 							say archie "I went to check on how well, uh, how well-received they were at around 4:30PM."
-							say player "Are you sure it was 4:30?"
+							say player "Are you sure it was 4:30?" 
 							say archie "Of course! I always take tea at 4:30, and I always have a tasty something or other when I do. Do you doubt my memory?"
-							say player "You told me to ask questions!"
+							say player "You told me to ask questions!" player_embarrassed
 							say archie "*ahem* I suppose... I did, yes. Carry on."
 							say player "So anyone in the kitchen from 4 to 4:30 could have taken the cookies?"
 							say archie "That's what I would assume."
@@ -105,7 +105,7 @@ debug "this is the 'use' event for Archie!"
 							set_global c/archie6 true
 							say archie "So your story is that you were here all day, installing the file system. At 4 you saw me leave. I was unaccounted for in the following few minutes."
 							say archie "During which, you wasted no time in playing make-believe."
-							say player "Ahahaha...yeah... I guess that did happen."
+							say player "Ahahaha...yeah... I guess that did happen." player_embarrased
 							say archie "Then we have been in here ever since. And now it's -- let's see... half past four."
 						- How do I know it's not you?"
 							say player "How do I know you didn't make all this up?"

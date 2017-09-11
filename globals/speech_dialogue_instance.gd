@@ -128,17 +128,23 @@ func display_portrait(avatar_id):
 		var avatar_path = "res://character/avatars/"
 		var avatars = get_node("anchor/avatars")
 		var avatar
-		
+	
+		if avatar_id == null and !is_choice:
+			avatar_id = character_name
+			avatar_id += "_default"
+		elif avatar_id != null:
+			pass
+		elif is_choice:
+			avatar_id = null
+		else:
+			avatar_id = "default"
+
 		if avatar_id != null:
 			avatar = load(avatar_path + avatar_id + ".png")
 			if !avatars.has_node(avatar_id):
 				var avatar_node = create_new_avatar(avatar, avatar_id)
 				avatars.add_child(avatar_node)
-		elif is_choice:
-			avatar_id = null
-		else:
-			avatar_id = "default"
-		
+
 		for i in range(avatars.get_child_count()):
 			var c = avatars.get_child(i)
 			if c.get_name() == avatar_id:
@@ -237,15 +243,15 @@ func _ready():
 	animation = get_node("animation")
 	animation.connect("finished", self, "anim_finished")
 	
-	var player_pos = vm.game.current_player.get_global_pos()
+	var player_camera_pos = vm.game.current_player.get_pos()
 	var game_height = (Globals.get("display/game_height"))
 	var game_width = (Globals.get("display/game_width"))
 	
 	#TO-DO: Change to offset factors
-	if player_pos.y < game_height/2:
-		set_pos(Vector2(game_width * .25 + 165, .75 * game_height - 10))
+	if player_camera_pos.y > game_height/2:
+		set_pos(Vector2(game_width * .25 + 165, .75 * game_height - 10)) #bottom
 	else:
-		set_pos(Vector2(game_width * .25 + 165, 0 * game_height - 110))
+		set_pos(Vector2(game_width * .25 + 165, 0 * game_height - 110)) #top
 
 	var indicator = vm.game.indicator
 	indicator.set_pos(get_node("anchor/indicator").get_global_pos())
