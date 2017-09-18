@@ -1,20 +1,100 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=20 format=1]
 
 [ext_resource path="res://scenes/test/ArchieOffice.gd" type="Script" id=1]
 [ext_resource path="res://scenes/office/graphics/defaultBackground.png" type="Texture" id=2]
 [ext_resource path="res://scenes/test/OfficeFloor.png" type="Texture" id=3]
-[ext_resource path="res://scenes/office/graphics/ArchieDeskBottom.png" type="Texture" id=4]
-[ext_resource path="res://scenes/office/graphics/ArchieDeskTop.png" type="Texture" id=5]
-[ext_resource path="res://scenes/test/player.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/office/TestWall.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/office/Door.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/test/Archie.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/office/Bookshelf.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/office/player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/office/graphics/Chair.png" type="Texture" id=5]
+[ext_resource path="res://globals/item.gd" type="Script" id=6]
+[ext_resource path="res://scenes/office/graphics/ArchieDeskBottom.png" type="Texture" id=7]
+[ext_resource path="res://scenes/office/graphics/ArchieDeskTop.png" type="Texture" id=8]
+[ext_resource path="res://scenes/office/TestWall.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/office/Door.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/test/Archie.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/office/Bookshelf.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/office/sounds/footsteps.wav" type="Sample" id=13]
+
+[sub_resource type="Animation" id=6]
+
+resource/name = "camera_idle_below"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 1000 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+
+resource/name = "camera_pan_center_up"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 1000 ), Vector2( 0, 300 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+
+resource/name = "camera_pan_down"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 1000 ) ]
+}
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 108.707, 68.5175 )
+
+[sub_resource type="SampleLibrary" id=8]
+
+samples/footsteps = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 13 )
+}
+
+[sub_resource type="Animation" id=9]
+
+resource/name = "footsteps"
+length = 1.5
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:play/play")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 2,
+"values": [ "footsteps" ]
+}
 
 [node name="ArchieOffice" type="Node2D"]
 
@@ -29,7 +109,7 @@ texture = ExtResource( 2 )
 
 [node name="Background1" type="Sprite" parent="."]
 
-transform/pos = Vector2( 813.054, 132.631 )
+transform/pos = Vector2( 813.054, 127.469 )
 transform/scale = Vector2( 3.94586, 2.44477 )
 z/z = -1
 texture = ExtResource( 2 )
@@ -39,6 +119,36 @@ texture = ExtResource( 2 )
 transform/pos = Vector2( 648.517, 295.715 )
 transform/scale = Vector2( 0.750921, 0.787312 )
 texture = ExtResource( 3 )
+
+[node name="player" parent="." instance=ExtResource( 4 )]
+
+editor/display_folded = true
+transform/pos = Vector2( 670, 650 )
+
+[node name="Camera2D" parent="player"]
+
+transform/pos = Vector2( 0, 267.232 )
+
+[node name="animation" parent="player/Camera2D"]
+
+anims/camera_idle_below = SubResource( 6 )
+anims/camera_pan_center_up = SubResource( 7 )
+anims/camera_pan_down = SubResource( 5 )
+
+[node name="area" parent="player"]
+
+editor/display_folded = true
+
+[node name="chair" type="Sprite" parent="."]
+
+transform/pos = Vector2( 670, 100 )
+transform/scale = Vector2( 1.24837, 0.981331 )
+texture = ExtResource( 5 )
+script/script = ExtResource( 6 )
+active = true
+global_id = "chair"
+talk_animation = "talk"
+events_path = ""
 
 [node name="Desk" type="Node2D" parent="."]
 
@@ -50,14 +160,14 @@ transform/scale = Vector2( 1, 0.8 )
 
 transform/pos = Vector2( 650.279, 541.812 )
 transform/scale = Vector2( 0.624186, 0.817776 )
-texture = ExtResource( 4 )
+texture = ExtResource( 7 )
 
 [node name="top" type="Sprite" parent="Desk"]
 
 transform/pos = Vector2( 649.812, 413.329 )
 transform/scale = Vector2( 0.623923, 0.543937 )
 z/z = 2
-texture = ExtResource( 5 )
+texture = ExtResource( 8 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Desk"]
 
@@ -81,26 +191,19 @@ shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="player" parent="." instance=ExtResource( 6 )]
-
-transform/pos = Vector2( 669.591, -37.982 )
-z/z = 1
-
 [node name="Walls" type="Node" parent="."]
 
-editor/display_folded = true
-
-[node name="TestWall" parent="Walls" instance=ExtResource( 7 )]
+[node name="TestWall" parent="Walls" instance=ExtResource( 9 )]
 
 transform/pos = Vector2( -47.1757, 258.9 )
 transform/scale = Vector2( 1, 0.961257 )
 
-[node name="TestWall 2" parent="Walls" instance=ExtResource( 7 )]
+[node name="TestWall 2" parent="Walls" instance=ExtResource( 9 )]
 
 transform/pos = Vector2( 1341.42, 273.225 )
 transform/scale = Vector2( 1, 0.935424 )
 
-[node name="TestWall4" parent="Walls" instance=ExtResource( 7 )]
+[node name="TestWall4" parent="Walls" instance=ExtResource( 9 )]
 
 editor/display_folded = true
 transform/pos = Vector2( 642.112, -254.969 )
@@ -115,33 +218,63 @@ transform/pos = Vector2( 21.6168, 0 )
 
 transform/pos = Vector2( 33.9118, -6.94196 )
 
-[node name="TestWall3" parent="Walls" instance=ExtResource( 7 )]
+[node name="TestWall3" parent="Walls" instance=ExtResource( 9 )]
 
 editor/display_folded = true
 transform/pos = Vector2( 641.424, 783.56 )
 transform/rot = 90.0
 transform/scale = Vector2( 1.03054, 1.18127 )
 
-[node name="Door" parent="Walls" instance=ExtResource( 8 )]
+[node name="Door" parent="Walls" instance=ExtResource( 10 )]
 
-transform/pos = Vector2( 632.812, 802.457 )
+transform/pos = Vector2( 650, 800 )
 transform/scale = Vector2( 1, 0.299097 )
 events_path = "res://scenes/office/esc_scripts/ArchieToSquashSquad.esc"
 
-[node name="Archie" parent="." instance=ExtResource( 9 )]
+[node name="Archie" parent="." instance=ExtResource( 11 )]
 
-editor/display_folded = true
+transform/pos = Vector2( 670, 105 )
 
 [node name="CollisionShape2D" parent="Archie/StaticBody2D"]
 
 transform/pos = Vector2( -1.14469, -131.023 )
 transform/scale = Vector2( 17.5191, 20.4345 )
 
-[node name="Bookshelf" parent="." instance=ExtResource( 10 )]
+[node name="Bookshelf" parent="." instance=ExtResource( 12 )]
 
 transform/pos = Vector2( 1085.54, -284.198 )
 transform/scale = Vector2( 0.7, 0.7 )
 
+[node name="sound" type="SamplePlayer2D" parent="."]
 
+process/pause_mode = 1
+transform/pos = Vector2( 661.415, 684.76 )
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 8 )
+config/pitch_random = 0.0
+script/script = ExtResource( 6 )
+active = true
+global_id = "sound"
+talk_animation = "talk"
+events_path = ""
+
+[node name="animation" type="AnimationPlayer" parent="sound"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/footsteps = SubResource( 9 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+
+[editable path="player"]
 [editable path="Walls/TestWall4"]
 [editable path="Archie"]

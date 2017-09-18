@@ -1,56 +1,54 @@
 :load
 
-debug "this is the 'load' event for the door to Archie's office!"
+debug "this is the 'load' event for the door to archie's office!"
 
 set_global archie_intro_cutscene true
 
 > [archie_intro_cutscene]
-	teleport_pos Archie 650 150
-	teleport_pos player 550 630
+	camera_to_player camera
+	teleport_pos archie 670 105
+	teleport_pos player 670 650
 
 > [!archie_intro_cutscene]
-	cut_scene camera idle_below
-	cut_scene camera camera_pan_upward
-	cut_scene camera idle
+	teleport_pos player 670 -80
+	teleport_pos archie -1000 -80
+	cut_scene camera camera_idle_below
 
 	#animation of player sipping coffee
-	say player "It was a Tuesday evening when I met Theresa Waldorf for the first time."
-	say player "Her hair rippled in golden brown curls, framing the teary-eyed, vulnerable face of a young girl in desperate need of an officer's help."
-	say player "'Oh, officer,' she'd said, 'I just don't feel safe at night knowing those rapscallions are... congregating outside my residence, no doubt peering into my quarters...'"
-	say player "Her eyes sparkled with tears, 'Isn't there anything you can do?' I stood from my desk and firmly held her hands in earnest."
-	say player "'Ma'am,' I began --"
-	#animation of player sipping coffee
-	#coffee sipping stops midway
+	say player "(It was a Tuesday evening when I met Theresa Waldorf for the first time.)"
+	cut_scene camera camera_pan_up
+	say player "(Her hair rippled in golden brown curls, framing the teary-eyed, vulnerable face of a young lady in desperate need of a knight's kind, professional rescue.)"
+	say player "('Oh, a knight! I'm so glad you're here,' she'd said, 'I just don't feel safe at night knowing those monsters are traipsing about the town...')"
+	say player "('No doubt aiming to burgal my quarters and... steal away my three boys.')"
+	say player "(At this, her eyes sparkled with tears.)"
+	walk_block player chair 3 true false false false 15
+	say player "('Isn't there anything you can do? My mama always told tales of the Knights of Harvest and their bravery.')"
+	#sip coffee animation
+	say player "(I gave a sideways glance toward the meadow she was pointing. A looming gang of beasts made their way out of the forest brush, the sun shrouded in orange haze behind them.)"
+	say player "(Chuckling, I figured I could solve one more crime before heading home for the day.)"
+	say player "(Drawing my sword, I--)"
 
-	#sound effect of Archie coming down hallway
+	cut_scene sound footsteps
 
-	cut_scene camera camera_pan_downward
-	say Archie "The intern! Where's the-- Oh, what the--?!" Archie_default
-	cut_scene camera camera_pan_upward
+	say player "!!"
 
-	say player "there is a bug with punctuation....!!!" player_embarrassed
+	cut_scene camera camera_pan_down
+	say archie "Kid! Hey, where's the rookie at?" archie_default
+	cut_scene camera camera_pan_center_up
 
-	teleport_pos Archie 650 750
-	walk_block Archie player 3 false true false false 200
-	cut_scene camera camera_center_conversation_up
-	say Archie "Are you drinking my coffee?"
+	say player "GUH....!!!" player_embarrassed
+
+	teleport_pos archie 670 650
+	walk_block archie player 5 false true false false 0
+	say archie "Are you drinking my coffee?"
 
 	#player sets down coffee/animation finishes
+	#player moves to be near archie
+	say player "Uh, I'll-- I'll get you another!"
 
-	say Archie "*sigh*... You can get me another on your way out."
+	#animation of archie fixing the blinds then sitting down
+	say archie "*sigh*... No, no... I'll make another brew myself. You know, I've really taken to a particular ratio of a certain blend--"
+	say archie "I've never seen anyone get it quite right! Better to do something yourself if you want it done right, that's what I always say."
 
-	#Archie pulls up blinds and sits down
-
-	say Archie "In any case, rookie! I've got your very first case to investigate, so listen up!"
-	say player "Oh squash! Are you serious? My own case?" player_embarrassed
-	say Archie "Do I look like someone who tells jokes, rookie? Of course I'm serious! We're completely strapped for resources,"
-	say Archie "the whole team's assigned out on critical cases downstream. So we're sending you to investigate the Waldorf theft..."
-	say Archie "I see you've already acquainted yourself with the case files."
-	say player "Does this mean -- ?! Am I finally -- ?!?!? Oh no, it's happening... I'm not prepared for this..."
-	say Archie "Calm down, rookie! You may have an assignment, but you're not an officer yet!"
-	say player "But...?"
-	say Archie "You're strictly tasked with INVESTIGATION. No funny business, no deal brokering, no arrests or altercations, got it? Just information gathering."
-	say Archie "You'll want to gather as much EVIDENCE from the scene of the crime as possible and record any CLUES you can gather from talking with Ms. Waldorf."
-	say Archie "Just take a look at these case files when you're ready to go."
-
+	camera_to_player camera
 	set_global archie_intro_cutscene true

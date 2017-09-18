@@ -25,11 +25,20 @@ func _walk(params, block):
 		speed = int(params[2])
 	if block:
 		current_context.waiting = true
-		vm.game.get_object(params[0]).walk(tpos, speed, current_context, params[3], params[4], params[5], params[6], int(params[7]))
+		var obj = vm.game.get_object(params[0])
+		obj.walk(tpos, speed, current_context, params[3], params[4], params[5], params[6], int(params[7]))
 		return vm.state_yield
 	else:
 		vm.game.get_object(params[0]).walk(tpos, speed, current_context, params[3], params[4], params[5], params[6], int(params[7]))
 		return vm.state_return
+
+func camera_to_player(params):
+	var obj = vm.game.get_object(params[0])
+	current_context.waiting = true
+	if obj.get_name() == "Camera2D":
+		var tween = obj.get_node("tween")
+		tween.interpolate_property(obj, "transform/pos", obj.get_pos(), Vector2(0, 0), 1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+		tween.start()
 
 ### commands
 

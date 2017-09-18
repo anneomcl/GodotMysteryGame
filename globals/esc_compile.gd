@@ -28,6 +28,7 @@ var commands = {
 	"walk_obj": { "min_args": 3, "types": [TYPE_STRING, TYPE_STRING, TYPE_BOOL] },
 	"walk_xy": { "min_args": 4, "types": [TYPE_STRING, TYPE_STRING, TYPE_STRING, TYPE_BOOL] },
 	"walk_block": { "min_args": 2 },
+	"camera_to_player": { "min_args": 1 },
 	"change_scene": { "min_args": 1, "types": [TYPE_STRING] },
 	"spawn": { "min_args": 3, "types": [TYPE_STRING, TYPE_INT, TYPE_INT] },
 	"%": { "alias": "label", "min_args": 1},

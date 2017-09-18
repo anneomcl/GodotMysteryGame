@@ -1,8 +1,7 @@
 :use
 debug "this is the 'use' event for Archie!"
 
-> [intro]
-	set_global intro false
+> [!spoke_to_archie]
 	say archie "Hey kid, you need to solve this mystery!"
 	set_global c/archie2 true
 	say archie "My cookies were stolen, along with my largest ceramic platter!"
@@ -15,7 +14,6 @@ debug "this is the 'use' event for Archie!"
 	say player "So, look around the kitchen?" player_default
 	say archie "Right. Then question everyone in the office. Paint a picture of everything that happened, find the truth."
 	say archie "Come back after you've gathered more clues, and we'll go from there."
-	set_global intro false
 	set_global spoke_to_archie true
 	stop
 
@@ -117,7 +115,6 @@ debug "this is the 'use' event for Archie!"
 							set_global nevermind true
 					repeat [!nevermind]
 					set_global nevermind false
-			repeat
 			- "Any tips?"
 				say player "Do you have any tips for me?"
 				say archie "I'd recommend you study up. The bookshelf back there has all of my old textbooks from my trainee days. You can check out the library as well."
