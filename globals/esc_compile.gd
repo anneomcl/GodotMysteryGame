@@ -4,6 +4,8 @@ const val_global = 2
 
 const event_allow_param_names = false
 
+var is_comment_block = false
+
 var commands = {
 	"set_global": { "min_args": 2, "types": [TYPE_STRING, TYPE_BOOL] },
 	"set_value": { "min_args": 3, "lvalues": 1 },
@@ -25,9 +27,8 @@ var commands = {
 	"wait": { "min_args": 1, "types": [TYPE_REAL] },
 	"teleport": { "min_args": 2 },
 	"teleport_pos": { "min_args": 3 },
-	"walk_obj": { "min_args": 3, "types": [TYPE_STRING, TYPE_STRING, TYPE_BOOL] },
-	"walk_xy": { "min_args": 4, "types": [TYPE_STRING, TYPE_STRING, TYPE_STRING, TYPE_BOOL] },
 	"walk_block": { "min_args": 2 },
+	"walk": { "min_args": 2 },
 	"camera_to_player": { "min_args": 1 },
 	"change_scene": { "min_args": 1, "types": [TYPE_STRING] },
 	"spawn": { "min_args": 3, "types": [TYPE_STRING, TYPE_INT, TYPE_INT] },
@@ -115,6 +116,15 @@ func read_line(state):
 			return
 
 func is_comment(line):
+	if line.length() >= 2 and line[0] == "/" and line[1] == "*":
+		is_comment_block = true
+		return true
+	if line.length() >= 2 and line[0] == "*" and line[1] == "/":
+		is_comment_block = false
+		return true
+	if is_comment_block:
+		return true
+
 	for i in range(0, line.length()):
 		var char = line[i]
 		if char == "#":

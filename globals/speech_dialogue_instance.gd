@@ -227,6 +227,9 @@ func _ready():
 	
 	vm = get_tree().get_root().get_node("vm")
 	
+	if context != null:
+		clear_dialogue()
+	
 	container = get_node("anchor/scroll/container")
 	container.set_stop_mouse(false)
 	

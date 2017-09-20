@@ -28,7 +28,7 @@ events_path = "res://scenes/test/SquashToArchie.esc"
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 15.1608, 0, 0, 7.90535, 2.26794, -25.1196 )
+shapes/0/transform = Matrix32( 15, 0, 0, 7, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -39,8 +39,7 @@ bounce = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 
-transform/pos = Vector2( 2.26794, -25.1196 )
-transform/scale = Vector2( 15.1608, 7.90535 )
+transform/scale = Vector2( 15, 7 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0

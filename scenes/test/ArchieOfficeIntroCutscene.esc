@@ -2,7 +2,7 @@
 
 debug "this is the 'load' event for the door to archie's office!"
 
-set_global archie_intro_cutscene true
+#set_global archie_intro_cutscene true
 
 > [archie_intro_cutscene]
 	camera_to_player camera
@@ -13,7 +13,7 @@ set_global archie_intro_cutscene true
 	teleport_pos player 670 -80
 	teleport_pos archie -1000 -80
 	cut_scene camera camera_idle_below
-
+/*
 	#animation of player sipping coffee
 	say player "(It was a Tuesday evening when I met Theresa Waldorf for the first time.)"
 	cut_scene camera camera_pan_up
@@ -21,7 +21,9 @@ set_global archie_intro_cutscene true
 	say player "('Oh, a knight! I'm so glad you're here,' she'd said, 'I just don't feel safe at night knowing those monsters are traipsing about the town...')"
 	say player "('No doubt aiming to burgal my quarters and... steal away my three boys.')"
 	say player "(At this, her eyes sparkled with tears.)"
-	walk_block player chair 3 true false false false 15
+*/
+	walk_block player chair 3 true false false false 30
+/*
 	say player "('Isn't there anything you can do? My mama always told tales of the Knights of Harvest and their bravery.')"
 	#sip coffee animation
 	say player "(I gave a sideways glance toward the meadow she was pointing. A looming gang of beasts made their way out of the forest brush, the sun shrouded in orange haze behind them.)"
@@ -31,7 +33,7 @@ set_global archie_intro_cutscene true
 	cut_scene sound footsteps
 
 	say player "!!"
-
+*/
 	cut_scene camera camera_pan_down
 	say archie "Kid! Hey, where's the rookie at?" archie_default
 	cut_scene camera camera_pan_center_up
@@ -39,16 +41,23 @@ set_global archie_intro_cutscene true
 	say player "GUH....!!!" player_embarrassed
 
 	teleport_pos archie 670 650
-	walk_block archie player 5 false true false false 0
+	walk_block archie player 3 false true false false 400
 	say archie "Are you drinking my coffee?"
 
 	#player sets down coffee/animation finishes
-	#player moves to be near archie
+	walk_block player upper_right 6 false false false false 0
 	say player "Uh, I'll-- I'll get you another!"
+	walk_block player lower_right 6 false false false false 0
 
-	#animation of archie fixing the blinds then sitting down
+	camera_to_player archie
+	walk_block archie near_window 4 false false false false 0
+	#animation: archie fixes blinds
 	say archie "*sigh*... No, no... I'll make another brew myself. You know, I've really taken to a particular ratio of a certain blend--"
+	
+	walk_block archie chair 3 false false false false 0
 	say archie "I've never seen anyone get it quite right! Better to do something yourself if you want it done right, that's what I always say."
+	
+	walk_block player chair_lower 6 true false false false 50
 
-	camera_to_player camera
+	camera_to_player player
 	set_global archie_intro_cutscene true

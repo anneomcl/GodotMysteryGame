@@ -25,7 +25,7 @@ export var talk_animation = "talk"
 func _process(time):
 	if task == "walk":
 		walk_direction = walk_destination - get_pos()
-		if(walk_direction.x < 1 && walk_direction.y < 1):
+		if(abs(walk_direction.x) < 5 && abs(walk_direction.y) < 5):
 			task = null
 			set_process(false)
 			if walk_context != null:

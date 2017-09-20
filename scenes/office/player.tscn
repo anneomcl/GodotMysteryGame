@@ -9,7 +9,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 
 resource/name = "camera_center_up"
 length = 2.0
@@ -26,7 +26,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 680 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 
 resource/name = "camera_idle"
 length = 1.0
@@ -43,7 +43,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 
 resource/name = "camera_pan_down"
 length = 1.0
@@ -60,14 +60,14 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 1000 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 
 resource/name = "camera_pan_down"
 length = 2.0
 loop = false
 step = 0.1
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 
 resource/name = "camera_pan_up"
 length = 2.0
@@ -84,7 +84,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 1000 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=7]
 
 custom_solver_bias = 0.0
 extents = Vector2( 63.0992, 114.53 )
@@ -142,11 +142,11 @@ events_path = ""
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/camera_center_up = SubResource( 3 )
-anims/camera_idle = SubResource( 4 )
-anims/camera_idle_down = SubResource( 5 )
-anims/camera_pan_down = SubResource( 6 )
-anims/camera_pan_up = SubResource( 7 )
+anims/camera_center_up = SubResource( 2 )
+anims/camera_idle = SubResource( 3 )
+anims/camera_idle_down = SubResource( 4 )
+anims/camera_pan_down = SubResource( 5 )
+anims/camera_pan_up = SubResource( 6 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -173,7 +173,7 @@ _update_shape_index = 0
 [node name="area" type="Area2D" parent="."]
 
 input/pickable = false
-shapes/0/shape = SubResource( 2 )
+shapes/0/shape = SubResource( 7 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, -0.215581, 0.0353317 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -184,7 +184,7 @@ angular_damp = 1.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="area"]
 
 transform/pos = Vector2( -0.215581, 0.0353317 )
-shape = SubResource( 2 )
+shape = SubResource( 7 )
 trigger = false
 _update_shape_index = 0
 

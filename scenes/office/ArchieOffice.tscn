@@ -14,7 +14,7 @@
 [ext_resource path="res://scenes/office/Bookshelf.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/office/sounds/footsteps.wav" type="Sample" id=13]
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=1]
 
 resource/name = "camera_idle_below"
 length = 1.0
@@ -31,7 +31,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 1000 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=2]
 
 resource/name = "camera_pan_center_up"
 length = 1.0
@@ -48,7 +48,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 1000 ), Vector2( 0, 300 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 
 resource/name = "camera_pan_down"
 length = 1.0
@@ -65,12 +65,12 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 1000 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=4]
 
 custom_solver_bias = 0.0
 extents = Vector2( 108.707, 68.5175 )
 
-[sub_resource type="SampleLibrary" id=8]
+[sub_resource type="SampleLibrary" id=5]
 
 samples/footsteps = {
 "db": 0.0,
@@ -79,7 +79,7 @@ samples/footsteps = {
 "sample": ExtResource( 13 )
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=6]
 
 resource/name = "footsteps"
 length = 1.5
@@ -123,7 +123,7 @@ texture = ExtResource( 3 )
 [node name="player" parent="." instance=ExtResource( 4 )]
 
 editor/display_folded = true
-transform/pos = Vector2( 670, 650 )
+transform/pos = Vector2( 670, 620 )
 
 [node name="Camera2D" parent="player"]
 
@@ -131,9 +131,9 @@ transform/pos = Vector2( 0, 267.232 )
 
 [node name="animation" parent="player/Camera2D"]
 
-anims/camera_idle_below = SubResource( 6 )
-anims/camera_pan_center_up = SubResource( 7 )
-anims/camera_pan_down = SubResource( 5 )
+anims/camera_idle_below = SubResource( 1 )
+anims/camera_pan_center_up = SubResource( 2 )
+anims/camera_pan_down = SubResource( 3 )
 
 [node name="area" parent="player"]
 
@@ -147,6 +147,17 @@ texture = ExtResource( 5 )
 script/script = ExtResource( 6 )
 active = true
 global_id = "chair"
+talk_animation = "talk"
+events_path = ""
+
+[node name="chair_lower" type="Sprite" parent="."]
+
+transform/pos = Vector2( 670, 465.425 )
+transform/scale = Vector2( 1.24837, 0.981331 )
+texture = ExtResource( 5 )
+script/script = ExtResource( 6 )
+active = true
+global_id = "chair_lower"
 talk_animation = "talk"
 events_path = ""
 
@@ -173,7 +184,7 @@ texture = ExtResource( 8 )
 
 transform/pos = Vector2( 647.599, 475.216 )
 input/pickable = false
-shapes/0/shape = SubResource( 1 )
+shapes/0/shape = SubResource( 4 )
 shapes/0/transform = Matrix32( 2.3, 0, 0, 0.799515, 1.99994, -35.5086 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -187,11 +198,13 @@ bounce = 0.0
 
 transform/pos = Vector2( 1.99994, -35.5086 )
 transform/scale = Vector2( 2.3, 0.799515 )
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 trigger = false
 _update_shape_index = 0
 
 [node name="Walls" type="Node" parent="."]
+
+editor/display_folded = true
 
 [node name="TestWall" parent="Walls" instance=ExtResource( 9 )]
 
@@ -228,17 +241,23 @@ transform/scale = Vector2( 1.03054, 1.18127 )
 [node name="Door" parent="Walls" instance=ExtResource( 10 )]
 
 transform/pos = Vector2( 650, 800 )
-transform/scale = Vector2( 1, 0.299097 )
+transform/scale = Vector2( 1, 0.3 )
+global_id = ""
 events_path = "res://scenes/office/esc_scripts/ArchieToSquashSquad.esc"
 
 [node name="Archie" parent="." instance=ExtResource( 11 )]
 
+editor/display_folded = true
 transform/pos = Vector2( 670, 105 )
 
 [node name="CollisionShape2D" parent="Archie/StaticBody2D"]
 
 transform/pos = Vector2( -1.14469, -131.023 )
 transform/scale = Vector2( 17.5191, 20.4345 )
+
+[node name="CollisionShape2D" parent="Archie/Area2D"]
+
+transform/pos = Vector2( 0, 300 )
 
 [node name="Bookshelf" parent="." instance=ExtResource( 12 )]
 
@@ -255,7 +274,7 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 1
-config/samples = SubResource( 8 )
+config/samples = SubResource( 5 )
 config/pitch_random = 0.0
 script/script = ExtResource( 6 )
 active = true
@@ -268,11 +287,40 @@ events_path = ""
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/footsteps = SubResource( 9 )
+anims/footsteps = SubResource( 6 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
+
+[node name="event_positions" type="Node" parent="."]
+
+[node name="upper_right" type="Position2D" parent="event_positions"]
+
+transform/pos = Vector2( 1100, 60 )
+script/script = ExtResource( 6 )
+active = true
+global_id = "upper_right"
+talk_animation = "talk"
+events_path = ""
+
+[node name="lower_right" type="Position2D" parent="event_positions"]
+
+transform/pos = Vector2( 1100, 500 )
+script/script = ExtResource( 6 )
+active = true
+global_id = "lower_right"
+talk_animation = "talk"
+events_path = ""
+
+[node name="near_window" type="Position2D" parent="event_positions"]
+
+transform/pos = Vector2( 670, -80 )
+script/script = ExtResource( 6 )
+active = true
+global_id = "near_window"
+talk_animation = "talk"
+events_path = ""
 
 
 [editable path="player"]
