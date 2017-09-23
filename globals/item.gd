@@ -9,7 +9,7 @@ func interact(params):
 		vm.run_event(event_table.use, {})
 
 func _input(ev):
-	if ev.is_action_pressed("use") and !vm.ui_active:
+	if ev.is_action_pressed("use") and vm.can_interact():
 		if has_node("Area2D") and get_node("Area2D").get_overlapping_areas().has(vm.game.current_player.get_node("area")):
 			interact(null)
 

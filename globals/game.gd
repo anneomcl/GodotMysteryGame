@@ -54,9 +54,11 @@ func object_exit_scene(name):
 		#objects.erase(name)
 
 func say(params, level):
+	vm.set_ui_active(true)
 	get_node("speech_dialogue_player").start(params, level, false)
 
 func dialog(params, level):
+	vm.set_ui_active(true)
 	get_node("speech_dialogue_player").start(params, level, true)
 
 func _process(time):

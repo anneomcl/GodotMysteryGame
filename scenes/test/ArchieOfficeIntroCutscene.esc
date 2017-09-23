@@ -33,13 +33,14 @@ debug "this is the 'load' event for the door to archie's office!"
 	cut_scene sound footsteps
 
 	say player "!!"
-*/
+
 	cut_scene camera camera_pan_down
 	say archie "Kid! Hey, where's the rookie at?" archie_default
 	cut_scene camera camera_pan_center_up
 
 	say player "GUH....!!!" player_embarrassed
-
+*/
+	camera_to_player player
 	teleport_pos archie 670 650
 	walk_block archie player 3 false true false false 400
 	say archie "Are you drinking my coffee?"
@@ -57,7 +58,53 @@ debug "this is the 'load' event for the door to archie's office!"
 	walk_block archie chair 3 false false false false 0
 	say archie "I've never seen anyone get it quite right! Better to do something yourself if you want it done right, that's what I always say."
 	
-	walk_block player chair_lower 6 true false false false 50
+	cut_scene camera camera_idle
+	walk_block player chair_lower 6 true false false false -100
 
-	camera_to_player player
+	say archie "But that's quite the opposite of why I'm here! Listen up, rookie!"
+	say archie "We're strapped for resources, and we've found ourselves in a big pickle, a pickle that's potentially catastrophic to our entire operation"
+
+	say player "?????"
+	say archie "There aren't too many ways to say this so I'm gonna give it to ya straight: I laid out a fresh batch of my famous family recipe of lemon butter spritz cookies in the kitchen"
+	say player "And???"
+	say archie "And someone stole them."
+	say player "Oh squash! Who??"
+	say player "Hmm..."
+	say player "And how do you know they were definitely stolen?"
+	say archie "I put a plate on the table, a plate I crafted and *hand-painted* myself by the way, and it's gone!"
+	say archie "Where did it go? That's what I need you to find out, kid! I know it's your first day, and it's nearly 5 o'clock, but--"
+	say player "!!!!!!!"
+	say player "Wait, is it happening? Oh parsnips and peas... It's happening...!!"
+	say player "Is this... My first case?"
+	say archie "Let's sit down for a bit."
+	walk_block player chair_lower 6 true false false false 50
+	say archie "Kid-- Uh. Junior Officer Abigail. I know it may seem, what's the word..."
+	say archie "Trivial."
+	say player "Uh-huh."
+	say archie "It may seem trivial to search for a platter of cookies when the world is filled with PESTILENCE and EVIL..."
+	say archie "But if anyone in my squad was found to be a thief, (a petty thief as a small crimes officer!), that would desecrate every honor anointed to us by the Harvest Knights themselves."
+	say player "Yeah...!"
+	say archie "I expect you to use every skill and resource at hand to find the truthful core of this theft, your work could valiantly lance a nodule of impurity from our ranks."
+	say player "!!...." #punctuation
+	say player "I'm..."
+	say player "SO READY FOR THIS!"
+	say player "My first case is to enforce justice on the enforcers of justice!"
+	say player "Wow, I'm moving up even more quickly than I ever could've anticipated!"
+	say archie "Don't lose sight of the task at hand! Let your actions show your passion for justice!"
+	say archie "Now I'm assuming you've learned the common procedures and laws of the kingdom..."
+	say player "Uh, not exactly..."
+	say archie "??"
+	say player "I... just need to review! Just need a quick run-down and I'm sure I'll figure it out."
+	say archie "Alright, if you need pointers, take a look at the books in my bookshelf or go to the LIBRARY."
+	say archie "For now, start by checking out the scene of the crime and talking to potential witnesses."
+	say archie "The first step is gathering information."
+	say player "Alright, got it. Will do."
+	#player walks away, then comes back and salutes
+	#archie salutes
+
+	say default "(Received Case 01: Lemon Butter Spritz)"
+	say default "Issuer: Archibald S."
+	say default "Complaint: Missing artisanally  crafted ceramic platter and home-made family legacy lemon butter spritz cookies."
+	say default "Location/Time: Initially left cookies in Squash Squad Office No. 3, Kitchen. 4PM. Discovered missing at 4:30PM."
+
 	set_global archie_intro_cutscene true

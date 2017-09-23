@@ -34,11 +34,12 @@ func _walk(params, block):
 
 func camera_to_player(params):
 	var obj = vm.game.get_object(params[0])
-	var tween = vm.game.current_player.get_node("Camera2D/tween").duplicate()
-	obj.add_child(tween)
+	var tween = vm.game.current_player.get_node("Camera2D/tween")
+	var camera_obj = vm.game.current_player.get_node("Camera2D")
 	current_context.waiting = true
-	tween.interpolate_property(obj, "transform/pos", obj.get_pos(), Vector2(0, 0), 1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.interpolate_property(camera_obj, "transform/pos", camera_obj.get_pos(), (obj.get_pos() - vm.game.current_player.get_pos()), 1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
+	return vm.state_return
 
 ### commands
 
