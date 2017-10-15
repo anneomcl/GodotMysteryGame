@@ -8,6 +8,9 @@ var player_camera_zoom = Vector2(1.25, 1.25)
 
 var inventory = []
 
+var camera_locked = false
+var camera_pos = Vector2(0, 0)
+
 var canMove = true
 
 func _ready():
@@ -20,6 +23,15 @@ func _ready():
 func _fixed_process(delta):
 	if(vm.can_interact()):
 		move_player()
+	if(camera_locked):
+		get_node("Camera2D").set_global_pos(camera_pos)
+
+func lock_camera(isLocked):
+	if isLocked:
+		camera_pos = get_node("Camera2D").get_global_pos()
+	else:
+		get_node("Camera2D").set_pos(Vector2(0, 0))
+	camera_locked = isLocked
 
 func _input(event):
 	if(vm.can_interact() and event.is_action_pressed("use")):

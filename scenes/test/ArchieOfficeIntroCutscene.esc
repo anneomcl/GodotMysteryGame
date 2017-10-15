@@ -2,33 +2,55 @@
 
 debug "this is the 'load' event for the door to archie's office!"
 
-#set_global archie_intro_cutscene true
+set_global archie_intro_cutscene true
+set_global spoke_to_archie true
+set_global c/archie1 true
+set_global c/archie3 true
+set_global c/archie4 true
+set_global c/archie5 true
+set_global c/archie6 true
+
+set_global c/bee1 true
+set_global c/bee2 true
+set_global c/bee3 true
+set_global c/bee4 true
+
+set_global c/eyy1 true
+set_global c/eyy2 true
+
+set_global c/secretary1 true
+set_global c/library1 true
+set_global c/library2 true
+set_global c/library3 true
+
+set_global c/office1 true
+set_global c/office2 true
 
 > [archie_intro_cutscene]
-	camera_to_player camera
+	camera_to_player player
 	teleport_pos archie 670 105
 	teleport_pos player 670 650
 
 > [!archie_intro_cutscene]
 	teleport_pos player 670 -80
 	teleport_pos archie -1000 -80
-	cut_scene camera camera_idle_below
-/*
+	#cut_scene camera camera_idle_below
+
 	#animation of player sipping coffee
-	say player "(It was a Tuesday evening when I met Theresa Waldorf for the first time.)"
+	say player "(It was a Tuesday evening when I met Theresa Waldorf for the first time.)" player_secret
 	cut_scene camera camera_pan_up
-	say player "(Her hair rippled in golden brown curls, framing the teary-eyed, vulnerable face of a young lady in desperate need of a knight's kind, professional rescue.)"
-	say player "('Oh, a knight! I'm so glad you're here,' she'd said, 'I just don't feel safe at night knowing those monsters are traipsing about the town...')"
-	say player "('No doubt aiming to burgal my quarters and... steal away my three boys.')"
-	say player "(At this, her eyes sparkled with tears.)"
-*/
+	say player "(Her hair rippled in golden brown curls, framing the teary-eyed, vulnerable face of a young lady in desperate need of a knight's kind, professional rescue.)" player_secret
+	say player "('Oh, a knight! I'm so glad you're here,' she'd said, 'I just don't feel safe at night knowing those monsters are traipsing about the town...')" player_secret
+	say player "('No doubt aiming to burgal my quarters and... steal away my three boys.')" player_secret
+	say player "(At this, her eyes sparkled with tears.)" player_secret
+
 	walk_block player chair 3 true false false false 30
-/*
-	say player "('Isn't there anything you can do? My mama always told tales of the Knights of Harvest and their bravery.')"
+
+	say player "('Isn't there anything you can do? My mama always told tales of the Knights of Harvest and their bravery.')" player_secret
 	#sip coffee animation
-	say player "(I gave a sideways glance toward the meadow she was pointing. A looming gang of beasts made their way out of the forest brush, the sun shrouded in orange haze behind them.)"
-	say player "(Chuckling, I figured I could solve one more crime before heading home for the day.)"
-	say player "(Drawing my sword, I--)"
+	say player "(I gave a sideways glance toward the meadow she was pointing. A looming gang of beasts made their way out of the forest brush, the sun shrouded in orange haze behind them.)" player_secret
+	say player "(Chuckling, I figured I could solve one more crime before heading home for the day.)" player_secret
+	say player "(Drawing my sword, I--)" player_secret
 
 	cut_scene sound footsteps
 
@@ -39,7 +61,7 @@ debug "this is the 'load' event for the door to archie's office!"
 	cut_scene camera camera_pan_center_up
 
 	say player "GUH....!!!" player_embarrassed
-*/
+
 	camera_to_player player
 	teleport_pos archie 670 650
 	walk_block archie player 3 false true false false 400
@@ -50,7 +72,7 @@ debug "this is the 'load' event for the door to archie's office!"
 	say player "Uh, I'll-- I'll get you another!"
 	walk_block player lower_right 6 false false false false 0
 
-	camera_to_player archie
+	camera_to_player center
 	walk_block archie near_window 4 false false false false 0
 	#animation: archie fixes blinds
 	say archie "*sigh*... No, no... I'll make another brew myself. You know, I've really taken to a particular ratio of a certain blend--"
@@ -58,7 +80,7 @@ debug "this is the 'load' event for the door to archie's office!"
 	walk_block archie chair 3 false false false false 0
 	say archie "I've never seen anyone get it quite right! Better to do something yourself if you want it done right, that's what I always say."
 	
-	cut_scene camera camera_idle
+	static_camera true
 	walk_block player chair_lower 6 true false false false -100
 
 	say archie "But that's quite the opposite of why I'm here! Listen up, rookie!"
@@ -84,8 +106,9 @@ debug "this is the 'load' event for the door to archie's office!"
 	say archie "It may seem trivial to search for a platter of cookies when the world is filled with PESTILENCE and EVIL..."
 	say archie "But if anyone in my squad was found to be a thief, (a petty thief as a small crimes officer!), that would desecrate every honor anointed to us by the Harvest Knights themselves."
 	say player "Yeah...!"
+
 	say archie "I expect you to use every skill and resource at hand to find the truthful core of this theft, your work could valiantly lance a nodule of impurity from our ranks."
-	say player "!!...." #punctuation
+	say player "...!!" 
 	say player "I'm..."
 	say player "SO READY FOR THIS!"
 	say player "My first case is to enforce justice on the enforcers of justice!"
@@ -107,4 +130,12 @@ debug "this is the 'load' event for the door to archie's office!"
 	say default "Complaint: Missing artisanally  crafted ceramic platter and home-made family legacy lemon butter spritz cookies."
 	say default "Location/Time: Initially left cookies in Squash Squad Office No. 3, Kitchen. 4PM. Discovered missing at 4:30PM."
 
+	set_global c/archie1 true
+	#set_global c/archie2 true
+	set_global c/archie3 true
+
+	camera_to_player player
+	static_camera false
+
+	set_global spoke_to_archie true
 	set_global archie_intro_cutscene true

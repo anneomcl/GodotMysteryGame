@@ -46,6 +46,8 @@ const clues = [
 	{ "id": "eyy4", "title": "Eyy quickly ate a handful of cookies over the table and ran to the bathroom. He didn't come out until at least 4:30PM" },
 	{ "id": "eyy5", "title" : "Eyy has had indigestion, sudden impulses, and fatigue in the past few weeks."},
 	{ "id": "library1", "title": "Lemon fairies are known to be annoying and troubling for people, in the worst case some people are never able to leave their house.." },
+	{ "id": "library2", "title": "The ledger says that only Abigail, Archie, Andre, and Bea entered or exited for the entire day." },
+	{ "id": "library3", "title": "The suspect could have broken into the library and modified the ledger."},
 	{ "id": "kitchen1", "title": "There is brown liquid and there are traces of coffee grounds in the sink." },
 	{ "id": "kitchen2", "title": "There are crumbs all over the table." },
 	{ "id": "bee1", "title": "Bee was in the break room at 4PM, washing her coffee mug in the sink." },

@@ -1,11 +1,10 @@
-[gd_scene load_steps=11 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://globals/speech_dialogue_instance.gd" type="Script" id=1]
 [ext_resource path="res://scenes/test/DialogueBackground.png" type="Texture" id=2]
-[ext_resource path="res://character/avatars/default.png" type="Texture" id=3]
-[ext_resource path="res://ui/font/dialogue_default.fnt" type="BitmapFont" id=4]
-[ext_resource path="res://ui/Cursor.tscn" type="PackedScene" id=5]
-[ext_resource path="res://ui/graphics/relationLinecontradicts.png" type="Texture" id=6]
+[ext_resource path="res://ui/font/dialogue_default.fnt" type="BitmapFont" id=3]
+[ext_resource path="res://ui/Cursor.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/graphics/relationLinecontradicts.png" type="Texture" id=5]
 
 [sub_resource type="Animation" id=1]
 
@@ -156,6 +155,8 @@ mouse_exit_shadow_color = Color( 1, 1, 1, 1 )
 
 [node name="anchor" type="Node2D" parent="."]
 
+transform/scale = Vector2( 1, 1e-05 )
+
 [node name="bg" type="TextureFrame" parent="anchor"]
 
 visibility/opacity = 0.6
@@ -173,6 +174,7 @@ stretch_mode = 0
 
 [node name="scroll" type="ScrollContainer" parent="anchor"]
 
+editor/display_folded = true
 rect/min_size = Vector2( 800, 275 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -206,7 +208,6 @@ transform/scale = Vector2( 4.52689, 3.88018 )
 [node name="default" type="Sprite" parent="anchor/avatars"]
 
 transform/scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 3 )
 
 [node name="name" type="Label" parent="anchor/avatars"]
 
@@ -220,19 +221,16 @@ margin/left = -35.0
 margin/top = 30.0
 margin/right = 193.0
 margin/bottom = 62.0
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 3 )
 text = "name"
 align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="indicator" type="Position2D" parent="anchor"]
-
-transform/pos = Vector2( 700, 40 )
-
 [node name="item" type="Control" parent="."]
 
+editor/display_folded = true
 rect/min_size = Vector2( 800, 29 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -273,7 +271,7 @@ margin/left = 50.0
 margin/top = 0.0
 margin/right = 750.0
 margin/bottom = 250.0
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "I should pick option one"
@@ -282,13 +280,13 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="cursor" parent="item" instance=ExtResource( 5 )]
+[node name="cursor" parent="item" instance=ExtResource( 4 )]
 
 visibility/visible = true
 visibility/opacity = 1.0
 transform/pos = Vector2( 0, 15 )
 transform/scale = Vector2( 0.284009, 1.63048 )
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 
 [node name="animation" type="AnimationPlayer" parent="."]
 
@@ -303,5 +301,10 @@ playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
+
+[node name="indicator" type="Position2D" parent="."]
+
+transform/pos = Vector2( 725, 25 )
+transform/scale = Vector2( 1, 1e-05 )
 
 

@@ -1,11 +1,12 @@
 
 :use
-say player "Woah! I found the cookies!"
-say player "Does this mean we're case closed? Eyy did it?"
-say player "Wait a second... There's a bunch of other stuff too..."
-say player "A can of avgolemono soup, Xixi Lemony Fresh Wood Varnish, the cookies and the plate... and then a crumple of papers with yellow marks all over."
-say player "There has to be more to this... I doubt Eyy just wanted to hoard the cookies, if it was him."
-say player "Always be skeptical until you can prove the truth. Right. *nod*"
-set_global i/office1 true
-set_global c/office1 true
-set_active office1 false
+> [has_keys]
+	say player "Woah! I found the cookies!"
+	say player "Does this mean we're case closed? Eyy did it?"
+	say player "Wait a second... There's a bunch of other stuff too..."
+	say player "A can of avgolemono soup, Xixi Lemony Fresh Wood Varnish, the cookies and the plate... and then a crumple of papers with yellow marks all over."
+	say player "There has to be more to this... I doubt Eyy just wanted to hoard the cookies, if it was him."
+	say player "Always be skeptical until you can prove the truth. Right. *nod*"
+	set_global i/office1 true
+	set_global c/office1 true
+	set_active office1 false

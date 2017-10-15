@@ -25,7 +25,7 @@ debug "this is the 'use' event for B!"
 			set_global bee_everyone_out true
 			say player "Anyway, you say you were in there around 4PM. Was anyone else in there? Or heading in? Heading out?"
 			say bee "Well Archie came in with his newest baked good... lemon cookies? And then Eyy came in just as Archie went out. And then I left soon after Eyy came in."
-			say bee "//...Yeah, I'm pretty sure that's how it went. Oh, I also took a cookie on the way out, if that's relevant. I wasn't paying too much attention though, if you know what I mean."
+			say bee "...Yeah, I'm pretty sure that's how it went. Oh, I also took a cookie on the way out, if that's relevant. I wasn't paying too much attention though, if you know what I mean."
 			say player "Hm, yeah... makes sense. So what time did you leave then? If you had to guess?"
 			say bee "I was in there for maybe 5 minutes?"
 			say player "*nod* *nod* Hmmm, yes, yes..."
@@ -42,7 +42,9 @@ debug "this is the 'use' event for B!"
 			set_global c/bee4 true
 
 		- "Do you have any tips for me?"
-			say bee "NO"
+			say player "It's my first case, and I just started, I was wondering if you had any advice or--"
+			say bee "Oh would you look at that! Nearly 5 o'clock, need to wrap up quickly if we want to beat the evening rush!"
+			say player "Uh, right. Yeah."
 
 		- Nevermind
 			set_global nevermind true

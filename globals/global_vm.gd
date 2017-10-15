@@ -189,10 +189,15 @@ func jump(p_label):
 
 
 func test(cmd):
+	var result = false
 	if "if_true" in cmd:
 		for i in range(cmd.if_true.size()):
 			if !check_global(cmd.if_true[i]):
 				return false
+	if "if_true_or" in cmd:
+		for i in range(cmd.if_true_or.size()):
+			result = check_global(cmd.if_true_or[i]) or result
+		return result
 	if "if_false" in cmd:
 		for i in range(cmd.if_false.size()):
 			if check_global(cmd.if_false[i]):

@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://scenes/office/Room.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/office/player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/office/Archie.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/office/Archie.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/office/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/office/Desk.tscn" type="PackedScene" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 9.39997 )
 
 [node name="Library" type="Node"]
 
@@ -10,24 +16,72 @@
 
 editor/display_folded = true
 
+[node name="Floor" parent="Room"]
+
+transform/pos = Vector2( -8.87329, 173.608 )
+transform/scale = Vector2( 0.752015, 0.625239 )
+
+[node name="TestWall" parent="Room"]
+
+transform/pos = Vector2( -692.301, 177.042 )
+
+[node name="TestWall1" parent="Room"]
+
+transform/pos = Vector2( 662.685, 214.314 )
+
+[node name="TestWall2" parent="Room"]
+
+transform/pos = Vector2( -12.9265, -214.41 )
+
 [node name="DoorToArchie" parent="Room"]
 
 transform/rot = 180.0
 global_id = ""
 events_path = "res://scenes/outside/esc_scripts/LibraryToOutside.esc"
 
-[node name="player" parent="." instance=ExtResource( 2 )]
+[node name="Librarian" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 8.54114, 378.01 )
-
-[node name="Librarian" parent="." instance=ExtResource( 3 )]
-
-editor/display_folded = true
-transform/pos = Vector2( 568.943, -333.529 )
+transform/pos = Vector2( 9.86414, -67.9665 )
 global_id = "librarian"
 events_path = "res://character/esc_scripts/Librarian.esc"
+
+[node name="Area2D" parent="Librarian"]
+
+transform/scale = Vector2( 1, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Librarian/Area2D"]
+
+transform/pos = Vector2( 0, 50 )
+transform/scale = Vector2( 3.5, 5 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="player" parent="." instance=ExtResource( 3 )]
+
+editor/display_folded = true
+transform/pos = Vector2( 8.54114, 378.01 )
+
+[node name="CollisionShape2D" parent="player/area"]
+
+z/relative = false
+
+[node name="Desk" parent="." instance=ExtResource( 4 )]
+
+editor/display_folded = true
+transform/pos = Vector2( 18.636, 149.088 )
+
+[node name="StaticBody2D" parent="Desk"]
+
+transform/pos = Vector2( 0, 4.659 )
+
+[node name="CollisionShape2D" parent="Desk/StaticBody2D"]
+
+transform/pos = Vector2( 2.78955, -34.7301 )
 
 
 [editable path="Room"]
 [editable path="Room/DoorToArchie"]
 [editable path="Librarian"]
+[editable path="player"]
+[editable path="Desk"]

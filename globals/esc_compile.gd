@@ -30,6 +30,7 @@ var commands = {
 	"walk_block": { "min_args": 2 },
 	"walk": { "min_args": 2 },
 	"camera_to_player": { "min_args": 1 },
+	"static_camera": { "min_args": 1},
 	"change_scene": { "min_args": 1, "types": [TYPE_STRING] },
 	"spawn": { "min_args": 3, "types": [TYPE_STRING, TYPE_INT, TYPE_INT] },
 	"%": { "alias": "label", "min_args": 1},
@@ -259,8 +260,12 @@ func parse_flags(p_flags, if_true, if_false, if_inv, if_not_inv, values):
 		else:
 			flag = p_flags.substr(from, next - from)
 		flag = trim(flag)
-
-		if opr_check.find(flag) != -1:
+		
+		#TO-DO: generalize to any operators. Default is to "AND" bools
+		if (flag == "OR"):
+			#do nothing
+			print("no op")
+		elif opr_check.find(flag) != -1:
 			opr_match.find(flag)
 			var opr = opr_match.get_captures()[0]
 			var pos = flag.find(opr)
@@ -313,15 +318,20 @@ func read_dialog_option(state, level, errors):
 	var cmd = { "name": "*", "params": [question, []] }
 
 	if q_flags:
-		#printt("parsing flags ", q_flags, state.line)
 		var if_true = []
 		var if_false = []
 		var if_inv = []
 		var if_not_inv = []
+		var if_true_or = []
 		var values = []
-		parse_flags(q_flags, if_true, if_false, if_inv, if_not_inv, values)
+		if q_flags[1] == "O" and q_flags[2] == "R":
+			parse_flags(q_flags, if_true_or, if_true_or, if_inv, if_not_inv, values)
+		else:
+			parse_flags(q_flags, if_true, if_false, if_inv, if_not_inv, values)
 		if if_true.size():
 			cmd.if_true = if_true
+		if if_true_or.size():
+			cmd.if_true_or = if_true_or
 		if if_false.size():
 			cmd.if_false = if_false
 		if if_inv.size():
@@ -412,7 +422,7 @@ func param_parse(p_param):
 	var ret = p_param
 	if typeof(ret) != TYPE_STRING:
 		return ret
-	if p_param[0] == ".":
+	if p_param[0] == "::":
 		ret = [val_global, p_param]
 	elif p_param[0] == "$":
 		ret = [val_local, p_param.substr(1, p_param.length()-1)]

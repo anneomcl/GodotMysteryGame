@@ -3,7 +3,7 @@
 debug "this is the 'use' event for A!"
 
 > [c/eyy4]
-	say Eyy "//....................................."
+	say Eyy "....................................."
 	say player "I don't think he'll tell me anything new."
 
 > [c/office1]
@@ -24,20 +24,55 @@ debug "this is the 'use' event for A!"
 	stop
 > [!spoke_to_A]
 	say player "Hi A."
-	say Eyy "//..."
+	say Eyy "..."
 	say player "Uh... A?"
-	say Eyy "//..."
-	say player "It's so awkward asking him questions... I always feel like I'm interrupting some critical... something."
-	say player "Uh, I'm working on a case."
-	say Eyy "//...?"
-	say player "Could you tell me what you were doing between, maybe, 4PM and now?"
-	say Eyy "*He turns toward you*"
-	say Eyy "I was on my way to refill my Food Flask a bit after 4 o'clock. Otherwise I've been here."
-	say player "Did you see anyone in the kitchen? Anyone on their way in or out?"
-	say Eyy "I saw Archie walking out on my way in... And then Bee at the sink."
-	say player "So what did you do in the kitchen once you got there?"
-	say Eyy "blah"
-	set_global c/eyy1 true
-	set_global c/eyy2 true
+	say Eyy "...?"
+	say Eyy "Are you working on a case?"
+	say player "Yes, actually!"
+	say Eyy "A case on your first day, huh?"
+	say player "I'm plowing through the ranks, A! I'm on the fast track to success!"
+	say Eyy "..."
+	say player "...Right! And that's why I need to ask you some questions."
+	say Eyy "Me?"
+	say player "I'll cut to it: there's a thief among us!"
+	say player "I mean, there's a strong probability that a thief is among us, but I need to... vanquish evil."
+	say player "In any case, someone stole Archie's cookies from the break room!"
+	say Eyy "Hmm, that's not good. I'd be pretty disappointed if one of us did something so..."
+	say player "Petty?"
+	say Eyy "Yeah."
+	say Eyy "Ok, ask away."
+
+	>
+		?
+			- "Where were you between 4PM and now?" [c/archie3]
+				say player "Do you remember where you've been for the last hour or so?"
+				say Eyy "Here."
+				say player "What is this?"
+				say Eyy "A good detective always takes meticulous notes of where they are and what they're doing, at least every 30 minutes."
+				say Eyy "No reason to get yourself caught up in any misunderstandings if you can avoid it."
+				say player "Huh... Noted."
+				say player "Wow, you really did record yourself every 30 minutes of every day of the year."
+				say Eyy "With six hours free for sleeping."
+				say player "Glad you take that, uh, down time for yourself."
+				say player "In any case, according to this, at 4PM you went to the kitchen. You saw Archie exiting as you entered."
+				say player "You noticed cookies laid on the table, took one, and began to eat it while making a tea. After making the tea you returned to your desk."
+				say player "The next note is at 4:30PM, you say you're at your desk."
+				say Eyy "I was at my desk, working on the buzzing slime case, isn't that in there?"
+				say player "Right, at 4:30PM you were at your desk doing the preliminary paperwork for the buzzing slime case in preparation for your rounds the following day."
+				say Eyy "Hm."
+				say player "Did you notice anyone else in the kitchen while you were there?"
+				say Eyy "B was there. Washing something, I think."
+				say player "Any other details?"
+				say Eyy "Only what's in the book. But nothing relevant that comes to mind."
+				say player "Ok. Thanks, A."
+				set_global c/eyy1 true
+				set_global c/eyy2 true
+			- "Why are you on the Squash Squad?" [c/office2]
+			- "Have any tips for me?"
+			- "Nevermind"
+				stop
+		repeat
+
+
 
 	stop

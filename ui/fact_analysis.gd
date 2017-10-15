@@ -211,6 +211,8 @@ func update_points(parent, child, relation):
 		var child_points = parent_average
 		analysis_data.fact_relations[child]["points"] = child_points
 		get_node("c/" + child).get_node("ClueButton/points").set_text(str(child_points))
+	if(int(get_node("c/" + child).get_node("ClueButton/points").get_text()) >= 91):
+		vm.set_global(str("isSuspect" + child), true)
 
 func update_children_points(node):
 	var nodes = [node]

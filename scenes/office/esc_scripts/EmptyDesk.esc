@@ -1,0 +1,5 @@
+:use
+
+say player "This desk is empty... I guess there are more officers on the Squash Squad?"
+say player "I wonder where they are?"
+set_global checked_empty_desk true

@@ -1,0 +1,4 @@
+:use
+
+say computer "beep boop... Loading..."
+say computer "Scores updated!"

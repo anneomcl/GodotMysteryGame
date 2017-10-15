@@ -23,6 +23,8 @@ script/script = ExtResource( 1 )
 
 [node name="Room" type="Node" parent="."]
 
+editor/display_folded = true
+
 [node name="Floor" type="Sprite" parent="Room"]
 
 transform/pos = Vector2( 6.84949, -23.0576 )
@@ -82,6 +84,8 @@ transform/scale = Vector2( 1, 1.54875 )
 
 [node name="Doors" type="Node" parent="Room"]
 
+editor/display_folded = true
+
 [node name="DoorToArchie" parent="Room/Doors" instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 1783.31, 35.5575 )
@@ -90,7 +94,7 @@ events_path = "res://scenes/office/esc_scripts/SquashToArchie.esc"
 [node name="DoorToKitchen" type="Sprite" parent="Room/Doors"]
 
 editor/display_folded = true
-transform/pos = Vector2( 662.357, -603.545 )
+transform/pos = Vector2( 389.048, -599.34 )
 transform/scale = Vector2( 1, 0.5 )
 texture = ExtResource( 6 )
 script/script = ExtResource( 7 )
@@ -122,6 +126,7 @@ _update_shape_index = 0
 
 [node name="DoorToBathroom" type="Sprite" parent="Room/Doors"]
 
+editor/display_folded = true
 transform/pos = Vector2( 2692.31, 261.282 )
 transform/rot = 270.0
 transform/scale = Vector2( 1, 0.5 )
@@ -156,7 +161,7 @@ _update_shape_index = 0
 [node name="DoorToOutside" type="Sprite" parent="Room/Doors"]
 
 editor/display_folded = true
-transform/pos = Vector2( -642.329, 565.441 )
+transform/pos = Vector2( -242.878, 573.85 )
 transform/rot = -180.0
 transform/scale = Vector2( 1, 0.5 )
 texture = ExtResource( 6 )
@@ -211,10 +216,11 @@ events_path = "res://character/esc_scripts/Eyy.esc"
 [node name="office1" parent="." instance=ExtResource( 10 )]
 
 editor/display_folded = true
-transform/pos = Vector2( -443.638, -356.028 )
+transform/pos = Vector2( 153.318, 112.61 )
 transform/rot = 90.0
 transform/scale = Vector2( 1.00807, 0.86326 )
 z/z = 3
+texture = null
 global_id = "office1"
 events_path = "res://scenes/office/esc_scripts/Office1Evidence.esc"
 
@@ -242,11 +248,21 @@ events_path = "res://character/esc_scripts/Bee.esc"
 
 transform/pos = Vector2( 41.0974, -304.806 )
 transform/scale = Vector2( 0.6, 0.6 )
+script/script = ExtResource( 7 )
+active = true
+global_id = "empty_desk"
+talk_animation = "talk"
+events_path = "res://scenes/office/esc_scripts/EmptyDesk.esc"
 
 [node name="Desk2" parent="." instance=ExtResource( 11 )]
 
 transform/pos = Vector2( -527.416, 164.389 )
 transform/scale = Vector2( 0.6, 0.6 )
+script/script = ExtResource( 7 )
+active = true
+global_id = "empty_desk"
+talk_animation = "talk"
+events_path = "res://scenes/office/esc_scripts/EmptyDesk.esc"
 
 [node name="Desk3" parent="." instance=ExtResource( 11 )]
 
@@ -257,6 +273,43 @@ active = true
 global_id = ""
 talk_animation = "talk"
 events_path = "res://character/esc_scripts/Eyy.esc"
+
+[node name="ScoreComputer" type="Sprite" parent="."]
+
+editor/display_folded = true
+visibility/visible = false
+transform/pos = Vector2( 740.878, -590.865 )
+transform/rot = 180.0
+transform/scale = Vector2( 0.512212, 0.5 )
+texture = ExtResource( 6 )
+script/script = ExtResource( 7 )
+active = true
+global_id = "computer"
+talk_animation = "talk"
+events_path = "res://scenes/office/esc_scripts/ScoreComputer.esc"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ScoreComputer"]
+
+transform/rot = 180.0
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( -15.1608, 1.3254e-06, -6.91108e-07, -7.90535, -1.15686, -74.8076 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreComputer/StaticBody2D"]
+
+transform/pos = Vector2( -1.15686, -74.8076 )
+transform/rot = 180.0
+transform/scale = Vector2( 15.1608, 7.90535 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
 
 
 [editable path="B"]

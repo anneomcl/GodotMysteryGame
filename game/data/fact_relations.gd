@@ -141,6 +141,13 @@ var fact_relations = {
 		"result" : ["general7"]},
 		"points" : 99
 	},
+	"library2" : {
+		"supports" : { "clues" : ["archie5"] },
+		"points" : 95
+	},
+	"library3" : {
+		"points" : 5
+	},
 	"eyy1" : {
 		"and" : { "clues" : ["general2"],
 		"result" : ["general5"]},

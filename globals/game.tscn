@@ -10,7 +10,7 @@
 [sub_resource type="Animation" id=1]
 
 resource/name = "fade_in_indicator"
-length = 0.5
+length = 1.5
 loop = false
 step = 0.1
 tracks/0/type = "value"
@@ -18,10 +18,10 @@ tracks/0/path = NodePath("clue_indicator:visibility/opacity")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0, 0.5 ),
-"transitions": FloatArray( 1, 1 ),
+"times": FloatArray( 0, 0.8, 1.5 ),
+"transitions": FloatArray( 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 1.0 ]
+"values": [ 0.0, 1.0, 0.0 ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -62,7 +62,7 @@ visibility/visible = false
 
 [node name="clue_indicator" type="Sprite" parent="hud_layer"]
 
-transform/pos = Vector2( 1100, 450 )
+transform/pos = Vector2( 1100, 475 )
 transform/scale = Vector2( 0.25, 0.25 )
 z/z = 2
 texture = ExtResource( 4 )

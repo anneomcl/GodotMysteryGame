@@ -98,20 +98,14 @@ func handle_choice_offsets(it, but, lab, cur, offset, i):
 			choice_size += 1
 
 func add_choices():
-	var i = 0
-	var j = 0
+	var i = 0 #The index of choice in the UI
+	var j = 0 #The index of choice in the .ESC script
 	has_multiple_choices = false
 	for choice in cmd:
-		if !vm.test(choice):
-			option_mapping[str(i)] = str(i + 1)
+		if vm.test(choice):
+			option_mapping[str(i)] = str(j)
+			add_speech(choice.params[0], i)
 			i += 1
-			continue
-		if i > 0:
-			option_mapping[str(i)] = str(int(option_mapping[str(i - 1)]) + 1)
-		else:
-			option_mapping[str(0)] = str(0)
-		add_speech(choice.params[0], j)
-		i += 1
 		j += 1
 		has_multiple_choices = true
 
@@ -138,12 +132,15 @@ func display_portrait(avatar_id):
 			avatar_id = null
 		else:
 			avatar_id = "default"
-
-		if avatar_id != null:
-			avatar = load(avatar_path + avatar_id + ".png")
-			if !avatars.has_node(avatar_id):
-				var avatar_node = create_new_avatar(avatar, avatar_id)
-				avatars.add_child(avatar_node)
+			
+		
+		if avatar_id != null and avatar_id != "default":
+			var path = avatar_path + avatar_id + ".png"
+			if File.new().file_exists(path):
+				avatar = load(path)
+				if !avatars.has_node(avatar_id):
+					var avatar_node = create_new_avatar(avatar, avatar_id)
+					avatars.add_child(avatar_node)
 
 		for i in range(avatars.get_child_count()):
 			var c = avatars.get_child(i)
@@ -164,7 +161,8 @@ func start(params, p_context, p_is_choice):
 		add_choices()
 	else:
 		character_name = params[0]
-		character = vm.game.get_object(params[0])
+		if character_name != "default":
+			character = vm.game.get_object(params[0])
 		if character != null:
 			character.set_speaking(true)
 		add_speech(params[1], 0)
@@ -172,9 +170,10 @@ func start(params, p_context, p_is_choice):
 	var avatar_id = null
 	if(params.size() > 2):
 		avatar_id = params[2]
-	display_portrait(avatar_id)
+	if character_name != "default":
+		display_portrait(avatar_id)
 	
-	if(character_name != null):
+	if(character_name != null and character_name != "default"):
 		#get_node("anchor/avatars/name").show() disable this for now
 		get_node("anchor/avatars/name").set_text(character_name)
 	
@@ -244,20 +243,22 @@ func _ready():
 	call_deferred("remove_child", item)
 	
 	animation = get_node("animation")
-	animation.connect("finished", self, "anim_finished")
+	animation.connect("finished", self, "anim_finished")\
 	
-	var player_camera_pos = vm.game.current_player.get_pos()
+	var player_camera_pos
+	if (weakref(vm.game.current_player).get_ref()):
+		player_camera_pos = vm.game.current_player.get_pos()
 	var game_height = (Globals.get("display/game_height"))
 	var game_width = (Globals.get("display/game_width"))
 	
 	#TO-DO: Change to offset factors
-	if player_camera_pos.y > game_height/2:
-		set_pos(Vector2(game_width * .25 + 165, .75 * game_height - 10)) #bottom
-	else:
+	if player_camera_pos != null and player_camera_pos.y <= game_height/2:
 		set_pos(Vector2(game_width * .25 + 165, 0 * game_height - 110)) #top
+	else:
+		set_pos(Vector2(game_width * .25 + 165, .75 * game_height - 10)) #bottom
 
 	var indicator = vm.game.indicator
-	indicator.set_pos(get_node("anchor/indicator").get_global_pos())
+	indicator.set_pos(get_node("indicator").get_global_pos())
 
 	self.connect("exit_tree", self, "clear_dialogue")
 	add_to_group("game")

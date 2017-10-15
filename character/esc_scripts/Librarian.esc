@@ -2,11 +2,13 @@
 debug "this is the 'use' event for Librarian!"
 
 > [!library_initial]
-	say librarian "Hi, here's your test clue, lemon fairies are attracted to lemony things."
+	say librarian "Hi, this part isn't ready yet. Here's your test clue, lemon fairies cause mischief, and they are attracted to lemony things."
 	set_global c/secretary1 true
 	set_global library_initial true
+	set_global c/library2 true
+	set_global c/library3 true
 	stop
-
+/*
 > [library_initial]
 	say librarian "Let's chat"
 	?
@@ -16,5 +18,31 @@ debug "this is the 'use' event for Librarian!"
 		- "What's up?"
 			say player "So... what's it like to be a ghost?"
 			say librarian "Rude."
+			say player "Sorry! I didn't mean it like that. In whatever way you took it."
+			say librarian "I can't say I planned it, but it's been a good look for me."
+			say player "So you were... alive? At some point?"
+			say librarian "I was."
+			say librarian "....." #sad face
+			say librarian "You really should try it though."
+			say player "What?"
+			say librarian "Death. Get a sweet after-life deal."
+		- "Can I take a look at the ledger for the Squash Squad?"
+			say player "You know, for our door...barrier, thing?"
+			say librarian "You from upstream? Or are you a forest kid?"
+			say librarian "Wait, let me guess... Hmm... Ah, cheap shoes. Definitely upstreamer."
+			say player "What do you mean by that--? Anyway, can I see the ledger?"
+			say librarian "Sure."
+			set_global c/library2 true
+			say player "Hmmm... So it really was just the four of us. Could someone have snuck in here and changed it?"
+			say librarian "Highly unlikely."
+			say player "I guess I'll mark it down as a possibility anyway."
+			say librarian "Unless someone passed through your barrier."
+			say player "Did they?!"
+			say librarian "Let's see, the civil reference guide says... hmm... yeah, it's not that secure, pretty old tech."
+			say librarian "But still, anyone who passed through undetected is way passed your level."
+			say librarian "Probably have the top crews looking into it already. Someone starts hacking barriers, you bet the Citrus squads and the Harvest Knights are chasing'em down."
+			say player ".sigh. I wonder what it's like to do those kinds of cases."
+			set_global c/library3 true
 		- "Nevermind"
 			stop
+*/

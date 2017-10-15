@@ -1,3 +1,4 @@
 :use
 debug "this is the 'use' event for the door from the outside to office!"
-change_scene res://scenes/outside/Tavern.tscn
+say default "The tavern isn't ready yet!"
+#change_scene res://scenes/outside/Tavern.tscn

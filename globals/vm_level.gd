@@ -32,12 +32,24 @@ func _walk(params, block):
 		vm.game.get_object(params[0]).walk(tpos, speed, current_context, params[3], params[4], params[5], params[6], int(params[7]))
 		return vm.state_return
 
+func static_camera(params):
+	var lock = false
+	if params[0] == "true":
+		lock = true
+	vm.game.current_player.lock_camera(lock)
+	return vm.state_return
+
 func camera_to_player(params):
 	var obj = vm.game.get_object(params[0])
 	var tween = vm.game.current_player.get_node("Camera2D/tween")
 	var camera_obj = vm.game.current_player.get_node("Camera2D")
-	current_context.waiting = true
-	tween.interpolate_property(camera_obj, "transform/pos", camera_obj.get_pos(), (obj.get_pos() - vm.game.current_player.get_pos()), 1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	var camera_offset = camera_obj.get_pos()
+	var dest
+	if params[0] == "player":
+		dest = Vector2(0, 0)
+	else:
+		dest = ((obj.get_pos() - vm.game.current_player.get_pos()) - camera_offset)
+	tween.interpolate_property(camera_obj, "transform/pos", camera_obj.get_pos(), dest, 1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
 	return vm.state_return
 
