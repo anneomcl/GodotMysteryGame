@@ -32,8 +32,15 @@ debug "this is the 'use' event for Archie!"
 					?
 						- "I'd like to accuse A" [isSuspectgeneral5]
 							say player "I'd like to accuse A."
+							say archie "Okay"
+							cut_scene ArchieOfficeViewportAnimation fade_to_black
+							#insert "Chapter 2 end" card here
+							stop
 						- "I'd like to accuse B" [isSuspectgeneral3]
 							say player "I'd like to accuse B."
+							say archie "Okay"
+							cut_scene ArchieOfficeViewportAnimation fade_to_black
+							stop
 			- "I have a few questions"
 				say player "Could you answer a few questions?"
 				>

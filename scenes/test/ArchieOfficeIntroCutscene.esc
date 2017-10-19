@@ -49,8 +49,7 @@ set_global c/office2 true
 	say player "('Isn't there anything you can do? My mama always told tales of the Knights of Harvest and their bravery.')" player_secret
 	#sip coffee animation
 	say player "(I gave a sideways glance toward the meadow she was pointing. A looming gang of beasts made their way out of the forest brush, the sun shrouded in orange haze behind them.)" player_secret
-	say player "(Chuckling, I figured I could solve one more crime before heading home for the day.)" player_secret
-	say player "(Drawing my sword, I--)" player_secret
+	say player "(Chuckling, I figured I could solve one more crime--)" player_secret
 
 	cut_scene sound footsteps
 
@@ -131,7 +130,6 @@ set_global c/office2 true
 	say default "Location/Time: Initially left cookies in Squash Squad Office No. 3, Kitchen. 4PM. Discovered missing at 4:30PM."
 
 	set_global c/archie1 true
-	#set_global c/archie2 true
 	set_global c/archie3 true
 
 	camera_to_player player
