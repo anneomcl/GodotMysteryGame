@@ -131,10 +131,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 200.0
-margin/bottom = 20.0
+margin/left = 7180.0
+margin/top = 130.0
+margin/right = 7380.0
+margin/bottom = 150.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -144,6 +144,10 @@ params/stretch_mode = 0
 
 [node name="Clue" parent="." instance=ExtResource( 7 )]
 
+transform/pos = Vector2( 7640.57, 217.062 )
+
 [node name="ItemClue" parent="." instance=ExtResource( 8 )]
+
+transform/pos = Vector2( 7616.79, -182.792 )
 
 

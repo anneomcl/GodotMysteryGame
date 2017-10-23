@@ -25,37 +25,42 @@ const clues = [
 	{ "id": "tier3_test2", "title": "Test for 3rd tier (CHILD)" },
 	
 	#Scenario 0 facts	
-	{ "id": "general1", "title": "A plate and cookies were stolen from the kitchen." },
 	{ "id": "general2", "title": "Everyone who was in the kitchen from 4PM to 4:30PM is a suspect." },
+
 	{ "id": "general3", "title": "Bee could have taken the cookies." },
-	{ "id": "general4", "title": "Archie himself could have taken the cookies on his way back to the office from 4PM to 4:05PM." },
+	{ "id": "general4", "title": "Archie himself could have hidden the cookies between 4PM and 4:05PM, when he stepped out of the office." },
 	{ "id": "general5", "title": "Eyy could have taken the cookies." },
+
 	{ "id": "general6", "title": "Lemon fairies could be attracted to the lemony goods in Eyy's desk." },
 	{ "id": "general7", "title": "Someone could be trying to sabotage Eyy with lemon fairies." },
-	{ "id": "general8", "title": "You, Archie or Bee could be trying to sabotage Eyy with lemon fairies." },
 	{ "id": "general9", "title": "Bee could be trying to sabotage Eyy with lemon fairies." },
-	{ "id": "archie1", "title": "Archie left the cookies in the kitchen at 4PM." },
-	{ "id": "archie2", "title": "The lemon butter spritz cookies are a special family recipe." },
+
+	{ "id" : "me1", "title": "YOU could have stolen the cookies, though you have no memory of doing so." },
+
+	{ "id": "archie1", "title": "Archie went to the kitchen at 4PM, left his plate and cookies, then returned to his office around 4:05PM." },
 	{ "id": "archie3", "title": "Archie noticed the cookies and plate were gone at 4:30PM." },
-	{ "id": "archie4", "title": "Archie saw Bee in the kitchen at 4PM."},
-	{ "id": "archie5", "title": "Archie, Ey, Bee, and you are the only people in the office. Everyone else is out on a case."},
-	{ "id": "archie6", "title": "You and Archie were in his office talking from 4:05PM until 4:30PM. It's unclear where he was from 4PM to 4:05PM." },
+	{ "id": "archie4", "title": "Archie saw Bee in the kitchen at 4PM. He didn't notice anyone else."},
+	{ "id": "archie6", "title": "You and Archie were in his office talking from 4:05PM until 4:30PM." },
+
 	{ "id": "eyy1", "title": "Eyy went to the break room sometime after 4PM and saw Archie on his way there." },
-	{ "id": "eyy2", "title": "While in the break room, Eyy took a handful of cookies, made tea, and went back to his desk." },
-	{ "id": "eyy3", "title": "Eyy was possibly alone in the break room from 4:05PM onwards." },
-	{ "id": "eyy4", "title": "Eyy quickly ate a handful of cookies over the table and ran to the bathroom. He didn't come out until at least 4:30PM" },
-	{ "id": "eyy5", "title" : "Eyy has had indigestion, sudden impulses, and fatigue in the past few weeks."},
-	{ "id": "library1", "title": "Lemon fairies are known to be annoying and troubling for people, in the worst case some people are never able to leave their house.." },
-	{ "id": "library2", "title": "The ledger says that only Abigail, Archie, Andre, and Bea entered or exited for the entire day." },
-	{ "id": "library3", "title": "The suspect could have broken into the library and modified the ledger."},
+	{ "id": "eyy2", "title": "While in the break room, Eyy took a handful of cookies, made tea, and went back to his desk, where he continued working until you spoke to him." },
+	{ "id": "eyy6", "title": "While taking a cookie, Eyy saw Bee near the sink. She was still there when he left."},
+
+	{ "id": "library4", "title": "There are nefarious lemon fairies that are attracted by anything that looks, smells or tastes like lemons." },
+	
 	{ "id": "kitchen1", "title": "There is brown liquid and there are traces of coffee grounds in the sink." },
-	{ "id": "kitchen2", "title": "There are crumbs all over the table." },
+
 	{ "id": "bee1", "title": "Bee was in the break room at 4PM, washing her coffee mug in the sink." },
-	{ "id": "bee2", "title": "Bee saw Eyy walk in the break room and take a cookie after Archie left, at ~4:03 PM." },
-	{ "id": "bee3", "title": "Bee left the break room soon after Eyy arrived, around ~4:05PM." },
-	{ "id": "bee4", "title": "Bee took one cookie on her way out of the kitchen." },
-	{ "id": "bee5", "title": "Bee was alone in the kitchen from ~4:05PM onward." },
-	{ "id": "secretary1", "title": "There are nefarious lemon fairies that are attracted by anything that looks, smells or tastes like lemons" },
+	{ "id": "bee2", "title": "Bee saw Eyy walk in the break room and take a cookie." },
+	{ "id": "bee3", "title": "Bee left the break room soon after Eyy arrived, around ~4:05PM. He was alone in the kitchen." },
+
 	{ "id": "office1", "title" : "<inventory items: lemon things found in desk>" },
 	{ "id": "office2", "title" : "<inventory item: bulletin board performance, 1) Eyy... 5) Bee" },
+
+	#maybe delete?
+	{ "id": "archie5", "title": "Archie, Ey, Bee, and you are the only people in the office. Everyone else is out on a case."},
+	{ "id": "archie7", "title": "Eyy or Bee are most likely to have been alone in the kitchen between 4PM and 4:30PM." },	
+	{ "id": "library1", "title": "Lemon fairies are known to be annoying and troubling for people, in the worst case some people are never able to leave their house.." },
+	{ "id": "library2", "title": "The ledger says that only Abigail, Archie, Andre, and Bea entered or exited for the entire day." },
+
 ]

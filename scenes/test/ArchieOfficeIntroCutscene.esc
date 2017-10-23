@@ -4,28 +4,34 @@ debug "this is the 'load' event for the door to archie's office!"
 
 set_global archie_intro_cutscene true
 set_global spoke_to_archie true
+
+set_global c/me1 true
+
 set_global c/archie1 true
 set_global c/archie3 true
 set_global c/archie4 true
-set_global c/archie5 true
+#set_global c/archie5 true
 set_global c/archie6 true
+
+set_global c/eyy1 true
+set_global c/eyy2 true
+set_global c/eyy6 true
+
+#set_global c/library1 true
+#set_global c/library2 true
+set_global c/library4 true
+
+set_global c/kitchen1 true
 
 set_global c/bee1 true
 set_global c/bee2 true
 set_global c/bee3 true
-set_global c/bee4 true
-
-set_global c/eyy1 true
-set_global c/eyy2 true
-
-set_global c/secretary1 true
-set_global c/library1 true
-set_global c/library2 true
-set_global c/library3 true
 
 set_global c/office1 true
 set_global c/office2 true
 
+/*
+*/
 > [archie_intro_cutscene]
 	camera_to_player player
 	teleport_pos archie 670 105

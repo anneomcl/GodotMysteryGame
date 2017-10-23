@@ -24,6 +24,8 @@ var item_clue_size
 var clue_distance
 var item_clue_distance
 
+const suspect_ids = [ "general3", "general4", "general5" ]
+
 var first_clue
 
 var row = 0
@@ -32,6 +34,8 @@ var col = 0
 var max_col = 2
 
 func back_to_game():
+	if game.has_node("hud_layer/dialog"):
+		game.get_node("hud_layer/dialog").stop()
 	vm.game.analysis_camera_pos = get_node("center").get_pos()
 	vm.game.analysis_camera_zoom = get_node("center/camera").get_zoom()
 	vm.game.relations = analysis_data.created_relations
@@ -84,6 +88,9 @@ func instance_clue(clue_id, parents, children, is_item):
 		
 	else:
 		node = get_node("Clue").duplicate()
+		node.show()
+		if (clue_id in suspect_ids):
+			node.get_node("ClueButton").set_normal_texture(load("res://ui/graphics/SuspectClue.png"))
 		curr_clue_size = clue_size
 	
 	node.set_z(0)
@@ -135,7 +142,8 @@ func instance_relations():
 			draw_relation(clueid, child[0], child[1])
 
 func validate_relation(parent, child):
-	print(analysis_data.created_relations)
+	if (parent == null or child == null):
+		return false
 	var nodes = [parent]
 	var queue = [parent]
 	while queue.size() > 0:
@@ -192,20 +200,24 @@ func get_selected_relation():
 		return "contradicts"
 
 func update_points(parent, child, relation):
-	if relation == "contradicts":
+	if relation == "contradicts" or relation == "supports":
 		var parent_points = analysis_data.fact_relations[parent[0]]["points"]
-		parent_points = -1 * .1 * parent_points
 		var child_points = analysis_data.fact_relations[child]["points"]
-		child_points += parent_points
-		analysis_data.fact_relations[child]["points"] = child_points
-		get_node("c/" + child).get_node("ClueButton/points").set_text(str(child_points))
-	if relation == "supports":
-		var parent_points = analysis_data.fact_relations[parent[0]]["points"]
-		parent_points = .1 * parent_points
-		var child_points = analysis_data.fact_relations[child]["points"]
-		child_points += parent_points
-		analysis_data.fact_relations[child]["points"] = child_points
-		get_node("c/" + child).get_node("ClueButton/points").set_text(str(child_points))
+		if relation == "contradicts":
+			parent_points = -1 * .1 * parent_points
+			child_points = -1 * .1 * child_points
+		else:
+			parent_points = .1 * parent_points
+			child_points = .1 * child_points
+		var new_child_points = analysis_data.fact_relations[child]["points"]
+		new_child_points += parent_points
+		analysis_data.fact_relations[child]["points"] = new_child_points
+		get_node("c/" + child).get_node("ClueButton/points").set_text(str(new_child_points))
+		if relation == "supports":
+			var new_parent_points = analysis_data.fact_relations[parent[0]]["points"]
+			new_parent_points += child_points
+			analysis_data.fact_relations[parent[0]]["points"] = new_parent_points
+			get_node("c/" + parent[0]).get_node("ClueButton/points").set_text(str(new_parent_points))
 	if relation == "and":
 		var parent_points = analysis_data.fact_relations[parent[0]]["points"]
 		var parent_points_two = analysis_data.fact_relations[parent[1]]["points"]
@@ -240,6 +252,7 @@ func update_children_points(node):
 								other_parent = p
 					if other_parent == null:
 						print("ERROR: cannot find relation with other parent.")
+						continue
 					update_points([curr, other_parent], child_id, relation)
 				elif relation == "contradicts" or relation == "supports":
 					var a = 0 # do nothing
@@ -253,13 +266,20 @@ func process_clues(first_clue, second_clue):
 	if analysis_data.fact_relations.has(first_clue):
 		var relation = get_selected_relation()
 		var fact_object = analysis_data.fact_relations[first_clue]
+		var result_object = null
+		if relation == "and" and fact_object.has(relation):
+			result_object = fact_object[relation]["result"][fact_object[relation]["clues"].find(second_clue)]
 		
-		if (!(validate_relation(first_clue, second_clue)) or 
-		(relation == "and" 
-		and (!validate_relation(first_clue, fact_object[relation]["result"][fact_object[relation]["clues"].find(second_clue)]) 
-		or !validate_relation(second_clue, fact_object[relation]["result"][fact_object[relation]["clues"].find(second_clue)])))):
-			print("Error: Child relation already exists or relation would create cycle")
+		if (!fact_object.has(relation) or (relation == "and" and result_object == null)):
 			game.get_node("speech_dialogue_player").start(["", analysis_data.default], vm.level.current_context, false)
+			return
+		
+		if (relation == "and" 
+		and (!validate_relation(first_clue, result_object) 
+		or !validate_relation(second_clue, result_object))):
+			print("Error: Child relation already exists or relation would create cycle")
+			#game.get_node("speech_dialogue_player").start(["", analysis_data.default], vm.level.current_context, false)
+			#return
 	
 		if fact_object.has(relation) and fact_object[relation]["clues"].has(second_clue):
 			if relation == "contradicts":
@@ -286,18 +306,13 @@ func process_clues(first_clue, second_clue):
 					vm.set_global("c/" + new_clue, true)
 				else:
 					game.get_node("speech_dialogue_player").start(["", "Clue already found!"], vm.level.current_context, false)
-					print("Clue already found")
+					return
 		else:
 			game.get_node("speech_dialogue_player").start(["", analysis_data.default], vm.level.current_context, false)
+			return
 	else:
 		game.get_node("speech_dialogue_player").start(["", analysis_data.default], vm.level.current_context, false)
-	
-	print(first_clue)
-	print(second_clue)
-	print(vm.get_global("analysis_selected"))
-	print(vm.get_global("therefore_selected"))
-	print(vm.get_global("supports_selected"))
-	print(vm.get_global("contradicts_selected"))
+		return
 
 func get_clue_size(node):
 	var curr_size

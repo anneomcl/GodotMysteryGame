@@ -23,7 +23,7 @@ debug "this is the 'use' event for Archie!"
 		- "Nevermind"
 			stop
 
-#After the intro cutscene,
+#After the intro cutscene
 > [spoke_to_archie]
 	>
 		?

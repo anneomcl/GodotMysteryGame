@@ -3,10 +3,9 @@ debug "this is the 'use' event for Librarian!"
 
 > [!library_initial]
 	say librarian "Hi, this part isn't ready yet. Here's your test clue, lemon fairies cause mischief, and they are attracted to lemony things."
-	set_global c/secretary1 true
+	set_global c/library4 true
 	set_global library_initial true
 	set_global c/library2 true
-	set_global c/library3 true
 	stop
 /*
 > [library_initial]
@@ -42,7 +41,6 @@ debug "this is the 'use' event for Librarian!"
 			say librarian "But still, anyone who passed through undetected is way passed your level."
 			say librarian "Probably have the top crews looking into it already. Someone starts hacking barriers, you bet the Citrus squads and the Harvest Knights are chasing'em down."
 			say player ".sigh. I wonder what it's like to do those kinds of cases."
-			set_global c/library3 true
 		- "Nevermind"
 			stop
 */

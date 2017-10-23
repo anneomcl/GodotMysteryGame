@@ -27,6 +27,6 @@ change_scene res://scenes/office/ArchieOffice.tscn
 #set_global c/office1 true
 #set_global c/office2 true
 #set_global c/library1 true
-#set_global c/secretary1 true
+#set_global c/library4 true
 #Scene to show on start-up:
 #change_scene res://scenes/test/test_scene.tscn
