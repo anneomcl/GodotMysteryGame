@@ -4,16 +4,18 @@ debug "this is the 'use' event for Librarian!"
 > [!library_initial]
 	say librarian "Hi, this part isn't ready yet. Here's your test clue, lemon fairies cause mischief, and they are attracted to lemony things."
 	set_global c/library4 true
-	set_global library_initial true
-	set_global c/library2 true
 	stop
 /*
 > [library_initial]
 	say librarian "Let's chat"
 	?
-		- "Now I can analyze things and use the computer" [can_analyze, library_initial]
-			set_global c/library1 true
-			say librarian "Wow you found the keyword in the library. Lemon fairies are nefarious beings that prey upon people with minty, melony, and lemony fresh scents surrounding them. "
+		- "Do you have any tips for me?"
+			say librarian "You know why evidence is never marked 100% true?"
+			say player "????"
+			say librarian "Because everything could be a simulation."
+			say librarian "The suspect could be anyone, even YOU."
+			say player "Woaaaahh."
+			set_global me1 true
 		- "What's up?"
 			say player "So... what's it like to be a ghost?"
 			say librarian "Rude."

@@ -59,11 +59,6 @@ var fact_relations = {
 		"contradicts" : { "clues" : ["general7", "general9"] },
 		"points" : -1
 	},
-	"general6" : {
-		"and" : { "clues" : ["library1"],
-		"result" : ["general7"]},
-		"points" : -1
-	},
 	"general7" : {
 		"and" : { "clues" : ["office2"],
 		"result" : ["general9"] },
@@ -77,7 +72,6 @@ var fact_relations = {
 	},
 
 	"me1" : {
-		"supports" : { "clues" : ["archie5"] },
 		"points" : 100
 	},
 
@@ -99,21 +93,10 @@ var fact_relations = {
 		"contradicts" : { "clues" : ["eyy1"] },
 		"points" : 90
 	},
-	"archie5" : {
-		"and" : { "clues": ["archie6"],
-		"result" : ["archie7"] },
-		"supports" : { "clues" : ["library2", "me1", "general3", "general4", "general5"] },
-		"points" : 99
-	},
 	"archie6" : {
-		"and" : { "clues" : ["general2", "general8"],
-		"result" : ["general4", "general9"] },
+		"and" : { "clues" : ["general2"],
+		"result" : ["general4"] },
 		"points" : 99
-	},
-	"archie7" : {
-		"contradicts" : { "clues" : ["me1", "general4"] },
-		"supports" : { "clues" : ["general3", "general5"] },
-		"points" : -1
 	},
 
 	"eyy1" : {
@@ -123,26 +106,17 @@ var fact_relations = {
 		"points" : 90
 	},
 	"eyy2" : {
-		"contradicts" : { "clues" : ["general4", "general5"] },
+		"contradicts" : { "clues" : ["general4", "general5", "bee3"] },
 		"points" : 90
 	},
 	"eyy6" : {
 		"supports" : { "clues" : ["archie4", "bee1"] },
-		"contradicts" : { "clues" : ["bee3", "general5"] },
+		"contradicts" : { "clues" : ["bee3"] },
 		"points" : 90
-	},
-	"library1" : {
-		"and" : { "clues" : ["general6"],
-		"result" : ["general7"]},
-		"points" : 99
-	},
-	"library2" : {
-		"supports" : { "clues" : ["archie5"] },
-		"points" : 95
 	},
 	"library4" : {
 		"and" : { "clues" : ["office1"],
-		"result" : ["general6"] },
+		"result" : ["general7"] },
 		"points" : 50
 	},
 	"kitchen1" : {
@@ -163,19 +137,18 @@ var fact_relations = {
 		"points" : 90
 	},
 	"bee3" : {
-		"contradicts" : { "clues" : ["eyy6", "general3"] },
+		"contradicts" : { "clues" : ["eyy6", "eyy2", "general3"] },
 		"points" : 90
 	},
 	"office1" : {
 		"and" : { "clues" : ["library4"],
-		"result" : ["general6"] },
+		"result" : ["general7"] },
 		"supports" : { "clues" : ["general5"] },
 		"points" : 99
 	},
 	"office2" : {
 		"and" : { "clues" : ["general7"],
 		"result" : ["general9"] },
-		"supports" : { "clues" : ["general9"]},
 		"points" : 99
 	},
 }

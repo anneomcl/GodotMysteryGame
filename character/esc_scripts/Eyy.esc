@@ -2,26 +2,6 @@
 
 debug "this is the 'use' event for A!"
 
-> [c/eyy4]
-	say Eyy "....................................."
-	say player "I don't think he'll tell me anything new."
-
-> [c/office1]
-	say player "I'll be straight: We found the cookies in your desk."
-	say Eyy "//..."
-	say player "I want to know the truth, why are they in there?"
-	say Eyy "//..."
-	say Eyy "I don't know."
-	say player "Look, cookies are a really dumb reason to get fired for. If you can give me anything, a hint or a lead, I can just keep looking."
-	say Eyy "It is a dumb reason, but there's nothing I can say."
-	say player "That means I'll have to nominate you as my primary suspect, according to the books."
-	say Eyy "Makes sense."
-	say player "*sad face*"
-	say Eyy "...."
-	say Eyy "*coughs, runs to bathroom*"
-	say player "?????" #need to go find him in the bathroom
-	set_global c/eyy4 true #this will be set true later
-	stop
 > [!spoke_to_A]
 	say player "Hi A."
 	say Eyy "..."
@@ -54,19 +34,20 @@ debug "this is the 'use' event for A!"
 				say player "Wow, you really did record yourself every 30 minutes of every day of the year."
 				say Eyy "With six hours free for sleeping."
 				say player "Glad you take that, uh, down time for yourself."
+				set_global c/eyy1 true
 				say player "In any case, according to this, at 4PM you went to the kitchen. You saw Archie exiting as you entered."
+				set_global c/eyy2 true
 				say player "You noticed cookies laid on the table, took one, and began to eat it while making a tea. After making the tea you returned to your desk."
 				say player "The next note is at 4:30PM, you say you're at your desk."
 				say Eyy "I was at my desk, working on the buzzing slime case, isn't that in there?"
 				say player "Right, at 4:30PM you were at your desk doing the preliminary paperwork for the buzzing slime case in preparation for your rounds the following day."
 				say Eyy "Hm."
 				say player "Did you notice anyone else in the kitchen while you were there?"
+				set_global c/eyy6
 				say Eyy "B was there. Washing something, I think."
 				say player "Any other details?"
 				say Eyy "Only what's in the book. But nothing relevant that comes to mind."
 				say player "Ok. Thanks, A."
-				set_global c/eyy1 true
-				set_global c/eyy2 true
 			- "Why are you on the Squash Squad?" [c/office2]
 			- "Have any tips for me?"
 			- "Nevermind"

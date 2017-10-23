@@ -10,15 +10,12 @@ set_global c/me1 true
 set_global c/archie1 true
 set_global c/archie3 true
 set_global c/archie4 true
-#set_global c/archie5 true
 set_global c/archie6 true
 
 set_global c/eyy1 true
 set_global c/eyy2 true
 set_global c/eyy6 true
 
-#set_global c/library1 true
-#set_global c/library2 true
 set_global c/library4 true
 
 set_global c/kitchen1 true
@@ -47,12 +44,10 @@ set_global c/office2 true
 	cut_scene camera camera_pan_up
 	say player "(Her hair rippled in golden brown curls, framing the teary-eyed, vulnerable face of a young lady in desperate need of a knight's kind, professional rescue.)" player_secret
 	say player "('Oh, a knight! I'm so glad you're here,' she'd said, 'I just don't feel safe at night knowing those monsters are traipsing about the town...')" player_secret
-	say player "('No doubt aiming to burgal my quarters and... steal away my three boys.')" player_secret
-	say player "(At this, her eyes sparkled with tears.)" player_secret
-
+	say player "('No doubt aiming to burgal my quarters and...' Her eyes sparkled with tears.)" player_secret
 	walk_block player chair 3 true false false false 30
 
-	say player "('Isn't there anything you can do? My mama always told tales of the Knights of Harvest and their bravery.')" player_secret
+	say player "('Isn't there anything you can do? My mother always told tales of the Knights of Harvest and their bravery.')" player_secret
 	#sip coffee animation
 	say player "(I gave a sideways glance toward the meadow she was pointing. A looming gang of beasts made their way out of the forest brush, the sun shrouded in orange haze behind them.)" player_secret
 	say player "(Chuckling, I figured I could solve one more crime--)" player_secret
@@ -136,7 +131,6 @@ set_global c/office2 true
 	say default "Location/Time: Initially left cookies in Squash Squad Office No. 3, Kitchen. 4PM. Discovered missing at 4:30PM."
 
 	set_global c/archie1 true
-	set_global c/archie3 true
 
 	camera_to_player player
 	static_camera false

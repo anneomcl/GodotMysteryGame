@@ -1,15 +1,8 @@
 :use
 debug "this is the 'use' event for Archie!"
 
-#When you've found some initial evidence, move to Analysis phase
-> [c/bee1, c/eyy1, c/kitchen1, !can_analyze]
-	#set this once you've talked to Eyy, Bee, and picked up evidence from kitchen
-	say archie "Press TAB and click on the Analysis window to start matching facts together"
-	say archie "(This is a tutorial for guiding you through understanding how to grab evidence)"
-	set_global can_analyze true
-
 #After you've found all the relevant evidence you can, move to Chapter 3
-> [spoke_to_archie, i/office2, c/office2, c/library1, !c/office1, !has_keys, c/general3, c/general4, c/general5]
+> [spoke_to_archie, i/office2, c/office2, c/library4, !c/office1, !has_keys, c/general3, c/general4, c/general5]
 	?
 		- "Can I have the keys to everyone's desks?" 
 			say player "And maybe the bathroom?"
@@ -63,11 +56,10 @@ debug "this is the 'use' event for Archie!"
 							say player "Yeah..."
 							say archie "We need a full picture of the situation, the truth. Do not yield to theories based on a single fact!"
 							say player "Okay, so Bee was in the kitchen around 4PM. Full stop. No suspicious undertones."
-						- "Where is everyone else?" [checked_empty_desk]
+						- "Where is everyone else?" 
 							say player "I don't see the others here today... Have they been around?"
 							say archie "We've been swamped with cases lately, they've all been out on cases. Likely won't be back until later this evening."
 							say player "Hmmm... So it's just been you, me, Eyy and Bee here all day?"
-							set_global c/archie5 true
 							say archie "As far as I know."
 							say player "Well that really narrows it down!"
 							say archie "Unless someone snuck in? Hacked the door or incanted a magical curse?"
