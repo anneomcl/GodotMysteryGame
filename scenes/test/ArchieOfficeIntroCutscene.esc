@@ -5,9 +5,8 @@ debug "this is the 'load' event for the door to archie's office!"
 set_global archie_intro_cutscene true
 set_global spoke_to_archie true
 
-set_global c/me1 true
-
 set_global c/archie1 true
+/*
 set_global c/archie3 true
 set_global c/archie4 true
 set_global c/archie6 true
@@ -26,9 +25,8 @@ set_global c/bee3 true
 
 set_global c/office1 true
 set_global c/office2 true
-
-/*
 */
+
 > [archie_intro_cutscene]
 	camera_to_player player
 	teleport_pos archie 670 105

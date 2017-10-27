@@ -69,8 +69,16 @@ events_path = "res://scenes/outside/esc_scripts/OutsideToLibrary.esc"
 
 [node name="player" parent="." instance=ExtResource( 6 )]
 
-editor/display_folded = true
 transform/pos = Vector2( 633.761, -72.1904 )
+
+[node name="Camera2D" parent="player"]
+
+editor/display_folded = true
+global_id = ""
+
+[node name="area" parent="player"]
+
+editor/display_folded = true
 
 [node name="Camera2D" type="Camera2D" parent="player"]
 

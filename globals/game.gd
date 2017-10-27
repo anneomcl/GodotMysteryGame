@@ -32,6 +32,8 @@ var persist_scene = false
 var vm
 var animation
 
+signal change_scene_finished
+
 func register_object(name, val):
 	objects[name] = val
 	if name in vm.states:
@@ -204,6 +206,7 @@ func change_scene(params, context):
 		return
 	get_node("/root").add_child(scene)
 	set_current_scene(scene)
+	emit_signal("change_scene_finished")
 	vm.finished(context, false)
 
 func start_new_game():

@@ -20,20 +20,47 @@ debug "this is the 'use' event for Archie!"
 > [spoke_to_archie]
 	>
 		?
-			- "I'd like to accuse someone" [OR, isSuspectgeneral5, isSuspectgeneral3]
+			- "I'd like to accuse someone" [OR, isSuspectgeneral3, isSuspectgeneral5]
 				>
 					?
-						- "I'd like to accuse A" [isSuspectgeneral5]
-							say player "I'd like to accuse A."
-							say archie "Okay"
-							cut_scene ArchieOfficeViewportAnimation fade_to_black
-							#insert "Chapter 2 end" card here
-							stop
-						- "I'd like to accuse B" [isSuspectgeneral3]
-							say player "I'd like to accuse B."
-							say archie "Okay"
-							cut_scene ArchieOfficeViewportAnimation fade_to_black
-							stop
+						- "I'd like to accuse A"
+							> [isSuspectgeneral5]
+								say player "I'd like to accuse A."
+								say archie "Okay"
+								cut_scene ArchieOfficeViewportAnimation fade_to_black
+								#insert "Chapter 2 end" card here
+								stop
+							> [!isSuspectgeneral5]
+								say player "I'd like to accuse A."
+								say archie "Are you sure you have enough evidence?"
+								>
+									?
+										- "Yes"
+											say player "I have a strong feeling it's him...!!"
+											say archie "Okay"
+											cut_scene ArchieOfficeViewportAnimation fade_to_black
+											#insert "Chapter 2 end" card here
+											stop
+										- "No"
+											say player "I guess not..."
+						- "I'd like to accuse B"
+							> [isSuspectgeneral3]
+								say player "I'd like to accuse B."
+								say archie "Okay"
+								cut_scene ArchieOfficeViewportAnimation fade_to_black
+								stop
+							> [!isSuspectgeneral3]
+								say player "I'd like to accuse B."
+								say archie "Are you sure you have enough evidence?"
+								>
+									?
+										- "Yes"
+											say player "I have a strong feeling it's her...!!"
+											say archie "Okay"
+											cut_scene ArchieOfficeViewportAnimation fade_to_black
+											stop
+										- "No"
+											say player "I guess not..."
 			- "I have a few questions"
 				say player "Could you answer a few questions?"
 				>

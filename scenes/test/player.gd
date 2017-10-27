@@ -13,18 +13,37 @@ var camera_pos = Vector2(0, 0)
 
 var canMove = true
 
+var invisWallRight
+
 func _ready():
 	set_process_input(true)
 	set_fixed_process(true)
 	vm.game.set_current_player(self)
 	area = get_node("area")
+
+	#move this to some camera script
 	get_node("Camera2D").set_zoom(player_camera_zoom)
+	
+	yield(vm.game, "change_scene_finished")
+	set_invis_walls()
+
+func set_invis_walls():
+	print(vm.game.current_scene.get_name())
+	if vm.game.current_scene != null:
+		if get_tree().get_root().has_node(vm.game.current_scene.get_name()):
+			if get_tree().get_root().get_node(vm.game.current_scene.get_name()).has_node("InvisibleWallRight"):
+				invisWallRight = int(get_tree().get_root().get_node(vm.game.current_scene.get_name()).get_node("InvisibleWallRight").get_pos().x)
+
 
 func _fixed_process(delta):
 	if(vm.can_interact()):
 		move_player()
 	if(camera_locked):
 		get_node("Camera2D").set_global_pos(camera_pos)
+
+	var x_pos = get_pos().x
+	if (invisWallRight != null and x_pos >= invisWallRight):
+		get_node("Camera2D").set_global_pos(Vector2(invisWallRight, get_node("Camera2D").get_global_pos().y))
 
 func lock_camera(isLocked):
 	if isLocked:
