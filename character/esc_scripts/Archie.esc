@@ -20,7 +20,7 @@ debug "this is the 'use' event for Archie!"
 > [spoke_to_archie]
 	>
 		?
-			- "I'd like to accuse someone" [OR, isSuspectgeneral3, isSuspectgeneral5]
+			- "I'd like to accuse someone" [OR, isSuspectgeneral3, isSuspectgeneral5, isSuspectgeneral4]
 				>
 					?
 						- "I'd like to accuse A"
@@ -61,6 +61,28 @@ debug "this is the 'use' event for Archie!"
 											stop
 										- "No"
 											say player "I guess not..."
+						- "I'd like to accuse A"
+							> [isSuspectgeneral4]
+								say player "I'd like to accuse...You!"
+								say archie "Okay"
+								cut_scene ArchieOfficeViewportAnimation fade_to_black
+								#insert "Chapter 2 end" card here
+								stop
+							> [!isSuspectgeneral4]
+								say player "I'd like to accuse A...You!"
+								say archie "You sure about that, rookie?"
+								>
+									?
+										- "Yes"
+											say player "This could be an elaborate set-up to create a learning experience for the new kid's first day!"
+											say player "Or like... a test of your crew's honesty! An honesty audit! To see who cracks!"
+											say archie "//*laughing face* If you can prove that I set this all up, then by all means, ARREST me for the CRIME of providing on-the-job experience."
+											say archie "//*laughing face* ..."
+											say archie "*glare* But I really need that stuff back."
+											say player "Eek!"
+											say player "I'm on it, sir!!"
+										- "No"
+											say player "Haha... I guess not...sir."
 			- "I have a few questions"
 				say player "Could you answer a few questions?"
 				>
@@ -83,7 +105,7 @@ debug "this is the 'use' event for Archie!"
 							say player "Yeah..."
 							say archie "We need a full picture of the situation, the truth. Do not yield to theories based on a single fact!"
 							say player "Okay, so Bee was in the kitchen around 4PM. Full stop. No suspicious undertones."
-						- "Where is everyone else?" 
+						- "Where is everyone else?" [firstDoorUse]
 							say player "I don't see the others here today... Have they been around?"
 							say archie "We've been swamped with cases lately, they've all been out on cases. Likely won't be back until later this evening."
 							say player "Hmmm... So it's just been you, me, Eyy and Bee here all day?"
@@ -134,15 +156,19 @@ debug "this is the 'use' event for Archie!"
 							say player "Ahahaha...yeah... I guess that did happen." player_embarrased
 							say player "(And I guess you totally saw it happen... (((Just kill me now... )))) *super embarrassed*" player_embarrased
 							say archie "Then we have been in here ever since. And now it's -- let's see... half past four."
-						- How do I know it's not you?"
-							say player "How do I know you didn't make all this up?"
-							say archie "*raises eyebrow image*"
-							say player "You know, to test me? To give the newbie a controlled learning experience with no real stakes?"
-							say archie "//*laughing face* If you can prove that I set this all up, then by all means, ARREST me for the CRIME of providing on-the-job experience."
-							say archie "//*laughing face* ..."
-							say archie "*glare* But I really need that stuff back."
-							say player "Eek!"
-							say player "I'm on it, sir!!"
+						- How do I know it's not someone outside the office?"
+							say player "How do I know it's not some completely random person who used super advanced magic to hack their way in?"
+							say archie "Hm... And for that matter, how do we know the cookies didn't spontaneously disintegrate? That we aren't in a computer simulation?"
+							say player " O_O !! "
+							say player "Yeah, like what if the cookies aren't even real? Or ... or what if we aren't even real?"
+							say player "OR!!"
+							say player "What if the cookies are the only real thing in existence? What if I've died, and 'finding the cookies' is my metaphysical journey to the AFTERLIFE?!"
+							say archie "....Calm down, kid. First, you're too loud to be dead."
+							say archie "Second, my point is that we can create infinitely many theories to explain anything, but only a few have even a percent of a chance of being true."
+							say archie "So we start with the most likely options, and spiral out if we reach a dead end."
+							say player "Until we DIE?! (I knew it...)"
+							say archie "*face palm face*"
+							say archie "Just keep going with what you have. You haven't gone through all your options yet."
 						- Nevermind
 							set_global nevermind true
 					repeat [!nevermind]

@@ -43,7 +43,7 @@ debug "this is the 'use' event for A!"
 				say player "Right, at 4:30PM you were at your desk doing the preliminary paperwork for the buzzing slime case in preparation for your rounds the following day."
 				say Eyy "Hm."
 				say player "Did you notice anyone else in the kitchen while you were there?"
-				set_global c/eyy6
+				set_global c/eyy6 true
 				say Eyy "B was there. Washing something, I think."
 				say player "Any other details?"
 				say Eyy "Only what's in the book. But nothing relevant that comes to mind."

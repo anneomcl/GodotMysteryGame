@@ -6,7 +6,10 @@ func _ready():
 var created_relations = {
 }
 
+const SUSPECT_THRESHOLD = 80 #switch to 100
 const default = "This doesn't make sense to me..."
+const suspect = "Found a suspect!"
+var first_suspect = "Found a suspect! When this clue has more than " + str(SUSPECT_THRESHOLD) + " points, you can accuse the suspect."
 
 #When checking the relations of two facts, 
 #	input: fact_relations["CLUEID"]["AND"/"CONTRADICTS"/"SUPPORTS"]["clues"]

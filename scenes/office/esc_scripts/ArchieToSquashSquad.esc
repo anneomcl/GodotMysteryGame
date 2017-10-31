@@ -1,3 +1,8 @@
 :use
 debug "this is the 'use' event for the door to Archie's office!"
+> [!firstDoorUse]
+	say player "I have a few clues already. I should probably check the bookshelf."
+	say player "(It's been 2 weeks since graduation and I've already forgot everything...)"
+	set_global firstDoorUse true
+	stop
 change_scene res://scenes/office/SquashSquadOffice.tscn

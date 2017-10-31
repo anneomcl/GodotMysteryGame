@@ -2,8 +2,6 @@ extends "res://globals/interactive.gd"
 
 export(String,FILE) var events_path = ""
 
-const SUSPECT_THRESHOLD = 80 #switch to 100
-
 var event_table = {}
 
 var zoom_step = 2
@@ -91,6 +89,11 @@ func instance_clue(clue_id, parents, children, is_item):
 		node.show()
 		if (clue_id in suspect_ids):
 			node.get_node("ClueButton").set_normal_texture(load("res://ui/graphics/SuspectClue.png"))
+			if(!vm.get_global("first_suspect")):
+				vm.set_global("first_suspect", true)
+				game.get_node("speech_dialogue_player").start(["", analysis_data.first_suspect], vm.level.current_context, false)
+			else:
+				game.get_node("speech_dialogue_player").start(["", analysis_data.suspect], vm.level.current_context, false)
 		curr_clue_size = clue_size
 	
 	node.set_z(0)
@@ -225,7 +228,7 @@ func update_points(parent, child, relation):
 		var child_points = parent_average
 		analysis_data.fact_relations[child]["points"] = child_points
 		get_node("c/" + child).get_node("ClueButton/points").set_text(str(child_points))
-	if(int(get_node("c/" + child).get_node("ClueButton/points").get_text()) >= SUSPECT_THRESHOLD):
+	if(int(get_node("c/" + child).get_node("ClueButton/points").get_text()) >= analysis_data.SUSPECT_THRESHOLD):
 		vm.set_global(str("isSuspect" + child), true)
 
 func update_children_points(node):
