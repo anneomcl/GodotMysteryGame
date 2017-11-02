@@ -7,7 +7,8 @@ var created_relations = {
 const SUSPECT_THRESHOLD = 90 #switch to 100
 const default = "This doesn't make sense to me..."
 const suspect = "Looks like we found a new suspect we can accuse..."
-	
+
+var fact_relations = {
 	#Scenario 0 Relations
 	"general1" : {
 		"and" : { "clues" : ["archie3", "B1", "A1", "archie4"],

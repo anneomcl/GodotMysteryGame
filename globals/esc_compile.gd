@@ -8,6 +8,7 @@ var is_comment_block = false
 
 var commands = {
 	"set_global": { "min_args": 2, "types": [TYPE_STRING, TYPE_BOOL] },
+	"set_clue": { "min_args": 2, "types": [TYPE_STRING, TYPE_BOOL] },
 	"set_value": { "min_args": 3, "lvalues": 1 },
 	"set_random_value": { "min_args": 3, "types": [TYPE_STRING, TYPE_INT, TYPE_INT] },
 	"debug": { "min_args": 1 },

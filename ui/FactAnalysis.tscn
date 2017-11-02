@@ -2,7 +2,7 @@
 
 [ext_resource path="res://ui/fact_analysis.gd" type="Script" id=1]
 [ext_resource path="res://globals/item.gd" type="Script" id=2]
-[ext_resource path="res://game/data/fact_relations.gd" type="Script" id=3]
+[ext_resource path="res://game/data/AnalysisData.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/graphics/analysisBackground.png" type="Texture" id=4]
 [ext_resource path="res://ui/Cursor.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ui/graphics/relationLineand.png" type="Texture" id=6]
@@ -85,9 +85,7 @@ global_id = "default"
 talk_animation = "talk"
 events_path = ""
 
-[node name="AnalysisData" type="Node" parent="."]
-
-script/script = ExtResource( 3 )
+[node name="AnalysisData" parent="." instance=ExtResource( 3 )]
 
 [node name="Background" type="Sprite" parent="."]
 
@@ -144,10 +142,6 @@ params/stretch_mode = 0
 
 [node name="Clue" parent="." instance=ExtResource( 7 )]
 
-transform/pos = Vector2( 7640.57, 217.062 )
-
 [node name="ItemClue" parent="." instance=ExtResource( 8 )]
-
-transform/pos = Vector2( 7616.79, -182.792 )
 
 

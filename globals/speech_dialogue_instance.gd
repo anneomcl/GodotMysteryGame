@@ -257,8 +257,5 @@ func _ready():
 	else:
 		set_pos(Vector2(game_width * .25 + 165, .75 * game_height - 10)) #bottom
 
-	var indicator = vm.game.indicator
-	indicator.set_pos(get_node("indicator").get_global_pos())
-
 	self.connect("exit_tree", self, "clear_dialogue")
 	add_to_group("game")

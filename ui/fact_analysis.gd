@@ -462,7 +462,6 @@ func drag_box():
 				var parent_node = get_node("c/" + parent[0])
 				var parent_center = parent_node.get_pos() + (clue_size / 2)
 				update_draw_relation(parent_center, child_center, parent[0], curr_node.id)
-		
 
 func _fixed_process(delta):
 	if (dragging and Input.is_mouse_button_pressed(BUTTON_LEFT)):

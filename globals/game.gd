@@ -6,8 +6,6 @@ var game_size = Vector2()
 var ui_layer
 var hud_layer
 
-var indicator
-
 var items = []
 var clues = []
 var relations = {}
@@ -66,17 +64,6 @@ func dialog(params, level):
 func _process(time):
 	check_screen()
 
-func hide_clue_received(animate):
-	if indicator != null:
-		if animate:
-			animation.play("fade_out_indicator")
-		indicator.hide()
-
-func show_clue_received(id):
-	if id.substr(0, 2) == "c/" and indicator != null:
-		indicator.show()
-		animation.play("fade_in_indicator")
-
 func _input(event):
 	if ui_stack.size() > 0:
 		ui_stack[ui_stack.size()-1].input(event)
@@ -92,88 +79,6 @@ func _input(event):
 		if event.is_action("menu_request"):
 			if event.is_pressed() && !event.is_echo() && current_scene.get_name() != "Analysis":
 				menu_open()
-
-func prompt_judge():
-	#TO-DO: trigger judge dialogue/cutscene
-	#now trigger the cutscene by manually calling "use" on the judge
-	#later, may want to make sure different judge scripts are 
-	#loaded based on different levels (change esc script in Judge object)
-	var judge = get_tree().get_root().get_node("test_scene/Judge")
-	judge.interact(null)
-
-func accuse(character_name, context):
-	
-	#Set the guilt percentage bar.
-	#TO-DO: snap bar to the top of the camera screen
-	var progress_bar = get_node("../test_scene/ProgressBar")
-	progress_bar.set_hidden(false)
-	progress_bar.set_percent_visible(true)
-	
-	#Set values to interface with the Judge esc script.
-	vm.set_value("points", "=", "0")
-	vm.set_value("strikes", "=", "0")
-	var global_name
-	var judge = get_tree().get_root().get_node("test_scene/Judge")
-	var judge_initial_position = judge.get_pos()
-	
-	#Initialize the accusation sequence.
-	prompt_judge()
-	yield(get_node("../vm"), "esc_finished")
-	
-	#Keep prompting for evidence until win, lose, or quit.
-	while(int(vm.values["points"]) < 90 && int(vm.values["strikes"]) < 3):
-		yield(get_node("hud_layer/inventory"), "inventory_closed")
-		var  curr = get_equipped() 
-		if(curr != null):
-			if(global_name != null):
-				vm.set_global(global_name, false)
-			global_name = get_equipped()
-			global_name = global_name.replace("c/", "")
-			global_name = global_name.replace("i/", "")
-			vm.set_global(global_name, true)
-		else:
-			#If nothing is equipped, prompt player:
-			#No evidence is equipped. Are you sure you'd
-			#like to end the trial?
-			#If yes, then add a failure (3 failures = game over)
-			#If no, prompt the inventory again
-			print("Quit trial?")
-			failures += 1
-			break
-		
-		#Evaluate the presented evidence.
-		vm.set_global("esc_finished", false)
-		prompt_judge()
-		yield(get_node("../vm"), "esc_finished")
-		
-		var truth = progress_bar.get_value()
-		progress_bar.set_value(truth + 10)
-		
-		hud_layer.get_node("inventory").update_items(vm.globals)
-		
-	#Reset the progress bar and the judge.
-	progress_bar.set_hidden(true)
-	var judge = get_tree().get_root().get_node("test_scene/Judge")
-	judge.set_pos(judge_initial_position)
-	judge.hide()
-	
-	#End conditions.
-	if(failures == 3):
-		print("Game Over")
-		print ("Restart level, reset from beginning")
-	
-	if(int(vm.values["points"]) >=90 ):
-		print("Guilt percentage bar disappears")
-		print("Victory cutscene after completing accusation.")
-		print("Load new cutscene, area, level, etc.")
-	
-	if(int(vm.values["strikes"]) > 2):
-		print("Guilt percentage bar disappears")
-		print("Losing cutscene")
-		print("Reset values and return to investigation")
-		failures += 1
-	
-	vm.finished(context, false)
 
 func menu_open():
 	hud_layer.get_node("menu").open()
@@ -291,8 +196,3 @@ func _ready():
 	add_user_signal("object_equipped", ["name"])
 	
 	vm.connect("global_changed", self, "update_global_lists")
-	
-	animation = get_node("hud_layer/animation")
-	indicator = get_node("hud_layer/clue_indicator")
-	vm.connect("global_changed", self, "show_clue_received")
-	

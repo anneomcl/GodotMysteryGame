@@ -59,6 +59,10 @@ func set_global(params):
 	vm.set_global(params[0], params[1])
 	return vm.state_return
 
+func set_clue(params):
+	vm.set_clue(params[0], params[1])
+	return vm.state_return
+	
 func debug(params):
 	for p in params:
 		printraw(p)

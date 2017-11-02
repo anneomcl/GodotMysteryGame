@@ -79,7 +79,6 @@ func move_player():
 	move(move_direction.normalized() * speed)
 
 func _on_Area2D_body_enter(body, obj):
-	printt("body enter ", body, obj, obj == self)
 	if(body == self and obj.get_active()):
 		target = obj
 	

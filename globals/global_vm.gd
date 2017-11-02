@@ -30,7 +30,6 @@ var last_event_id = 0
 var ui_active = false
 
 #delete
-signal esc_finished
 signal global_changed
 
 func set_ui_active(p_active):
@@ -222,20 +221,15 @@ func get_global(name):
 func get_all_globals():
 	return globals
 
-func set_global_gd(name, val, indicate):
-	if indicate:
-		game.show_clue_received()
-	else:
-		game.hide_clue_received(false)
+func set_clue(name, val):
 	set_global(name, val)
+	if(!(name in game.clues)):
+		game.clues.append(name)
 
 func set_global(name, val):
 	globals[name] = val
 	emit_signal("global_changed", name)
 	print("set " + name + " to " + str(val))
-	
-	if(name == "esc_finished" && val == true):
-		emit_signal("esc_finished")
 
 func eval_value(name):
 	var t = typeof(name)

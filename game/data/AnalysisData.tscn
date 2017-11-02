@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://game/data/fact_relations.gd" type="Script" id=1]
+
+[node name="AnalysisData" type="Node"]
+
+script/script = ExtResource( 1 )
+
+
