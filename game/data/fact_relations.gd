@@ -79,6 +79,7 @@ var fact_relations = {
 	"B1" : {
 		"and" : { "clues" : ["general1"],
 		"result" : ["general2"]},
+		"supports" : { "clues" : ["suspectB"] },
 		"points" : 100
 	},
 	"B2" : { 

@@ -301,28 +301,95 @@ func input(event):
 #CLUES
 func clue_pressed(clue_id):
 	var node = clue_parent.get_node(clue_id)
-	curr_clue = node
-	curr_node_original_pos = curr_clue.get_pos()
+	curr_node_original_pos = node.get_global_pos()
+	var clue_name = node.get_name()
+	var parent = node.get_parent()
 	
-	var copy = curr_clue.duplicate()
-	reparent(copy, clue_parent, null)
-	copy.set_pos(curr_clue.get_pos())
-	
+	#real clue stays put, copy is dragged
+	var copy = node.duplicate()
+	reparent(copy, null, null)
+	copy.set_global_pos(curr_node_original_pos)
+	curr_clue = copy
 	dragging = true
 
 func reparent(child, current_parent, target_parent):
-	current_parent.remove_child(child)
+	if current_parent != null:
+		current_parent.remove_child(child)
 	if target_parent == null:
 		add_child(child)
 	else:
 		target_parent.add_child(child)
 
 func clue_released(clue_id):
-	dragging = false
-	remove_child(get_node(clue_id))
-	curr_clue.set_pos(curr_node_original_pos)
-	curr_clue = null
+	var areas = get_node(clue_id).get_node("ClueButton/Area2D").get_overlapping_areas()
+	for area in areas:
+		if area.get_name() == "SuspectArea":
+			var suspect = area.get_node("../../").get_name()
+			check_suspect(suspect, clue_id)
 	
+	dragging = false
+	remove_child(curr_clue)
+	curr_clue = null
+
+func check_suspect(suspect_id, clue_id):
+	var fact = analysis_data.fact_relations[clue_id]
+	var suspect = "suspect" + suspect_id
+	if fact.has("supports") and suspect in fact["supports"]["clues"]:
+		if relation_exists(clue_id, suspect_id, "supports"):
+			print("Clue already found")
+			return
+		var points = fact["points"]
+		var suspect_parent = get_node("Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer")
+		var bar = suspect_parent.get_node(suspect_id).get_node("Sprite/ProgressBar")
+		if (bar.get_progress_texture().get_name() == "progress_negative.PNG"):
+			if (bar.get_value()*-1 + points) >= 0:
+				bar.set_progress_texture(load("res://ui/graphics/progress_progress.PNG"))
+				bar.set_value(bar.get_value()*-1 + points)
+			else:
+				bar.set_value(bar.get_value() - points)
+		elif (bar.get_value() + points) >= 0:
+			bar.set_progress_texture(load("res://ui/graphics/progress_progress.PNG"))
+			bar.set_value(bar.get_value() + points)
+		bar.get_node("Label").set_text(str(bar.get_value()))
+		instance_relation(clue_id, suspect_id, "supports")
+	elif fact.has("contradicts") and suspect in fact["contradicts"]["clues"]:
+		if relation_exists(clue_id, suspect_id, "contradicts"):
+			print("Clue already found")
+			return
+		var points = fact["points"]
+		var suspect_parent = get_node("Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer")
+		var bar = suspect_parent.get_node(suspect_id).get_node("Sprite/ProgressBar")
+		if (bar.get_progress_texture().get_name() == "progress_negative.PNG"):
+			bar.set_value(bar.get_value() + points)
+		elif (bar.get_value() - points) < 0:
+			bar.set_progress_texture(load("res://ui/graphics/progress_negative.PNG"))
+			bar.set_value(-1*(bar.get_value() - points))
+		else:
+			bar.set_value(bar.get_value() - points)
+		bar.get_node("Label").set_text(str(bar.get_value()))
+		instance_relation(clue_id, suspect_id, "contradicts")
+	else:
+		print("Hmm, nothing.")
+
+func instance_relation(clue_id, suspect_id, relation):
+	if !analysis_data.created_relations.has(clue_id):
+		analysis_data.created_relations[clue_id] = { "parents": [], "children": [] }
+	if !analysis_data.created_relations.has(suspect_id):
+		analysis_data.created_relations[suspect_id] = { "parents": [], "children": [] }
+
+	analysis_data.created_relations[suspect_id]["parents"].push_back([clue_id, relation])
+	analysis_data.created_relations[clue_id]["children"].push_back([suspect_id, relation])
+
+func relation_exists(clue_id, suspect_id, relation):
+	if !analysis_data.created_relations.has(clue_id):
+		return false
+	if !analysis_data.created_relations.has(suspect_id):
+		return false
+	for item in analysis_data.created_relations[clue_id]["children"]:
+		if item[0] == suspect_id and item[1] == relation:
+			return true
+	return false
+
 func is_item_clue(clue_id):
 	for item in inventory.items:
 		if clue_id == item.id:

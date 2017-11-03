@@ -191,8 +191,6 @@ func instance_relation(clue_id, parents, children, relation):
 				analysis_data.created_relations[parent] = { "parents": [], "children": [] }
 			analysis_data.created_relations[parent]["children"].push_back([clue_id, relation])
 			draw_relation(parent, clue_id, relation)
-		
-	print(analysis_data.created_relations)
 
 func get_selected_relation():
 	if vm.get_global("therefore_selected"):
