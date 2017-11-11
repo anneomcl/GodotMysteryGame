@@ -1,0 +1,20 @@
+:load
+
+
+> [tutorial_success]
+	say player "A-ha! So that's how it works... I guess I should figure out who was in the kitchen from 4PM to 4:30PM. Let's see... The book says:"
+	say default "Newly discovered clues will be added to your notebook, and can be used to increase or decrease suspicion of suspects."
+	say default "Remember to check the board frequently to analyze clues and find new leads."
+	say default "This logician will write more in a second volume. Please look forward to it."
+	stop
+
+> [in_tutorial]
+	say default "The primary tool of ANALYSIS is discovering RELATIONSHIPS between CLUES."
+	say default "We can find new CLUES, or theories, by pressing SHIFT+click on a CLUE."
+	say default "This gives us the three core relationships of our starter kit:"
+	say default "1) A AND B THEREFORE C"
+	say default "2) A SUPPORTS B"
+	say default "3) A CONTRADICTS B"
+	say default "Select the relationship you would like to test, and then click on the second clue 'B' to apply it to."
+	say default "You can also press 'BACK' to pocket the board. CLUE relationships will be saved when you want to try ANALYSIS again."
+	stop

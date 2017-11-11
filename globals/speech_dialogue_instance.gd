@@ -174,7 +174,6 @@ func start(params, p_context, p_is_choice):
 		display_portrait(avatar_id)
 	
 	if(character_name != null and character_name != "default"):
-		#get_node("anchor/avatars/name").show() disable this for now
 		get_node("anchor/avatars/name").set_text(character_name)
 	
 	ready = false
@@ -190,7 +189,6 @@ func _on_mouse_exit(button):
 	button.get_node("label").add_color_override("font_color_shadow", mouse_exit_shadow_color)
 
 func stop():
-	vm.game.hide_clue_received(false)
 	hide()
 	while container.get_child_count() > 0:
 		var c = container.get_child(0)

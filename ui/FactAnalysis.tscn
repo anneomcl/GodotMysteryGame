@@ -27,6 +27,7 @@ events_path = "res://ui/ClueAnalysis.esc"
 
 [node name="center" type="KinematicBody2D" parent="."]
 
+editor/display_folded = true
 input/pickable = false
 collision/layers = 1
 collision/mask = 1
@@ -67,10 +68,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 1181.0
-margin/top = 617.0
-margin/right = 1247.0
-margin/bottom = 677.0
+margin/left = 1200.0
+margin/top = -100.0
+margin/right = 1266.0
+margin/bottom = -40.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -89,8 +90,8 @@ events_path = ""
 
 [node name="Background" type="Sprite" parent="."]
 
-transform/pos = Vector2( 640, 360 )
-transform/scale = Vector2( 10, 10 )
+editor/display_folded = true
+transform/scale = Vector2( 4, 4 )
 texture = ExtResource( 4 )
 
 [node name="BackgroundButton" type="TextureButton" parent="Background"]
@@ -99,10 +100,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -629.0
-margin/top = -353.0
-margin/right = 643.0
-margin/bottom = 360.0
+margin/left = -670.0
+margin/top = -394.0
+margin/right = 665.0
+margin/bottom = 399.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -142,6 +143,24 @@ params/stretch_mode = 0
 
 [node name="Clue" parent="." instance=ExtResource( 7 )]
 
+margin/left = 493.0
+margin/top = 1537.0
+margin/right = 493.0
+margin/bottom = 1537.0
+
 [node name="ItemClue" parent="." instance=ExtResource( 8 )]
+
+margin/left = 129.0
+margin/top = 1478.0
+margin/right = 129.0
+margin/bottom = 1478.0
+
+[node name="player" type="Node2D" parent="."]
+
+script/script = ExtResource( 2 )
+active = true
+global_id = "player"
+talk_animation = "talk"
+events_path = ""
 
 

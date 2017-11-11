@@ -2,9 +2,43 @@
 
 >
 	?
-		- "Interviewing Suspects"
-		- "My Moonlight Gnome"
+		- "Criminal Investigations for Dummies, Volume 1"
+			say default "The first step to any investigation is gathering information."
+			say default "Start by investigating the area where the crime took place, and examining everything of note."
+			say default "Then talk to witnesses and suspects related to the crime, or near the crime scene, to gather more clues."
+			say default "ANALYZE the clues you've gathered to create new clues, and open new areas to investigate or leads to question suspects and witnesses."
+		
+		- "Fundamentals of Magical Logic, Volume 1"
+			say default "Once an investigator has gathered a trove of information, they must chisel its mass to reveal the story beneath."
+			say default "Every intrepid fact explorer needs a surface to perform their work."
+			say default "This logician recommends a spiral notebook, classic cork bulletin board, complete with yarn and thumbtacks. See the portable kit attached to this book."
+			say player "I'm sure Archie won't mind if I take this..."
+			say default "<Received The Junior Logician's Magically Expanding Pocket-Size Analysis Board Starter Kit (with Limited Edition Pen)>"
+			say default "Continue reading?"
+			>
+				?
+					- "Yes"
+						open_notebook
+						say default "The portable bulletin board comes with a remote control. Simply press the TAB button on your remote to open your notebook and board."
+						say default "First let's look at our analysis board."
+						say default "Click 'Analyze Clues' to magically expand the intelligent pocket-sized bulletin board. It will only intelligently expand if there are enough related clues in your notebook."
+						say default "(This logician hopes that our work can contribute to the development of even more advanced and insightful analysis tools.)"
+						say default "Go ahead and try expanding the board now."
+						set_global in_tutorial true
+						stop
+					- "No"
+						say player "I think I'm ready to go."
+						stop
+
+		- "Moonlight"
 			say player "I didn't know Archie was a fan too...!!"
-		- "Gathering Evidence"
-		- "Law and Analysis"
-		- "Courtroom Etiquette for Dummies"
+			say player "This is the tenth volume, where the moonlit gnome is finally able to walk through the sun-kissed orchards of Raylaria with Aylor'uk the giant...!!"
+			say player "Ahhh... So emotional."
+
+		- "Some Magazines"
+			say default "Would you like to read some magazines?"
+			>
+				?
+					- "Yes"
+					- "No"
+						stop

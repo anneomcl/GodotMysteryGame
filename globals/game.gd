@@ -10,6 +10,7 @@ var items = []
 var clues = []
 var relations = {}
 var clue_positions = {}
+var puzzles = {}
 var facts = {}
 var analysis_camera_pos = Vector2(0, 0)
 var analysis_camera_zoom = Vector2(1, 1)
@@ -85,6 +86,7 @@ func menu_open():
 
 func inventory_open():
 	hud_layer.get_node("inventory").open()
+	yield(hud_layer.get_node("inventory"), "inventory_opened")
 	
 func inventory_close():
 	hud_layer.get_node("inventory").close()
@@ -93,9 +95,28 @@ func inventory_set(name, p_enabled):
 	# maybe not necessary? it can be global flags
 	pass
 
+func change_scene_puzzle(params, puzzle_id, context):
+	if current_scene != null:
+		current_scene.queue_free()
+		current_scene = null
+
+	var res = res_cache.get_resource(params[0])
+	res_cache.clear()
+	if res == null:
+		return
+	var scene = res.instance()
+	if scene == null:
+		return
+	get_node("/root").add_child(scene)
+	
+	scene.puzzle_id = puzzle_id
+	scene.instance_clues(puzzle_id)
+	
+	set_current_scene(scene)
+	emit_signal("change_scene_finished")
+	vm.finished(context, false)
+
 func change_scene(params, context):
-	print("change scene to ", params[0])
-	# remove current scene
 	if current_scene != null:
 		current_scene.queue_free()
 		current_scene = null

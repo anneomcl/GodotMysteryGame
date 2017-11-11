@@ -88,7 +88,7 @@ debug "this is the 'use' event for Archie!"
 				>
 					?
 						- "When did you last see the cookies?"
-							set_global c/archie3 true
+							set_global c/archie2 true
 							say archie "I went to check on how well, uh, how well-received they were at around 4:30PM."
 							say player "Are you sure it was 4:30?" 
 							say archie "Of course! I always take tea at 4:30, and I take it with a tasty something or other. In this case, that something was my own cookies."
@@ -98,7 +98,7 @@ debug "this is the 'use' event for Archie!"
 							say archie "That's fair to assume."
 							say player "Hmmmm..."
 						- "Was there anyone else in the kitchen?"
-							set_global c/archie4 true
+							set_global c/archie3 true
 							say archie "I saw Bee there, she took one and then started doing something or other by the sink."
 							say player "You think it was her then?"
 							say archie "I think... I hope, at least, that no one on my team would break their oaths as knights for something like this."
@@ -150,7 +150,7 @@ debug "this is the 'use' event for Archie!"
 							say player "I guess I didn't look at the clock, and I don't really know what you were doing in those few minutes."
 							say archie "Hmmmm. Good enough. Work on developing an eye for detail."
 							say archie "We live in an ever-changing world, with scientific magic moving as quickly as it is. You can never be too detailed in your recollections. Things may not always be as they seem."
-							set_global c/archie6 true
+							set_global c/archie4 true
 							say archie "So your story is that you were here all day, installing the file system. At 4 you saw me leave. I was unaccounted for in the following few minutes."
 							say archie "During which, you wasted no time in playing make-believe."
 							say player "Ahahaha...yeah... I guess that did happen." player_embarrased

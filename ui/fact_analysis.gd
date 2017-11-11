@@ -4,6 +4,8 @@ export(String,FILE) var events_path = ""
 
 var event_table = {}
 
+var puzzle_id
+
 var zoom_step = 2
 var scroll_speed = 20 
 var camera
@@ -35,12 +37,13 @@ func back_to_game():
 	if game.has_node("hud_layer/dialog"):
 		game.get_node("hud_layer/dialog").stop()
 	vm.game.analysis_camera_pos = get_node("center").get_pos()
-	vm.game.analysis_camera_zoom = get_node("center/camera").get_zoom()
-	vm.game.relations = analysis_data.created_relations
-	vm.game.facts = analysis_data.fact_relations
-	for clue in vm.game.clues:
-		var clue_pos = get_node("c/" + clue).get_pos()
-		vm.game.clue_positions[clue] = clue_pos
+	#vm.game.analysis_camera_zoom = get_node("center/camera").get_zoom()
+	#vm.game.relations = analysis_data.created_relations
+	#vm.game.facts = analysis_data.fact_relations
+	vm.game.puzzles = analysis_data.puzzles
+	#for clue in vm.game.clues:
+	#	var clue_pos = get_node("c/" + clue).get_pos()
+	#	vm.game.clue_positions[clue] = clue_pos
 	menu.load_pressed("tempsave")
 
 func find_item_clue(id):
@@ -95,8 +98,7 @@ func instance_clue(clue_id, parents, children, is_item):
 			else:
 				game.get_node("speech_dialogue_player").start(["", analysis_data.suspect], vm.level.current_context, false)
 		curr_clue_size = clue_size
-	
-	node.set_z(0)
+
 	var proposed_position = Vector2(col_width * col + col_offset, row_width * row + row_offset)
 	if parents != null:
 		var dist = abs(get_node("c/" + parents[0]).get_pos().x - get_node("c/" + parents[1]).get_pos().x)
@@ -129,8 +131,9 @@ func is_item_clue(clue_id):
 			return true
 	return false
 
-func instance_clues():
-	for clue in game.clues:
+func instance_clues(puzzle_id):
+	var clues = analysis_data.puzzles[puzzle_id].clues
+	for clue in clues:
 		if is_item_clue(clue):
 			instance_clue(clue, null, null, true)
 		else:
@@ -305,6 +308,17 @@ func process_clues(first_clue, second_clue):
 					update_children_points(new_clue)
 					game.clues.append(new_clue)
 					vm.set_global("c/" + new_clue, true)
+					
+					var solution = analysis_data.puzzles[puzzle_id].solution
+					if new_clue == solution[0]:
+						if vm.get_global("in_tutorial"):
+							vm.set_global("tutorial_success", true)
+							game.execute_cutscene("res://ui/FactAnalysisDialogue.esc")
+							vm.set_global("in_tutorial", false)
+							analysis_data.puzzles[puzzle_id]["is_solved"] = true
+						else:
+							analysis_data.puzzles[puzzle_id]["is_solved"] = true
+							game.get_node("speech_dialogue_player").start(["", analysis_data.puzzle_solved_success], vm.level.current_context, false)
 				else:
 					game.get_node("speech_dialogue_player").start(["", "Clue already found!"], vm.level.current_context, false)
 					return
@@ -386,7 +400,6 @@ func clue_pressed(clue_id):
 
 func clue_released(clue_id):
 	dragging = false
-	curr_node.set_z(0)
 	curr_node = null
 	nodes = []
 
@@ -421,7 +434,6 @@ func find_all_clicked_nodes(node):
 
 func drag_box():
 	var pos = get_global_mouse_pos()
-	curr_node.set_z(1)
 	
 	var clue_size = get_clue_size(curr_node)
 	
@@ -509,6 +521,11 @@ func _ready():
 		analysis_data.created_relations = vm.game.relations
 	if vm.game.facts.keys().size() > 0:
 		analysis_data.fact_relations = vm.game.facts
+	if vm.game.puzzles.keys().size() > 0:
+		analysis_data.puzzles = vm.game.puzzles
 	
-	instance_clues()
-	instance_relations()
+	if vm.get_global("in_tutorial"):
+		game.execute_cutscene("res://ui/FactAnalysisDialogue.esc")
+	
+	#instance_clues()
+	#instance_relations()

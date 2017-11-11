@@ -31,7 +31,9 @@ var events
 
 var dragging = false
 
+signal clues_instanced
 signal inventory_closed
+signal inventory_opened
 
 var base_path = "res://scenes/test/"
 
@@ -44,14 +46,42 @@ func close():
 
 func open():
 	instance_clues()
+	#TO-DO:See if this is necessary:
+	#yield(self, "clues_instanced")
 	show()
 	game.add_hud(self)
+	
+	if puzzle_to_solve() != null:
+		var green = Color(80.0/255.0, 200.0/255.0, 80.0/255.0)
+		get_node("Menu/Suspects/SuspectControl/AnalysisBoard/Label").set("custom_colors/font_color", green)
+	else:
+		var gray = Color(40.0/255.0, 40.0/255.0, 40.0/255.0)
+		get_node("Menu/Suspects/SuspectControl/AnalysisBoard/Label").set("custom_colors/font_color", gray)
+	emit_signal("inventory_opened")
 
 func open_fact_analysis():
+	var puzzle = puzzle_to_solve()
+	if puzzle == null:
+		game.get_node("speech_dialogue_player").start(["", analysis_data.no_puzzle], vm.level.current_context, false)
+		return
 	if game.current_scene.get_name() != "Analysis":
 		get_node("Menu/Options/menu").save_pressed("tempsave")
-		game.change_scene(["res://ui/FactAnalysis.tscn"], vm.level.current_context)
+		game.change_scene_puzzle(["res://ui/FactAnalysis.tscn"], puzzle, vm.level.current_context)
 		close()
+
+func puzzle_to_solve():
+	var puzzles = game.puzzles
+	var use_this_puzzle = true
+	for puzzle in puzzles.keys():
+		if !puzzles[puzzle].is_solved:
+			var clues =  puzzles[puzzle].clues
+			for clue in clues:
+				if !(clue in game.clues):
+					use_this_puzzle = false
+					break
+			if use_this_puzzle:
+				return puzzle
+	return null
 
 #INPUT EVENTS
 func input(event):
@@ -115,7 +145,7 @@ func check_suspect(suspect_id, clue_id):
 	var suspect = "suspect" + suspect_id
 	if fact.has("supports") and suspect in fact["supports"]["clues"]:
 		if relation_exists(clue_id, suspect_id, "supports"):
-			print("Clue already found")
+			game.get_node("speech_dialogue_player").start(["", analysis_data.found], vm.level.current_context, false)
 			return
 		var points = fact["points"]
 		var suspect_parent = get_node("Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer")
@@ -129,11 +159,12 @@ func check_suspect(suspect_id, clue_id):
 		elif (bar.get_value() + points) >= 0:
 			bar.set_progress_texture(load("res://ui/graphics/progress_progress.PNG"))
 			bar.set_value(bar.get_value() + points)
-		bar.get_node("Label").set_text(str(bar.get_value()))
+		bar.get_node("Label").set_text("+" + str(bar.get_value()))
 		instance_relation(clue_id, suspect_id, "supports")
+		game.get_node("speech_dialogue_player").start(["", analysis_data.supports], vm.level.current_context, false)
 	elif fact.has("contradicts") and suspect in fact["contradicts"]["clues"]:
 		if relation_exists(clue_id, suspect_id, "contradicts"):
-			print("Clue already found")
+			game.get_node("speech_dialogue_player").start(["", analysis_data.found], vm.level.current_context, false)
 			return
 		var points = fact["points"]
 		var suspect_parent = get_node("Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer")
@@ -145,10 +176,11 @@ func check_suspect(suspect_id, clue_id):
 			bar.set_value(-1*(bar.get_value() - points))
 		else:
 			bar.set_value(bar.get_value() - points)
-		bar.get_node("Label").set_text(str(bar.get_value()))
+		bar.get_node("Label").set_text("-" + str(bar.get_value()))
 		instance_relation(clue_id, suspect_id, "contradicts")
+		game.get_node("speech_dialogue_player").start(["", analysis_data.contradicts], vm.level.current_context, false)
 	else:
-		print("Hmm, nothing.")
+		game.get_node("speech_dialogue_player").start(["", analysis_data.default], vm.level.current_context, false)
 
 func instance_relation(clue_id, suspect_id, relation):
 	if !analysis_data.created_relations.has(clue_id):
@@ -196,7 +228,8 @@ func instance_clues():
 				instance_clue(clue, null, null, true)
 			else:
 				instance_clue(clue, null, null, false)
-			
+	emit_signal("clues_instanced")
+
 func instance_clue(clue_id, parents, children, is_item):
 	var node
 	if is_item:
@@ -255,5 +288,10 @@ func _ready():
 	clue_parent = get_node("Menu/Suspects/SuspectControl/ScrollContainerClues/VBoxContainer")
 	analysis_data = get_node("AnalysisData")
 	instance_clues()
+	
+	if game.puzzles.keys().size() < 1:
+		game.puzzles = analysis_data.puzzles
 
 	inventory = preload("res://game/data/inventory.gd")
+	
+	get_node("Menu/Suspects/SuspectControl/AnalysisBoard").connect("pressed", self, "open_fact_analysis")

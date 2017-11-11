@@ -4,9 +4,31 @@ func _ready():
 var created_relations = {
 }
 
-const SUSPECT_THRESHOLD = 90 #switch to 100
+const SUSPECT_THRESHOLD = 90
 const default = "This doesn't make sense to me..."
-const suspect = "Looks like we found a new suspect we can accuse..."
+const supports = "This clue supports their guilt."
+const contradicts = "This clue supports their innocence."
+const found = "I already matched that clue to this suspect."
+const no_puzzle = "I need to find more clues to analyze."
+const puzzle_solved_success = "A-ha! I think I've solved this one."
+
+var puzzles = {
+	"puzzle1" : {
+		"clues" : ["archie1", "archie2"],
+		"solution" : ["general1"],
+		"is_solved" : false
+	},
+	"puzzle2" : {
+		"clues" : ["general1", "archie3", "B1", "archie4", "A1"],
+		"solution" : ["general2", "general3", "general4"],
+		"is_solved" : false
+	},
+	"puzzle3" : {
+		"clues" : ["library1", "office1", "office2"],
+		"solution" : ["general6"],
+		"is_solved" : false
+	}
+}
 
 var fact_relations = {
 	#Scenario 0 Relations
@@ -46,7 +68,7 @@ var fact_relations = {
 	"archie2" : { 
 		"and" : { "clues" : ["archie1"],
 		"result" : ["general1"] },
-		"points" : 100
+		"points" : 10
 	},
 	"archie3" : { 
 		"and" : { "clues": ["general1"],
