@@ -15,17 +15,20 @@ const puzzle_solved_success = "A-ha! I think I've solved this one."
 var puzzles = {
 	"puzzle1" : {
 		"clues" : ["archie1", "archie2"],
-		"solution" : ["general1"],
+		"solution" : 
+			{ "therefore" : 1, "supports" : 0, "contradicts" : 0 },
 		"is_solved" : false
 	},
 	"puzzle2" : {
 		"clues" : ["general1", "archie3", "B1", "archie4", "A1"],
-		"solution" : ["general2", "general3", "general4"],
+		"solution" : 
+			{ "therefore" : 3, "supports" :  1, "contradicts" : 0},
 		"is_solved" : false
 	},
 	"puzzle3" : {
 		"clues" : ["library1", "office1", "office2"],
-		"solution" : ["general6"],
+		"solution" : 
+			{ "therefore" : 2, "supports" : 0, "contradicts" : 0 },
 		"is_solved" : false
 	}
 }
@@ -73,7 +76,7 @@ var fact_relations = {
 	"archie3" : { 
 		"and" : { "clues": ["general1"],
 		"result" : ["general2"] },
-		"supports" : { "clues": ["suspectB"] },
+		"supports" : { "clues": ["suspectB", "B1"], },
 		"points" : 10
 	},
 	"archie4" : {
@@ -101,7 +104,7 @@ var fact_relations = {
 	"B1" : {
 		"and" : { "clues" : ["general1"],
 		"result" : ["general2"]},
-		"supports" : { "clues" : ["suspectB"] },
+		"supports" : { "clues" : ["suspectB", "archie3"] },
 		"points" : 100
 	},
 	"B2" : { 

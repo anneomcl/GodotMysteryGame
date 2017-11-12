@@ -16,6 +16,10 @@ var menu
 var inventory
 var analysis_data
 
+var therefore_sol_count = 0
+var supports_sol_count = 0
+var contradicts_sol_count = 0
+
 var dragging = false
 var curr_node #node currently selected
 var nodes = []
@@ -90,13 +94,6 @@ func instance_clue(clue_id, parents, children, is_item):
 	else:
 		node = get_node("Clue").duplicate()
 		node.show()
-		if (clue_id in suspect_ids):
-			node.get_node("ClueButton").set_normal_texture(load("res://ui/graphics/SuspectClue.png"))
-			if(!vm.get_global("first_suspect")):
-				vm.set_global("first_suspect", true)
-				game.get_node("speech_dialogue_player").start(["", analysis_data.first_suspect], vm.level.current_context, false)
-			else:
-				game.get_node("speech_dialogue_player").start(["", analysis_data.suspect], vm.level.current_context, false)
 		curr_clue_size = clue_size
 
 	var proposed_position = Vector2(col_width * col + col_offset, row_width * row + row_offset)
@@ -229,8 +226,7 @@ func update_points(parent, child, relation):
 		var child_points = parent_average
 		analysis_data.fact_relations[child]["points"] = child_points
 		get_node("c/" + child).get_node("ClueButton/points").set_text(str(child_points))
-	if(int(get_node("c/" + child).get_node("ClueButton/points").get_text()) >= analysis_data.SUSPECT_THRESHOLD):
-		vm.set_global(str("isSuspect" + child), true)
+	
 
 func update_children_points(node):
 	var nodes = [node]
@@ -290,14 +286,14 @@ func process_clues(first_clue, second_clue):
 				instance_relation(first_clue, null, [second_clue], relation)
 				update_points([first_clue], second_clue, "contradicts")
 				update_children_points(second_clue)
-				
+				contradicts_sol_count += 1
 			if relation == "supports":
 				print("Clue supports other clue: ")
 				#print ("Support points: " + str(fact_object[relation]["points"]))
 				instance_relation(first_clue, null, [second_clue], relation)
 				update_points([first_clue], second_clue, "supports")
 				update_children_points(second_clue)
-				
+				supports_sol_count += 1
 			if relation == "and":
 				var index = fact_object[relation]["clues"].find(second_clue)
 				var new_clue = fact_object[relation]["result"][index]
@@ -309,19 +305,21 @@ func process_clues(first_clue, second_clue):
 					game.clues.append(new_clue)
 					vm.set_global("c/" + new_clue, true)
 					
-					var solution = analysis_data.puzzles[puzzle_id].solution
-					if new_clue == solution[0]:
-						if vm.get_global("in_tutorial"):
-							vm.set_global("tutorial_success", true)
-							game.execute_cutscene("res://ui/FactAnalysisDialogue.esc")
-							vm.set_global("in_tutorial", false)
-							analysis_data.puzzles[puzzle_id]["is_solved"] = true
-						else:
-							analysis_data.puzzles[puzzle_id]["is_solved"] = true
-							game.get_node("speech_dialogue_player").start(["", analysis_data.puzzle_solved_success], vm.level.current_context, false)
+					therefore_sol_count += 1
 				else:
 					game.get_node("speech_dialogue_player").start(["", "Clue already found!"], vm.level.current_context, false)
 					return
+			
+			var solution = analysis_data.puzzles[puzzle_id].solution
+			if therefore_sol_count == solution["therefore"] and supports_sol_count == solution["supports"] and contradicts_sol_count == solution["contradicts"]:
+				if !vm.get_global("in_tutorial"):
+					analysis_data.puzzles[puzzle_id]["is_solved"] = true
+					game.get_node("speech_dialogue_player").start(["", analysis_data.puzzle_solved_success], vm.level.current_context, false)
+				else:
+					vm.set_global("tutorial_success", true)
+					game.execute_cutscene("res://ui/FactAnalysisDialogue.esc")
+					vm.set_global("in_tutorial", false)
+					analysis_data.puzzles[puzzle_id]["is_solved"] = true
 		else:
 			game.get_node("speech_dialogue_player").start(["", analysis_data.default], vm.level.current_context, false)
 			return

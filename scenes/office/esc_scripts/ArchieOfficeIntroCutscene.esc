@@ -8,10 +8,8 @@ set_global spoke_to_archie true
 set_clue archie1 true
 set_clue archie2 true
 
-
+/*
 set_clue archie3 true
-
-
 set_clue archie4 true
 
 set_clue A1 true
@@ -23,7 +21,7 @@ set_clue B2 true
 
 set_clue office1 true
 set_clue office2 true
-
+*/
 
 > [archie_intro_cutscene]
 	camera_to_player player

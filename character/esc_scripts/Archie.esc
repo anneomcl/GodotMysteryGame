@@ -20,17 +20,17 @@ debug "this is the 'use' event for Archie!"
 > [spoke_to_archie]
 	>
 		?
-			- "I'd like to accuse someone" [OR, isSuspectgeneral3, isSuspectgeneral5, isSuspectgeneral4]
+			- "I'd like to accuse someone" [OR, suspectA, suspectB, suspectArchie]
 				>
 					?
 						- "I'd like to accuse A"
-							> [isSuspectgeneral5]
+							> [suspectA]
 								say player "I'd like to accuse A."
 								say archie "Okay"
 								cut_scene ArchieOfficeViewportAnimation fade_to_black
 								#insert "Chapter 2 end" card here
 								stop
-							> [!isSuspectgeneral5]
+							> [!suspectA]
 								say player "I'd like to accuse A."
 								say archie "Are you sure you have enough evidence?"
 								>
@@ -44,12 +44,12 @@ debug "this is the 'use' event for Archie!"
 										- "No"
 											say player "I guess not..."
 						- "I'd like to accuse B"
-							> [isSuspectgeneral3]
+							> [suspectB]
 								say player "I'd like to accuse B."
 								say archie "Okay"
 								cut_scene ArchieOfficeViewportAnimation fade_to_black
 								stop
-							> [!isSuspectgeneral3]
+							> [!suspectB]
 								say player "I'd like to accuse B."
 								say archie "Are you sure you have enough evidence?"
 								>
@@ -61,14 +61,14 @@ debug "this is the 'use' event for Archie!"
 											stop
 										- "No"
 											say player "I guess not..."
-						- "I'd like to accuse A"
-							> [isSuspectgeneral4]
+						- "I'd like to accuse Archie"
+							> [suspectArchie]
 								say player "I'd like to accuse...You!"
 								say archie "Okay"
 								cut_scene ArchieOfficeViewportAnimation fade_to_black
 								#insert "Chapter 2 end" card here
 								stop
-							> [!isSuspectgeneral4]
+							> [!suspectArchie]
 								say player "I'd like to accuse A...You!"
 								say archie "You sure about that, rookie?"
 								>

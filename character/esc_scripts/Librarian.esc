@@ -3,7 +3,7 @@ debug "this is the 'use' event for Librarian!"
 
 > [!library_initial]
 	say librarian "Hi, this part isn't ready yet. Here's your test clue, lemon fairies cause mischief, and they are attracted to lemony things."
-	set_global c/library4 true
+	set_global c/library1 true
 	stop
 /*
 > [library_initial]
@@ -33,7 +33,6 @@ debug "this is the 'use' event for Librarian!"
 			say librarian "Wait, let me guess... Hmm... Ah, cheap shoes. Definitely upstreamer."
 			say player "What do you mean by that--? Anyway, can I see the ledger?"
 			say librarian "Sure."
-			set_global c/library2 true
 			say player "Hmmm... So it really was just the four of us. Could someone have snuck in here and changed it?"
 			say librarian "Highly unlikely."
 			say player "I guess I'll mark it down as a possibility anyway."

@@ -3,11 +3,15 @@ var game
 
 var item
 
+var dummy
+var dummy_item
+
 var hand
 
 var clue_size
 var item_clue_size
 var clue_parent
+var evidence_parent
 var curr_clue
 var analysis_data
 var curr_node_original_pos
@@ -41,13 +45,29 @@ var base_path = "res://scenes/test/"
 #OPTIONS, MAP, INVENTORY
 func close():
 	hide()
+	dummy.queue_free()
+	dummy_item.queue_free()
 	game.remove_hud(self)
 	emit_signal("inventory_closed")
+
+func add_clue_dummy():
+	dummy = get_node("Clue").duplicate()
+	dummy.get_node("ClueButton").set_normal_texture(null)
+	dummy.get_node("ClueButton/Label").set_text("")
+	clue_parent.add_child(dummy)
+
+func add_evidence_dummy():
+	dummy_item = get_node("ItemClue").duplicate()
+	dummy_item.get_node("ClueButton").set_normal_texture(null)
+	dummy_item.get_node("ClueButton/Label").set_text("")
+	evidence_parent.add_child(dummy_item)
 
 func open():
 	instance_clues()
 	#TO-DO:See if this is necessary:
 	#yield(self, "clues_instanced")
+	add_clue_dummy()
+	add_evidence_dummy()
 	show()
 	game.add_hud(self)
 	
@@ -108,8 +128,15 @@ func input(event):
 		close()
 
 #CLUES
-func clue_pressed(clue_id):
-	var node = clue_parent.get_node(clue_id)
+func clue_pressed(clue_id, is_item):
+	var node = null
+	if is_item and evidence_parent.has_node(clue_id):
+		node = evidence_parent.get_node(clue_id)
+	elif clue_parent.has_node(clue_id):
+		node = clue_parent.get_node(clue_id)
+	else:
+		return
+
 	curr_node_original_pos = node.get_global_pos()
 	var clue_name = node.get_name()
 	var parent = node.get_parent()
@@ -143,12 +170,12 @@ func clue_released(clue_id):
 func check_suspect(suspect_id, clue_id):
 	var fact = analysis_data.fact_relations[clue_id]
 	var suspect = "suspect" + suspect_id
+	var suspect_parent = get_node("Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer")
 	if fact.has("supports") and suspect in fact["supports"]["clues"]:
 		if relation_exists(clue_id, suspect_id, "supports"):
 			game.get_node("speech_dialogue_player").start(["", analysis_data.found], vm.level.current_context, false)
 			return
 		var points = fact["points"]
-		var suspect_parent = get_node("Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer")
 		var bar = suspect_parent.get_node(suspect_id).get_node("Sprite/ProgressBar")
 		if (bar.get_progress_texture().get_name() == "progress_negative.PNG"):
 			if (bar.get_value()*-1 + points) >= 0:
@@ -167,7 +194,6 @@ func check_suspect(suspect_id, clue_id):
 			game.get_node("speech_dialogue_player").start(["", analysis_data.found], vm.level.current_context, false)
 			return
 		var points = fact["points"]
-		var suspect_parent = get_node("Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer")
 		var bar = suspect_parent.get_node(suspect_id).get_node("Sprite/ProgressBar")
 		if (bar.get_progress_texture().get_name() == "progress_negative.PNG"):
 			bar.set_value(bar.get_value() + points)
@@ -181,6 +207,8 @@ func check_suspect(suspect_id, clue_id):
 		game.get_node("speech_dialogue_player").start(["", analysis_data.contradicts], vm.level.current_context, false)
 	else:
 		game.get_node("speech_dialogue_player").start(["", analysis_data.default], vm.level.current_context, false)
+	if(int(suspect_parent.get_node(suspect_id).get_node("Sprite/ProgressBar/Label").get_text()) >= analysis_data.SUSPECT_THRESHOLD):
+		vm.set_global(suspect, true)
 
 func instance_relation(clue_id, suspect_id, relation):
 	if !analysis_data.created_relations.has(clue_id):
@@ -223,11 +251,10 @@ func find_clue(id):
 
 func instance_clues():
 	for clue in game.clues:
-		if !clue_parent.has_node(clue):
-			if is_item_clue(clue):
-				instance_clue(clue, null, null, true)
-			else:
+		if !is_item_clue(clue) and !clue_parent.has_node(clue):
 				instance_clue(clue, null, null, false)
+		elif is_item_clue(clue) and !evidence_parent.has_node(clue):
+				instance_clue(clue, null, null, true)
 	emit_signal("clues_instanced")
 
 func instance_clue(clue_id, parents, children, is_item):
@@ -252,10 +279,13 @@ func instance_clue(clue_id, parents, children, is_item):
 		clue_id.erase(0, 2)
 	node.set_name(clue_id)
 	
-	node.get_node("ClueButton").connect("button_down", self, "clue_pressed", [clue_id])
+	node.get_node("ClueButton").connect("button_down", self, "clue_pressed", [clue_id, is_item])
 	node.get_node("ClueButton").connect("button_up", self, "clue_released", [clue_id])
 	
-	get_node("Menu/Suspects/SuspectControl/ScrollContainerClues/VBoxContainer").add_child(node)
+	if is_item:
+		evidence_parent.add_child(node)
+	else:
+		clue_parent.add_child(node)
 
 func drag_box():
 	var pos = get_global_mouse_pos()
@@ -285,9 +315,11 @@ func _ready():
 	clue_size = Vector2(get_node("Clue/ClueButton").get_rect().size.x, get_node("Clue/ClueButton").get_rect().size.y)
 	item_clue_size =  Vector2(get_node("ItemClue/ClueButton").get_rect().size.x, get_node("ItemClue/ClueButton").get_rect().size.y)
 	
-	clue_parent = get_node("Menu/Suspects/SuspectControl/ScrollContainerClues/VBoxContainer")
+	clue_parent = get_node("Menu/Suspects/SuspectControl/TabContainer/Clues/VBoxContainer")
+	evidence_parent = get_node("Menu/Suspects/SuspectControl/TabContainer/Evidence/VBoxContainer")
 	analysis_data = get_node("AnalysisData")
 	instance_clues()
+	
 	
 	if game.puzzles.keys().size() < 1:
 		game.puzzles = analysis_data.puzzles

@@ -243,14 +243,10 @@ func _ready():
 	animation = get_node("animation")
 	animation.connect("finished", self, "anim_finished")\
 	
-	var player_camera_pos
-	if (weakref(vm.game.current_player).get_ref()):
-		player_camera_pos = vm.game.current_player.get_pos()
 	var game_height = (Globals.get("display/game_height"))
 	var game_width = (Globals.get("display/game_width"))
-	
-	#TO-DO: Change to offset factors
-	if player_camera_pos != null and player_camera_pos.y <= game_height/2:
+
+	if !vm.game.current_scene.has_node("player"):
 		set_pos(Vector2(game_width * .25 + 165, 0 * game_height - 110)) #top
 	else:
 		set_pos(Vector2(game_width * .25 + 165, .75 * game_height - 10)) #bottom

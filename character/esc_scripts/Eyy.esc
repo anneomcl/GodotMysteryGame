@@ -21,10 +21,11 @@ debug "this is the 'use' event for A!"
 	say player "Petty?"
 	say Eyy "Yeah."
 	say Eyy "Ok, ask away."
+	set_global spoke_to_A true
 
 	>
 		?
-			- "Where were you between 4PM and now?" [c/archie3]
+			- "Where were you between 4PM and now?" [c/general1]
 				say player "Do you remember where you've been for the last hour or so?"
 				say Eyy "Here."
 				say player "What is this?"
@@ -34,17 +35,17 @@ debug "this is the 'use' event for A!"
 				say player "Wow, you really did record yourself every 30 minutes of every day of the year."
 				say Eyy "With six hours free for sleeping."
 				say player "Glad you take that, uh, down time for yourself."
-				set_global c/eyy1 true
+				set_global c/A1 true
 				say player "In any case, according to this, at 4PM you went to the kitchen. You saw Archie exiting as you entered."
-				set_global c/eyy2 true
+				set_global c/A2 true
 				say player "You noticed cookies laid on the table, took one, and began to eat it while making a tea. After making the tea you returned to your desk."
 				say player "The next note is at 4:30PM, you say you're at your desk."
 				say Eyy "I was at my desk, working on the buzzing slime case, isn't that in there?"
 				say player "Right, at 4:30PM you were at your desk doing the preliminary paperwork for the buzzing slime case in preparation for your rounds the following day."
 				say Eyy "Hm."
 				say player "Did you notice anyone else in the kitchen while you were there?"
-				set_global c/eyy6 true
 				say Eyy "B was there. Washing something, I think."
+				set_global c/A3 true
 				say player "Any other details?"
 				say Eyy "Only what's in the book. But nothing relevant that comes to mind."
 				say player "Ok. Thanks, A."
