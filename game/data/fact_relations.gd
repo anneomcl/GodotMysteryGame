@@ -4,6 +4,8 @@ func _ready():
 var created_relations = {
 }
 
+var clues_used_on_suspects = []
+
 const SUSPECT_THRESHOLD = 90
 const default = "This doesn't make sense to me..."
 const supports = "This clue supports their guilt."

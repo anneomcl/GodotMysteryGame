@@ -36,6 +36,7 @@ tabs_visible = true
 
 [node name="Suspects" type="Tabs" parent="Menu"]
 
+editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
@@ -79,10 +80,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 3
 size_flags/vertical = 3
-margin/left = 11.0
-margin/top = 31.0
-margin/right = 6.0
-margin/bottom = 5.0
+margin/left = 4.0
+margin/top = 32.0
+margin/right = 4.0
+margin/bottom = 4.0
 scroll/horizontal = true
 scroll/vertical = true
 
@@ -95,23 +96,24 @@ size_flags/vertical = 3
 size_flags/stretch_ratio = 0.0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 296.0
+margin/right = 312.0
 margin/bottom = 384.0
 custom_constants/separation = 130
 alignment = 0
 
 [node name="Evidence" type="ScrollContainer" parent="Menu/Suspects/SuspectControl/TabContainer"]
 
+visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 3
 size_flags/vertical = 3
-margin/left = 50.0
-margin/top = 36.0
-margin/right = 49.0
-margin/bottom = 36.0
+margin/left = 4.0
+margin/top = 32.0
+margin/right = 4.0
+margin/bottom = 4.0
 scroll/horizontal = true
 scroll/vertical = true
 
@@ -124,8 +126,8 @@ size_flags/vertical = 3
 size_flags/stretch_ratio = 0.0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 221.0
-margin/bottom = 348.0
+margin/right = 312.0
+margin/bottom = 384.0
 custom_constants/separation = 350
 alignment = 1
 
@@ -220,39 +222,6 @@ align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-
-[node name="Analysis" type="Tabs" parent="Menu"]
-
-editor/display_folded = true
-visibility/visible = false
-anchor/right = 1
-anchor/bottom = 1
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 4.0
-margin/top = 32.0
-margin/right = 4.0
-margin/bottom = 4.0
-
-[node name="Analysis" type="Button" parent="Menu/Analysis"]
-
-anchor/right = 1
-anchor/bottom = 1
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 52.0
-margin/top = 47.0
-margin/right = 67.0
-margin/bottom = 490.0
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-text = "Analysis"
-flat = false
 
 [node name="Options" type="Tabs" parent="Menu"]
 

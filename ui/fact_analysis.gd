@@ -357,13 +357,15 @@ func not_in_any_puzzle(clue_id):
 
 func no_relation_to_suspect(clue_id):
 	var sus_str = "suspect"
+	if clue_id in analysis_data.clues_used_on_suspects:
+		return true
 	if analysis_data.fact_relations[clue_id].has("supports"):
 		for supp_clue in analysis_data.fact_relations[clue_id]["supports"]["clues"]:
-			if supp_clue.substr(0, sus_str.length()) == "sus_str":
+			if supp_clue.substr(0, sus_str.length()) == sus_str:
 				return false
 	if analysis_data.fact_relations[clue_id].has("contradicts"):
 		for cont_clue in analysis_data.fact_relations[clue_id]["contradicts"]["clues"]:
-			if cont_clue.substr(0, sus_str.length()) == "sus_str":
+			if cont_clue.substr(0, sus_str.length()) == sus_str:
 				return false
 	return true
 
@@ -552,6 +554,8 @@ func _ready():
 		analysis_data.fact_relations = vm.game.facts
 	if vm.game.puzzles.keys().size() > 0:
 		analysis_data.puzzles = vm.game.puzzles
+	if vm.game.hud_layer.get_node("inventory").clues_used_on_suspects.size() > 0:
+		analysis_data.clues_used_on_suspects = vm.game.hud_layer.get_node("inventory").clues_used_on_suspects
 	
 	if vm.get_global("in_tutorial"):
 		game.execute_cutscene("res://ui/FactAnalysisDialogue.esc")

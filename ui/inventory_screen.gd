@@ -15,6 +15,7 @@ var evidence_parent
 var curr_clue
 var analysis_data
 var curr_node_original_pos
+var clues_used_on_suspects = []
 
 var inventory
 
@@ -191,6 +192,8 @@ func check_suspect(suspect_id, clue_id):
 		bar.get_node("Label").set_text("+" + str(bar.get_value()))
 		instance_relation(clue_id, suspect_id, "supports")
 		game.get_node("speech_dialogue_player").start(["", analysis_data.supports], vm.level.current_context, false)
+		clues_used_on_suspects.append(clue_id)
+		clean_clues(clue_id)
 	elif fact.has("contradicts") and suspect in fact["contradicts"]["clues"]:
 		if relation_exists(clue_id, suspect_id, "contradicts"):
 			game.get_node("speech_dialogue_player").start(["", analysis_data.found], vm.level.current_context, false)
@@ -207,10 +210,22 @@ func check_suspect(suspect_id, clue_id):
 		bar.get_node("Label").set_text("-" + str(bar.get_value()))
 		instance_relation(clue_id, suspect_id, "contradicts")
 		game.get_node("speech_dialogue_player").start(["", analysis_data.contradicts], vm.level.current_context, false)
+		clues_used_on_suspects.append(clue_id)
+		clean_clues(clue_id)
 	else:
 		game.get_node("speech_dialogue_player").start(["", analysis_data.default], vm.level.current_context, false)
 	if(int(suspect_parent.get_node(suspect_id).get_node("Sprite/ProgressBar/Label").get_text()) >= analysis_data.SUSPECT_THRESHOLD):
 		vm.set_global(suspect, true)
+
+func clean_clues(id):
+	#add to list of things
+	#only erase if it's not in another puzzle
+	for puzzle in analysis_data.puzzles.keys():
+		if id in analysis_data.puzzles[puzzle]["clues"] and analysis_data.puzzles[puzzle]["is_solved"] == false:
+			return
+	
+	game.clues.erase(id)
+	clue_parent.remove_child(clue_parent.get_node(id))
 
 func instance_relation(clue_id, suspect_id, relation):
 	if !analysis_data.created_relations.has(clue_id):
