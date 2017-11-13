@@ -5,10 +5,10 @@ debug "this is the 'load' event for the door to archie's office!"
 set_global archie_intro_cutscene true
 set_global spoke_to_archie true
 
+/*
 set_clue archie1 true
 set_clue archie2 true
 
-/*
 set_clue archie3 true
 set_clue archie4 true
 
@@ -22,11 +22,19 @@ set_clue B2 true
 set_clue office1 true
 set_clue office2 true
 */
+> [test]
+	camera_to_player player
+	teleport_pos archie 670 105
+	teleport_pos player 670 650
+	stop
 
 > [archie_intro_cutscene]
 	camera_to_player player
 	teleport_pos archie 670 105
 	teleport_pos player 670 650
+	set_clue archie1 true
+	set_clue archie2 true
+	set_global test true
 
 > [!archie_intro_cutscene]
 	teleport_pos player 670 -80

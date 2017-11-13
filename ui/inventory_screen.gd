@@ -54,12 +54,14 @@ func add_clue_dummy():
 	dummy = get_node("Clue").duplicate()
 	dummy.get_node("ClueButton").set_normal_texture(null)
 	dummy.get_node("ClueButton/Label").set_text("")
+	dummy.get_node("ClueButton/points").set_text("")
 	clue_parent.add_child(dummy)
 
 func add_evidence_dummy():
 	dummy_item = get_node("ItemClue").duplicate()
 	dummy_item.get_node("ClueButton").set_normal_texture(null)
 	dummy_item.get_node("ClueButton/Label").set_text("")
+	dummy_item.get_node("ClueButton/points").set_text("")
 	evidence_parent.add_child(dummy_item)
 
 func open():
@@ -250,11 +252,16 @@ func find_clue(id):
 			return item
 
 func instance_clues():
+	print(game.clues)
 	for clue in game.clues:
 		if !is_item_clue(clue) and !clue_parent.has_node(clue):
-				instance_clue(clue, null, null, false)
+			instance_clue(clue, null, null, false)
 		elif is_item_clue(clue) and !evidence_parent.has_node(clue):
-				instance_clue(clue, null, null, true)
+			instance_clue(clue, null, null, true)
+	for clue in clue_parent.get_children():
+		if !(clue.get_name() in game.clues):
+			clue_parent.remove_child(clue)
+	
 	emit_signal("clues_instanced")
 
 func instance_clue(clue_id, parents, children, is_item):

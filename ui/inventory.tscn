@@ -60,7 +60,6 @@ margin/bottom = 0.0
 
 [node name="TabContainer" type="TabContainer" parent="Menu/Suspects/SuspectControl"]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 3
@@ -145,6 +144,7 @@ scroll/vertical = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Menu/Suspects/SuspectControl/ScrollContainer"]
 
+editor/display_folded = true
 rect/min_size = Vector2( 1, 1 )
 focus/ignore_mouse = false
 focus/stop_mouse = false

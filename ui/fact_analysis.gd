@@ -310,16 +310,7 @@ func process_clues(first_clue, second_clue):
 					game.get_node("speech_dialogue_player").start(["", "Clue already found!"], vm.level.current_context, false)
 					return
 			
-			var solution = analysis_data.puzzles[puzzle_id].solution
-			if therefore_sol_count == solution["therefore"] and supports_sol_count == solution["supports"] and contradicts_sol_count == solution["contradicts"]:
-				if !vm.get_global("in_tutorial"):
-					analysis_data.puzzles[puzzle_id]["is_solved"] = true
-					game.get_node("speech_dialogue_player").start(["", analysis_data.puzzle_solved_success], vm.level.current_context, false)
-				else:
-					vm.set_global("tutorial_success", true)
-					game.execute_cutscene("res://ui/FactAnalysisDialogue.esc")
-					vm.set_global("in_tutorial", false)
-					analysis_data.puzzles[puzzle_id]["is_solved"] = true
+			process_solution()
 		else:
 			game.get_node("speech_dialogue_player").start(["", analysis_data.default], vm.level.current_context, false)
 			return
@@ -335,6 +326,46 @@ func get_clue_size(node):
 		curr_size = clue_size
 		
 	return curr_size
+
+func process_solution():
+	var solution = analysis_data.puzzles[puzzle_id].solution
+	if therefore_sol_count == solution["therefore"] and supports_sol_count == solution["supports"] and contradicts_sol_count == solution["contradicts"]:
+		if !vm.get_global("in_tutorial"):
+			analysis_data.puzzles[puzzle_id]["is_solved"] = true
+			game.get_node("speech_dialogue_player").start(["", analysis_data.puzzle_solved_success], vm.level.current_context, false)
+		else:
+			vm.set_global("tutorial_success", true)
+			game.execute_cutscene("res://ui/FactAnalysisDialogue.esc")
+			vm.set_global("in_tutorial", false)
+			analysis_data.puzzles[puzzle_id]["is_solved"] = true
+		clean_clues()
+
+func clean_clues():
+	var parent = get_node("c")
+	for clue in parent.get_children():
+		if not_in_any_puzzle(clue.get_name()) and no_relation_to_suspect(clue.get_name()):
+			vm.game.clues.erase(clue.get_name())
+			#Maybe add some kind of journal log to summarize?
+
+func not_in_any_puzzle(clue_id):
+	for puzzle in analysis_data.puzzles.keys():
+		if puzzle == puzzle_id:
+			continue
+		if clue_id in analysis_data.puzzles[puzzle]["clues"]:
+			return false
+	return true
+
+func no_relation_to_suspect(clue_id):
+	var sus_str = "suspect"
+	if analysis_data.fact_relations[clue_id].has("supports"):
+		for supp_clue in analysis_data.fact_relations[clue_id]["supports"]["clues"]:
+			if supp_clue.substr(0, sus_str.length()) == "sus_str":
+				return false
+	if analysis_data.fact_relations[clue_id].has("contradicts"):
+		for cont_clue in analysis_data.fact_relations[clue_id]["contradicts"]["clues"]:
+			if cont_clue.substr(0, sus_str.length()) == "sus_str":
+				return false
+	return true
 
 func draw_relation(parent, child, relation):
 	
