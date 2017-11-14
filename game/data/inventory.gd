@@ -23,6 +23,7 @@ const clues = [
 	{ "id": "archie2", "title": "Archie noticed the cookies and plate were gone at 4:30PM." },
 	{ "id": "archie3", "title": "Archie saw Beatrice in the kitchen at 4PM. He didn't notice anyone else at the time."},
 	{ "id": "archie4", "title": "After returning from the kitchen, you and Archie were in his office talking from 4:05PM until 4:30PM." },
+	{ "id": "archie5", "title": "Archie could have totally set up an elaborate learning experience, hiding the cookies himself." },
 
 	{ "id": "A1", "title": "Andre went to the break room around 4:05PM." },
 	{ "id": "A2", "title": "While in the break room, Andre took a handful of cookies, made tea, and went back to his desk, where he continued working until you spoke to him." },

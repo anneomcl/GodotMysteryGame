@@ -230,8 +230,7 @@ max_lines_visible = -1
 
 [node name="item" type="Control" parent="."]
 
-editor/display_folded = true
-rect/min_size = Vector2( 800, 29 )
+rect/min_size = Vector2( 800, 50 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -239,12 +238,13 @@ size_flags/vertical = 2
 margin/left = -3.0
 margin/top = 20.0
 margin/right = 797.0
-margin/bottom = 49.0
+margin/bottom = 70.0
 
 [node name="button" type="TextureButton" parent="item"]
 
 anchor/right = 1
 anchor/bottom = 1
+rect/min_size = Vector2( 800, 50 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -282,7 +282,6 @@ max_lines_visible = -1
 
 [node name="cursor" parent="item" instance=ExtResource( 4 )]
 
-visibility/visible = true
 visibility/opacity = 1.0
 transform/pos = Vector2( 0, 15 )
 transform/scale = Vector2( 0.284009, 1.63048 )

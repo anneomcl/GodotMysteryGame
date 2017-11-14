@@ -104,6 +104,7 @@ func puzzle_to_solve():
 					break
 			if use_this_puzzle:
 				return puzzle
+		use_this_puzzle = true
 	return null
 
 #INPUT EVENTS
@@ -132,24 +133,25 @@ func input(event):
 
 #CLUES
 func clue_pressed(clue_id, is_item):
-	var node = null
-	if is_item and evidence_parent.has_node(clue_id):
-		node = evidence_parent.get_node(clue_id)
-	elif clue_parent.has_node(clue_id):
-		node = clue_parent.get_node(clue_id)
-	else:
-		return
-
-	curr_node_original_pos = node.get_global_pos()
-	var clue_name = node.get_name()
-	var parent = node.get_parent()
+	if !vm.game.hud_layer.has_node("dialog"):
+		var node = null
+		if is_item and evidence_parent.has_node(clue_id):
+			node = evidence_parent.get_node(clue_id)
+		elif clue_parent.has_node(clue_id):
+			node = clue_parent.get_node(clue_id)
+		else:
+			return
 	
-	#real clue stays put, copy is dragged
-	var copy = node.duplicate()
-	reparent(copy, null, null)
-	copy.set_global_pos(curr_node_original_pos)
-	curr_clue = copy
-	dragging = true
+		curr_node_original_pos = node.get_global_pos()
+		var clue_name = node.get_name()
+		var parent = node.get_parent()
+		
+		#real clue stays put, copy is dragged
+		var copy = node.duplicate()
+		reparent(copy, null, null)
+		copy.set_global_pos(curr_node_original_pos)
+		curr_clue = copy
+		dragging = true
 
 func reparent(child, current_parent, target_parent):
 	if current_parent != null:
@@ -160,15 +162,22 @@ func reparent(child, current_parent, target_parent):
 		target_parent.add_child(child)
 
 func clue_released(clue_id):
-	var areas = get_node(clue_id).get_node("ClueButton/Area2D").get_overlapping_areas()
-	for area in areas:
-		if area.get_name() == "SuspectArea":
-			var suspect = area.get_node("../../").get_name()
-			check_suspect(suspect, clue_id)
-	
-	dragging = false
-	remove_child(curr_clue)
-	curr_clue = null
+	if has_node(clue_id):
+		var areas = get_node(clue_id).get_node("ClueButton/Area2D").get_overlapping_areas()
+		for area in areas:
+			if area.get_name().find("Notebook") != -1:
+				dragging = false
+				remove_child(curr_clue)
+				curr_clue = null
+				return
+		for area in areas:
+			if area.get_name() == "SuspectArea":
+				var suspect = area.get_node("../../").get_name()
+				check_suspect(suspect, clue_id)
+
+		dragging = false
+		remove_child(curr_clue)
+		curr_clue = null
 
 func check_suspect(suspect_id, clue_id):
 	var fact = analysis_data.fact_relations[clue_id]

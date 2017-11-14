@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://ui/inventory_screen.gd" type="Script" id=1]
 [ext_resource path="res://ui/Suspect.tscn" type="PackedScene" id=2]
@@ -8,6 +8,11 @@
 [ext_resource path="res://ui/InventoryClue.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui/Clue.tscn" type="PackedScene" id=7]
 [ext_resource path="res://game/data/AnalysisData.tscn" type="PackedScene" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 169.583, 249.113 )
 
 [node name="inventory" type="Control"]
 
@@ -36,7 +41,6 @@ tabs_visible = true
 
 [node name="Suspects" type="Tabs" parent="Menu"]
 
-editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
@@ -74,6 +78,7 @@ tabs_visible = true
 
 [node name="Clues" type="ScrollContainer" parent="Menu/Suspects/SuspectControl/TabContainer"]
 
+editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
@@ -103,6 +108,7 @@ alignment = 0
 
 [node name="Evidence" type="ScrollContainer" parent="Menu/Suspects/SuspectControl/TabContainer"]
 
+editor/display_folded = true
 visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1
@@ -131,6 +137,94 @@ margin/bottom = 384.0
 custom_constants/separation = 350
 alignment = 1
 
+[node name="BoundaryAreas" type="Node" parent="Menu/Suspects/SuspectControl/TabContainer"]
+
+[node name="Notebook" type="Area2D" parent="Menu/Suspects/SuspectControl/TabContainer/BoundaryAreas"]
+
+editor/display_folded = true
+transform/pos = Vector2( 852.862, 79.2649 )
+transform/scale = Vector2( 2.10888, 1 )
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1.3785, 145.122, 292.788 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Menu/Suspects/SuspectControl/TabContainer/BoundaryAreas/Notebook"]
+
+transform/pos = Vector2( 145.122, 292.788 )
+transform/scale = Vector2( 1, 1.3785 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Notebook1" type="Area2D" parent="Menu/Suspects/SuspectControl/TabContainer/BoundaryAreas"]
+
+editor/display_folded = true
+transform/pos = Vector2( -287.083, 83.4696 )
+transform/scale = Vector2( 1.38714, 1 )
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1.3785, 145.122, 292.788 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Menu/Suspects/SuspectControl/TabContainer/BoundaryAreas/Notebook1"]
+
+transform/pos = Vector2( 145.122, 292.788 )
+transform/scale = Vector2( 1, 1.3785 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Notebook2" type="Area2D" parent="Menu/Suspects/SuspectControl/TabContainer/BoundaryAreas"]
+
+editor/display_folded = true
+transform/pos = Vector2( 520.473, 810.952 )
+transform/scale = Vector2( 5.99841, 0.293701 )
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1.3785, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Menu/Suspects/SuspectControl/TabContainer/BoundaryAreas/Notebook2"]
+
+transform/scale = Vector2( 1, 1.3785 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Notebook3" type="Area2D" parent="Menu/Suspects/SuspectControl/TabContainer/BoundaryAreas"]
+
+editor/display_folded = true
+transform/pos = Vector2( 552.888, -72.2724 )
+transform/scale = Vector2( 5.99841, 0.293701 )
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1.3785, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Menu/Suspects/SuspectControl/TabContainer/BoundaryAreas/Notebook3"]
+
+transform/scale = Vector2( 1, 1.3785 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
 [node name="ScrollContainer" type="ScrollContainer" parent="Menu/Suspects/SuspectControl"]
 
 focus/ignore_mouse = false
@@ -139,14 +233,13 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 631.0
+margin/right = 625.0
 margin/bottom = 650.0
 scroll/horizontal = true
 scroll/vertical = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Menu/Suspects/SuspectControl/ScrollContainer"]
 
-editor/display_folded = true
 rect/min_size = Vector2( 1, 1 )
 focus/ignore_mouse = false
 focus/stop_mouse = false
@@ -188,6 +281,7 @@ margin/right = 1500.0
 
 [node name="AnalysisBoard" type="TextureButton" parent="Menu/Suspects/SuspectControl"]
 
+editor/display_folded = true
 rect/scale = Vector2( 0.25, 0.25 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -278,4 +372,5 @@ margin/bottom = 1569.0
 [node name="AnalysisData" parent="." instance=ExtResource( 8 )]
 
 
+[editable path="Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer/A"]
 [editable path="Menu/Options/menu"]

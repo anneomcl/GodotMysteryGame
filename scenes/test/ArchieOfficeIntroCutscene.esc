@@ -48,6 +48,7 @@ set_clue office2 true
 	set_clue office1 true
 	set_clue office2 true
 	set_clue library1 true
+	set_clue kitchen1 true
 	set_global test true
 
 > [!archie_intro_cutscene]

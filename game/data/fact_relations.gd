@@ -22,12 +22,22 @@ var puzzles = {
 		"is_solved" : false
 	},
 	"puzzle2" : {
-		"clues" : ["general1", "archie3", "B1", "archie4", "A1"],
+		"clues" : ["general1", "archie3", "B1", "B2", "kitchen1"],
 		"solution" : 
-			{ "therefore" : 3, "supports" :  1, "contradicts" : 0},
+			{ "therefore" : 1, "supports" :  2, "contradicts" : 1},
 		"is_solved" : false
 	},
 	"puzzle3" : {
+		"clues" : ["general1", "archie4", "archie5"],
+		"solution" : { "therefore" : 1, "supports" : 1, "contradicts" : 0 },
+		"is_solved" : false
+	},
+	"puzzle4" : {
+		"clues" : ["general1", "A1", "A2"],
+		"solution" : { "therefore" : 1, "supports" : 0, "contradicts" : 1 },
+		"is_solved" : false
+	},
+	"puzzle5" : {
 		"clues" : ["library1", "office1", "office2"],
 		"solution" : 
 			{ "therefore" : 2, "supports" : 0, "contradicts" : 0 },
@@ -47,8 +57,8 @@ var fact_relations = {
 		"points" : 20
 	},
 	"general3" : {
-		"supports" : { "clues" : ["suspectArchie"] },
-		"points" : 20
+		"supports" : { "clues" : ["suspectarchie"] },
+		"points" : 5
 	},
 	"general4" : {
 		"supports" : { "clues" : ["suspectA"] },
@@ -68,35 +78,39 @@ var fact_relations = {
 		"and" : { "clues" : ["archie2"],
 		"result" : ["general1"]},
 		"supports" : { "clues" : ["eyy1"] },
-		"points" : 10
+		"points" : 100
 	},
 	"archie2" : { 
 		"and" : { "clues" : ["archie1"],
 		"result" : ["general1"] },
-		"points" : 10
+		"points" : 100
 	},
 	"archie3" : { 
 		"and" : { "clues": ["general1"],
 		"result" : ["general2"] },
-		"supports" : { "clues": ["suspectB", "B1"], },
+		"supports" : { "clues": ["B1"], },
 		"points" : 10
 	},
 	"archie4" : {
 		"and" : { "clues" : ["general1"],
 		"result" : ["general3"] },
-		"contradicts" : { "clues" : ["suspectArchie"] },
-		"points" : 10
+		"contradicts" : { "clues" : ["suspectarchie"] },
+		"points" : 30
+	},
+	"archie5" : {
+		"supports" : ["general3"],
+		"points" : 5
 	},
 
 	"A1" : {
 		"and" : { "clues" : ["general1"],
 		"result" : ["general4"] },
-		"supports" : { "clues" : ["suspectA"] },
+		"supports" : { "clues" : [] },
 		"points" : 10
 	},
 	"A2" : {
-		"contradicts" : { "clues" : ["suspectA"] },
-		"points" : 10
+		"contradicts" : { "clues" : ["general4"] },
+		"points" : 10 
 	},
 	"A3" : {
 		"supports" : { "clues" : ["suspectB"] },
@@ -106,12 +120,12 @@ var fact_relations = {
 	"B1" : {
 		"and" : { "clues" : ["general1"],
 		"result" : ["general2"]},
-		"supports" : { "clues" : ["suspectB", "archie3"] },
+		"supports" : { "clues" : ["archie3", "kitchen1"] },
 		"points" : 100
 	},
 	"B2" : { 
 		"supports" : { "clues" : ["suspectA"] },
-		"contradicts" : { "clues" : ["suspectB"] },
+		"contradicts" : { "clues" : ["general2"] },
 		"points" : 20
 	},
 
@@ -121,7 +135,7 @@ var fact_relations = {
 		"points" : 100
 	},
 	"kitchen1" : {
-		"supports" : { "clues" : ["suspectB"]},
+		"supports" : { "clues" : ["B1"]},
 		"points" : 5
 	},
 	"office1" : {
@@ -133,6 +147,6 @@ var fact_relations = {
 	"office2" : {
 		"and" : { "clues" : ["general5"],
 		"result" : ["general6"] },
-		"points" : 10
+		"points" : 100
 	},
 }

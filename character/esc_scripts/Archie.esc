@@ -75,6 +75,7 @@ debug "this is the 'use' event for Archie!"
 									?
 										- "Yes"
 											say player "This could be an elaborate set-up to create a learning experience for the new kid's first day!"
+											set_clue archie5
 											say player "Or like... a test of your crew's honesty! An honesty audit! To see who cracks!"
 											say archie "//*laughing face* If you can prove that I set this all up, then by all means, ARREST me for the CRIME of providing on-the-job experience."
 											say archie "//*laughing face* ..."
@@ -123,7 +124,7 @@ debug "this is the 'use' event for Archie!"
 					repeat [!nevermind]
 					set_global nevermind false
 			#has talked to A and B, is a little confused. get an additional fact.
-			- "Who do YOU think it is?" [c/eyy1, c/bee1, checked_empty_desk]
+			- "Who do YOU think it is?" [A1, B1, firstDoorUse]
 				say player "I talked to A and B... but I'm not sure who it could be."
 				say archie "No one who deserves to be on this team, that's for sure!"
 				say player "Right, I mean-- I don't want to accuse anyone, it doesn't make sense..."

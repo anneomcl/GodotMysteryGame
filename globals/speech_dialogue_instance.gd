@@ -54,14 +54,11 @@ func selected(n):
 	if !ready:
 		return
 	option_selected = n
-	if vm.globals.has("finish_event"):
-		animation.play("hide")
-	else:
-		clear_dialogue()
-		choice_size = 1
-		if is_choice:
-			vm.add_level(cmd[option_selected].params[1], false, dialog_task)
 	ready = false
+	clear_dialogue()
+	choice_size = 1
+	if is_choice:
+		vm.add_level(cmd[option_selected].params[1], false, dialog_task)
 
 func add_speech(text, id):
 	var it = item.duplicate()
@@ -72,9 +69,7 @@ func add_speech(text, id):
 	but.connect("pressed", self, "selected", [id])
 
 	if is_choice:
-		var height_ratio = Globals.get("platform/dialog_option_height")
-		var size = it.get_custom_minimum_size()
-		size.y = size.y * height_ratio
+		var size = it.get_node("button").get_minimum_size()
 		but.set_size(size)
 		handle_choice_offsets(it, but, lab, cur, choice_offset, id)
 	else:
@@ -86,8 +81,6 @@ func handle_choice_offsets(it, but, lab, cur, offset, i):
 	if has_multiple_choices:
 		var new_pos = it.get_pos() + (Vector2(0, offset) * i)
 		it.set_pos(new_pos)
-		but.set_pos(new_pos)
-		lab.set_pos(new_pos + Vector2(50, 0))
 		cur.set_pos(new_pos + Vector2(0, offset) * (i + 1)) #needs to match cursor offset
 
 		if (i == 0):
