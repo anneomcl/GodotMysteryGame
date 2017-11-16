@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=1]
+
+[ext_resource path="res://scenes/outside/ForestCamera.gd" type="Script" id=1]
+[ext_resource path="res://scenes/outside/graphics/Forest_Under.png" type="Texture" id=2]
+[ext_resource path="res://scenes/office/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/outside/graphics/Forest_Over.png" type="Texture" id=4]
+[ext_resource path="res://scenes/InvisibleWallLeft.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/InvisibleWallRight.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/office/TestWall.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/outside/Door_NoCollider.tscn" type="PackedScene" id=8]
+
+[node name="Forest" type="Node2D"]
+
+script/script = ExtResource( 1 )
+
+[node name="Under" type="Sprite" parent="."]
+
+transform/scale = Vector2( 2.75, 2.75 )
+texture = ExtResource( 2 )
+
+[node name="player" parent="." instance=ExtResource( 3 )]
+
+visibility/opacity = 0.25
+transform/pos = Vector2( -1500, 650 )
+
+[node name="Over" type="Sprite" parent="."]
+
+transform/scale = Vector2( 2.75, 2.75 )
+z/z = 2
+texture = ExtResource( 4 )
+
+[node name="InvisibleWallLeft" parent="." instance=ExtResource( 5 )]
+
+transform/pos = Vector2( -1256.07, 256.698 )
+
+[node name="InvisibleWallRight" parent="." instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 1419.24, 399.551 )
+
+[node name="TestWall" parent="." instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 8.26609, 615.808 )
+transform/rot = 90.0
+transform/scale = Vector2( 1.10336, 4.3089 )
+
+[node name="TestWall1" parent="." instance=ExtResource( 7 )]
+
+transform/pos = Vector2( -49.0547, 997.946 )
+transform/rot = 90.0
+transform/scale = Vector2( 1.10336, 4.3089 )
+
+[node name="TestWall2" parent="." instance=ExtResource( 7 )]
+
+transform/pos = Vector2( -2561.62, 415.185 )
+transform/scale = Vector2( 1.10336, 4.3089 )
+
+[node name="TestWall3" parent="." instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 2568.6, 615.807 )
+transform/scale = Vector2( 1.10336, 4.3089 )
+
+[node name="ForestToOutside" parent="." instance=ExtResource( 8 )]
+
+global_id = "ForestToOutside"
+
+

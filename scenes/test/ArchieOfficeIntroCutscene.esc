@@ -2,6 +2,8 @@
 
 debug "this is the 'load' event for the door to archie's office!"
 
+change_scene res://scenes/outside/Forest.tscn
+teleport_pos player -1600 650
 set_global archie_intro_cutscene true
 set_global spoke_to_archie true
 
@@ -29,9 +31,9 @@ set_clue office2 true
 	stop
 
 > [archie_intro_cutscene]
-	camera_to_player player
-	teleport_pos archie 670 105
-	teleport_pos player 670 650
+#	camera_to_player player
+#	teleport_pos archie 670 105
+#	teleport_pos player 670 650
 	set_clue archie1 true
 	set_clue archie2 true
 

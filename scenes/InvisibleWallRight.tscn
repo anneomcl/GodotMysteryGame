@@ -1,0 +1,8 @@
+[gd_scene format=1]
+
+[node name="InvisibleWallRight" type="Position2D"]
+
+transform/pos = Vector2( 1134.71, -109.148 )
+z/z = -1
+
+

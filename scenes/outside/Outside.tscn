@@ -1,11 +1,19 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://scenes/office/TestWall.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/outside/graphics/Office.png" type="Texture" id=2]
-[ext_resource path="res://scenes/outside/Door_NoCollider.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/outside/graphics/Tavern.png" type="Texture" id=4]
-[ext_resource path="res://scenes/outside/graphics/Library.png" type="Texture" id=5]
-[ext_resource path="res://scenes/office/player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/InvisibleWallLeft.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/InvisibleWallRight.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/outside/graphics/Office.png" type="Texture" id=4]
+[ext_resource path="res://scenes/outside/Door_NoCollider.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/outside/graphics/Tavern.png" type="Texture" id=6]
+[ext_resource path="res://scenes/outside/graphics/Library.png" type="Texture" id=7]
+[ext_resource path="res://scenes/office/player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://globals/item.gd" type="Script" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 19.8506, 36.8898 )
 
 [node name="Outside" type="Node"]
 
@@ -22,24 +30,18 @@ transform/pos = Vector2( 662.841, -217.526 )
 transform/rot = 90.0
 transform/scale = Vector2( 1, 2 )
 
-[node name="InvisibleWallLeft" type="Position2D" parent="."]
+[node name="InvisibleWallLeft" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 125.172, -99.5141 )
-z/z = -1
-
-[node name="InvisibleWallRight" type="Position2D" parent="."]
-
-transform/pos = Vector2( 1134.71, -109.148 )
-z/z = -1
+[node name="InvisibleWallRight" parent="." instance=ExtResource( 3 )]
 
 [node name="Office" type="Sprite" parent="."]
 
 editor/display_folded = true
 transform/pos = Vector2( 641.621, -633.704 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 2 )
+texture = ExtResource( 4 )
 
-[node name="DoorToOffice" parent="Office" instance=ExtResource( 3 )]
+[node name="DoorToOffice" parent="Office" instance=ExtResource( 5 )]
 
 editor/display_folded = true
 
@@ -48,9 +50,9 @@ editor/display_folded = true
 editor/display_folded = true
 transform/pos = Vector2( 1181.55, -633.586 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 4 )
+texture = ExtResource( 6 )
 
-[node name="DoorToTavern" parent="Tavern" instance=ExtResource( 3 )]
+[node name="DoorToTavern" parent="Tavern" instance=ExtResource( 5 )]
 
 transform/pos = Vector2( -12.4456, 321.452 )
 global_id = "DoorToTavern"
@@ -61,17 +63,45 @@ events_path = "res://scenes/outside/esc_scripts/OutsideToTavern.esc"
 editor/display_folded = true
 transform/pos = Vector2( 78.7704, -621.039 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 7 )
 
-[node name="DoorToLibrary" parent="Library" instance=ExtResource( 3 )]
+[node name="DoorToLibrary" parent="Library" instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 0, 315 )
 global_id = "DoorToLibrary"
 events_path = "res://scenes/outside/esc_scripts/OutsideToLibrary.esc"
 
-[node name="player" parent="." instance=ExtResource( 6 )]
+[node name="player" parent="." instance=ExtResource( 8 )]
 
 transform/pos = Vector2( 640.442, -62.8934 )
+
+[node name="DoorToForest" type="Sprite" parent="."]
+
+transform/pos = Vector2( 1795.51, -65.4575 )
+script/script = ExtResource( 9 )
+active = true
+global_id = "DoorToForest"
+talk_animation = "talk"
+events_path = "res://scenes/outside/esc_scripts/OutsideToForest.esc"
+
+[node name="Area2D" type="Area2D" parent="DoorToForest"]
+
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 5.95493, 0, 0, 5.72306, -175.812, -107.16 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorToForest/Area2D"]
+
+transform/pos = Vector2( -175.812, -107.16 )
+transform/scale = Vector2( 5.95493, 5.72306 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
 
 
 [editable path="Office/DoorToOffice"]
