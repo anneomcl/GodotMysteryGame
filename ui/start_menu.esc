@@ -1,32 +1,8 @@
 :load
 
 #This is the entry point for the entire game
-#Start
 
 #This is the main menu with new game/load game/quit
-#change_scene res://scenes/test/start_menu.tscn
+change_scene res://ui/main_menu.tscn
 
-#This is the actual Squash Squad office
-change_scene res://scenes/office/ArchieOffice.tscn
-
-#The following are for Scenario 0
-#set_global c/archie1 true
-#set_global c/archie2 true
-#set_global c/archie3 true
-#set_global c/archie4 true
-#set_global c/archie5 true
-#set_global c/archie6 true
-#set_global c/general1 true
-#set_global c/eyy1 true
-#set_global c/eyy2 true
-#set_global c/eyy4 true
-#set_global c/eyy5 true
-#set_global c/bee1 true
-#set_global c/bee2 true
-#set_global c/bee3 true
-#set_global c/office1 true
-#set_global c/office2 true
-#set_global c/library1 true
-#set_global c/library4 true
-#Scene to show on start-up:
-#change_scene res://scenes/test/test_scene.tscn
+#change_scene res://scenes/office/ArchieOffice.tscn

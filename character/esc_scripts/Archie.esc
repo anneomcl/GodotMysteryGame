@@ -20,17 +20,17 @@ debug "this is the 'use' event for Archie!"
 > [spoke_to_archie]
 	>
 		?
-			- "I'd like to accuse someone" [OR, isSuspectgeneral3, isSuspectgeneral5, isSuspectgeneral4]
+			- "I'd like to accuse someone" [OR, suspectA, suspectB, suspectArchie]
 				>
 					?
 						- "I'd like to accuse A"
-							> [isSuspectgeneral5]
+							> [suspectA]
 								say player "I'd like to accuse A."
 								say archie "Okay"
 								cut_scene ArchieOfficeViewportAnimation fade_to_black
 								#insert "Chapter 2 end" card here
 								stop
-							> [!isSuspectgeneral5]
+							> [!suspectA]
 								say player "I'd like to accuse A."
 								say archie "Are you sure you have enough evidence?"
 								>
@@ -44,12 +44,12 @@ debug "this is the 'use' event for Archie!"
 										- "No"
 											say player "I guess not..."
 						- "I'd like to accuse B"
-							> [isSuspectgeneral3]
+							> [suspectB]
 								say player "I'd like to accuse B."
 								say archie "Okay"
 								cut_scene ArchieOfficeViewportAnimation fade_to_black
 								stop
-							> [!isSuspectgeneral3]
+							> [!suspectB]
 								say player "I'd like to accuse B."
 								say archie "Are you sure you have enough evidence?"
 								>
@@ -61,20 +61,21 @@ debug "this is the 'use' event for Archie!"
 											stop
 										- "No"
 											say player "I guess not..."
-						- "I'd like to accuse A"
-							> [isSuspectgeneral4]
+						- "I'd like to accuse Archie"
+							> [suspectArchie]
 								say player "I'd like to accuse...You!"
 								say archie "Okay"
 								cut_scene ArchieOfficeViewportAnimation fade_to_black
 								#insert "Chapter 2 end" card here
 								stop
-							> [!isSuspectgeneral4]
+							> [!suspectArchie]
 								say player "I'd like to accuse A...You!"
 								say archie "You sure about that, rookie?"
 								>
 									?
 										- "Yes"
 											say player "This could be an elaborate set-up to create a learning experience for the new kid's first day!"
+											set_clue archie5 true
 											say player "Or like... a test of your crew's honesty! An honesty audit! To see who cracks!"
 											say archie "//*laughing face* If you can prove that I set this all up, then by all means, ARREST me for the CRIME of providing on-the-job experience."
 											say archie "//*laughing face* ..."
@@ -88,7 +89,7 @@ debug "this is the 'use' event for Archie!"
 				>
 					?
 						- "When did you last see the cookies?"
-							set_global c/archie3 true
+							set_global c/archie2 true
 							say archie "I went to check on how well, uh, how well-received they were at around 4:30PM."
 							say player "Are you sure it was 4:30?" 
 							say archie "Of course! I always take tea at 4:30, and I take it with a tasty something or other. In this case, that something was my own cookies."
@@ -98,7 +99,7 @@ debug "this is the 'use' event for Archie!"
 							say archie "That's fair to assume."
 							say player "Hmmmm..."
 						- "Was there anyone else in the kitchen?"
-							set_global c/archie4 true
+							set_global c/archie3 true
 							say archie "I saw Bee there, she took one and then started doing something or other by the sink."
 							say player "You think it was her then?"
 							say archie "I think... I hope, at least, that no one on my team would break their oaths as knights for something like this."
@@ -123,7 +124,7 @@ debug "this is the 'use' event for Archie!"
 					repeat [!nevermind]
 					set_global nevermind false
 			#has talked to A and B, is a little confused. get an additional fact.
-			- "Who do YOU think it is?" [c/eyy1, c/bee1, checked_empty_desk]
+			- "Who do YOU think it is?" [A1, B1, firstDoorUse]
 				say player "I talked to A and B... but I'm not sure who it could be."
 				say archie "No one who deserves to be on this team, that's for sure!"
 				say player "Right, I mean-- I don't want to accuse anyone, it doesn't make sense..."
@@ -150,7 +151,7 @@ debug "this is the 'use' event for Archie!"
 							say player "I guess I didn't look at the clock, and I don't really know what you were doing in those few minutes."
 							say archie "Hmmmm. Good enough. Work on developing an eye for detail."
 							say archie "We live in an ever-changing world, with scientific magic moving as quickly as it is. You can never be too detailed in your recollections. Things may not always be as they seem."
-							set_global c/archie6 true
+							set_global c/archie4 true
 							say archie "So your story is that you were here all day, installing the file system. At 4 you saw me leave. I was unaccounted for in the following few minutes."
 							say archie "During which, you wasted no time in playing make-believe."
 							say player "Ahahaha...yeah... I guess that did happen." player_embarrased

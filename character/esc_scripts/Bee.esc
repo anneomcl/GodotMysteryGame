@@ -15,7 +15,7 @@ debug "this is the 'use' event for B!"
 	?
 		- "Were you in the kitchen between 4 and 4:30PM?
 			say player "Were you in the kitchen between 4 and 4:30PM? Approximately?"
-			set_global c/bee1 true
+			set_global c/B1 true
 			say bee "Yeah, I suppose I was there around 4ish. I was washing out my mug."
 			say bee "I fell asleep at my desk late last night and in the morning the coffee grounds were all... dry and crusty on the bottom."
 			say bee "So I told myself 'No more coffee after 3! Wash it and be done for the night!'"
@@ -23,10 +23,9 @@ debug "this is the 'use' event for B!"
 			say bee "That's why everyone's out today, responding to cases."
 			say player "Hmmm..."
 			say player "Anyway, you say you were in there around 4PM. Was anyone else in there? Or heading in? Heading out?"
-			set_global c/bee2 true
+			set_global c/B2 true
 			say bee "Well Archie came in with his newest baked good... lemon cookies? And then Eyy came in just as Archie went out. And then I left soon after Eyy came in."
 			say player "You know what he was doing in there?"
-			set_global c/bee3 true
 			say bee "...No, I wasn't paying too much attention, if you know what I mean."
 			say player "Hm, yeah... makes sense. So what time did you leave then? If you had to guess?"
 			say bee "I was in there for maybe 5 minutes?"
@@ -37,7 +36,6 @@ debug "this is the 'use' event for B!"
 			say player "I just really want to do a good job..."
 			say bee "You're doing fine so far. And yeah, go ahead and write 4:05."
 			say player "Cool."
-
 
 		- "Do you have any tips for me?"
 			say player "It's my first case, and I just started, I was wondering if you had any advice or--"

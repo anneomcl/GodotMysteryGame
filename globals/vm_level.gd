@@ -53,12 +53,20 @@ func camera_to_player(params):
 	tween.start()
 	return vm.state_return
 
+func open_notebook(params):
+	vm.game.inventory_open()
+	return vm.state_return
+
 ### commands
 
 func set_global(params):
 	vm.set_global(params[0], params[1])
 	return vm.state_return
 
+func set_clue(params):
+	vm.set_clue(params[0], params[1])
+	return vm.state_return
+	
 func debug(params):
 	for p in params:
 		printraw(p)
@@ -109,11 +117,6 @@ func dialog(params):
 	vm.cancel_skip()
 	current_context.waiting = true
 	vm.game.dialog(params, current_context)
-	return vm.state_yield
-
-func accuse(params):
-	current_context.waiting = true
-	vm.game.accuse(params, current_context)
 	return vm.state_yield
 
 #Parameters: "cut_scene" <anim_id> <flipx?> <flipy?>

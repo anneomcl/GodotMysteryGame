@@ -14,6 +14,7 @@ var camera_pos = Vector2(0, 0)
 var canMove = true
 
 var invisWallRight
+var invisWallLeft
 
 func _ready():
 	set_process_input(true)
@@ -28,12 +29,12 @@ func _ready():
 	set_invis_walls()
 
 func set_invis_walls():
-	print(vm.game.current_scene.get_name())
 	if vm.game.current_scene != null:
 		if get_tree().get_root().has_node(vm.game.current_scene.get_name()):
 			if get_tree().get_root().get_node(vm.game.current_scene.get_name()).has_node("InvisibleWallRight"):
 				invisWallRight = int(get_tree().get_root().get_node(vm.game.current_scene.get_name()).get_node("InvisibleWallRight").get_pos().x)
-
+			if get_tree().get_root().get_node(vm.game.current_scene.get_name()).has_node("InvisibleWallLeft"):
+				invisWallLeft = int(get_tree().get_root().get_node(vm.game.current_scene.get_name()).get_node("InvisibleWallLeft").get_pos().x)
 
 func _fixed_process(delta):
 	if(vm.can_interact()):
@@ -44,6 +45,8 @@ func _fixed_process(delta):
 	var x_pos = get_pos().x
 	if (invisWallRight != null and x_pos >= invisWallRight):
 		get_node("Camera2D").set_global_pos(Vector2(invisWallRight, get_node("Camera2D").get_global_pos().y))
+	if (invisWallLeft != null and x_pos < invisWallLeft):
+		get_node("Camera2D").set_global_pos(Vector2(invisWallLeft, get_node("Camera2D").get_global_pos().y))
 
 func lock_camera(isLocked):
 	if isLocked:
@@ -79,7 +82,6 @@ func move_player():
 	move(move_direction.normalized() * speed)
 
 func _on_Area2D_body_enter(body, obj):
-	printt("body enter ", body, obj, obj == self)
 	if(body == self and obj.get_active()):
 		target = obj
 	

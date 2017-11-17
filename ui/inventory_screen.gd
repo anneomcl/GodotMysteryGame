@@ -3,7 +3,19 @@ var game
 
 var item
 
+var dummy
+var dummy_item
+
 var hand
+
+var clue_size
+var item_clue_size
+var clue_parent
+var evidence_parent
+var curr_clue
+var analysis_data
+var curr_node_original_pos
+var clues_used_on_suspects = []
 
 var inventory
 
@@ -22,242 +34,79 @@ var equipped_current
 
 var events
 
+var dragging = false
+
+signal clues_instanced
 signal inventory_closed
+signal inventory_opened
 
 var base_path = "res://scenes/test/"
-
-#Entry point for inventory updates
-func inv_global_changed(name):
-	update_items(vm.globals)
-	if is_visible():
-		update_pages()
-
-#Checks all globals and populates the inventory
-#TO-DO Globals should have -> global list (all), items dict, clues dict
-#instead of searching through all (This is kind of done but not really)
-func update_items(list):
-	for it in list:
-		if it.substr(0, 2) == "c/":
-			it.erase(0, 2)
-			if !game.clues.has(it):
-				game.clues.push_back(it)
-				print(game.clues)
-				continue
-		
-		elif it.substr(0, 2) != "i/":
-			continue
-
-		if(!game.items.has(it)):
-			game.items.push_back(it)
-
-		var in_inv = vm.get_global(it)
-		var instanced = get_node("Menu/Inventory").has_node(it)
-
-		if in_inv && !instanced:
-			instance_item(find_item(it))
-		elif !in_inv && instanced:
-			remove_item(it)
-		elif in_inv && instanced:
-			remove_item(it)
-			instance_item(find_item(it))
-		
-		if instanced and it == _get_current():
-			var item = get_node("Menu/Inventory").get_node(it)
-			if item.has_node("title") != null:
-				item.get_node("title").show()
-			if item.has_node("points"):
-				item.get_node("points").show()
-	if get_node("Menu/Inventory/i").get_child_count() == 0:
-		cur_item = -1
-
-#Updates the item slots for rendering.
-func update_pages():
-	if cur_item == -1:
-		find_first_item()
-
-	var parent = get_node("Menu/Inventory/i")
-	for i in range(parent.get_child_count()):
-		var c = parent.get_child(i)
-		c.show()
-		c.set_global_pos(item_slots[slot_names.find(c.get_name())])
-		
-	if cur_item == -1:
-		item_cursor.hide()
-	else:
-		var s = cur_item - first_item
-		item_cursor.show()
-		item_cursor.set_global_pos(item_slots[s])
-
-#HELPER FUNCTIONS FOR ITEMS
-func find_first_item():
-	if get_node("Menu/Inventory/i").get_child_count() > 0:
-		cur_item = 0
-	else:
-		cur_item = -1
-
-func instance_item(p_item):
-	var node = item.duplicate()
-	var name = p_item.id
-	var points = ""
-	if "icon" in p_item:
-		node.get_node("icon").set_texture(load(p_item.icon))
-	if "points" in p_item and vm.get_global(name):
-		points = str(p_item.points, "% suspicion")
-	node.set_name(name)
-	node.get_node("title").set_text(name)
-	node.get_node("points").set_text(points)
-	node.get_node("title").hide()
-	node.get_node("points").hide()
-	node.set_meta("item", p_item)
-	if !(name in slot_names):
-		slot_names.push_back(name)
-	get_node("Menu/Inventory/i").add_child(node)
-	node.hide()
-
-func find_item(id):
-	if id.substr(0, 2) == "i/":
-		id.erase(0, 2)
-	else:
-		return
-	for item in inventory.items:
-		if id in item.values():
-			return item
-
-func remove_item(path):
-	if get_node("Menu/Inventory").has_node(path):
-		get_node("Menu/Inventory").get_node(path).free()
-		str(path.erase(0, 2))
-		var i = slot_names.find(path)
-		for j in range(i, slot_names.size()):
-			if(j + 1 < slot_names.size()):
-				slot_names[j] = slot_names[j + 1]
-			else:
-				slot_names.remove(slot_names.size() - 1)
-				return
-
-func find_slots():
-	item_slots = []
-	slot_names = []
-	var n = get_node("Menu/Inventory/item_slots")
-	for i in range(n.get_child_count()):
-		var c = n.get_child(i)
-		item_slots.push_back(c.get_global_pos())
-		
-func _get_current():
-	var id = null
-	if cur_item != -1:
-		var node = get_node("Menu/Inventory/i").get_node(slot_names[cur_item])
-		id = "i/"+node.get_meta("item").id
-	return id
-
-
-#DEPRECATED: USE FOR ITEMS TO-DO REMOVE THIS IN FAVOR OF "SHOW"
-func interact():
-	var id = _get_current()
-	if id == null:
-		return
-
-	var ev_name = "use "+id
-	if ev_name in events:
-		close()
-		vm.run_event(events[ev_name], {})
-	else:
-		print("warning: event use not found for item ", id)
-
-#EQUIPPED ITEM
-func equip():
-	var id = _get_current()
-	if id == null:
-		return
-
-	var label = get_node("Menu/Inventory/Label")
-	var desc = find_item(id).description
-	label.set_text(desc)
-	if game.equipped == id:
-		label.set_text("")
-	game.equip(id)
-
-func equip_changed(name):
-	if equipped_current != null:
-		equipped_current.free()
-	if name == null:
-		return
-	elif name == "":
-		equipped_current = null
-		return
-	elif name.substr(0, 2) == "i/":
-		name.erase(0, 2)
-	else:
-		return
-		
-	var node = get_node("Menu/Inventory/i/" + name)
-
-	if node == null:
-		print("warning: can't find equipped item in inventory ", name)
-		return
-		
-	equipped_current = node.duplicate()
-	if node.has_node("points"):
-		node.get_node("points").hide()
-	add_child(equipped_current)
-	equipped_current.show()
-	equipped_current.set_global_pos(get_node("Menu/Inventory/hand_pos").get_global_pos())
-
-#CURSOR MOVEMENT
-func move_cursor(dir):
-	var it_count = get_node("Menu/Inventory/i").get_child_count()
-	if dir.y != 0:
-		if cur_item != -1:
-			cur_item += item_cols * dir.y
-			if cur_item < 0:
-				cur_item = it_count - 1
-			elif cur_item >= it_count:
-				cur_item = 0
-
-	elif dir.x != 0:
-		if dir.x == -1:
-			cur_item += dir.x
-			if cur_item < 0:
-				cur_item = 0
-		if dir.x == 1:
-			if cur_item == it_count - 1:
-				cur_item = 0
-			else:
-				cur_item += dir.x
-
-	if cur_item != -1:
-		if cur_item < first_item:
-			first_item = cur_item
-		if cur_item >= first_item + item_slots.size():
-			first_item = cur_item - item_slots.size()
 
 #OPEN AND CLOSE MENU WINDOWS
 #OPTIONS, MAP, INVENTORY
 func close():
 	hide()
+	dummy.queue_free()
+	dummy_item.queue_free()
 	game.remove_hud(self)
 	emit_signal("inventory_closed")
 
+func add_clue_dummy():
+	dummy = get_node("Clue").duplicate()
+	dummy.get_node("ClueButton").set_normal_texture(null)
+	dummy.get_node("ClueButton/Label").set_text("")
+	dummy.get_node("ClueButton/points").set_text("")
+	clue_parent.add_child(dummy)
+
+func add_evidence_dummy():
+	dummy_item = get_node("ItemClue").duplicate()
+	dummy_item.get_node("ClueButton").set_normal_texture(null)
+	dummy_item.get_node("ClueButton/Label").set_text("")
+	dummy_item.get_node("ClueButton/points").set_text("")
+	evidence_parent.add_child(dummy_item)
+
 func open():
+	instance_clues()
+	#TO-DO:See if this is necessary:
+	#yield(self, "clues_instanced")
+	add_clue_dummy()
+	add_evidence_dummy()
 	show()
 	game.add_hud(self)
-	update_pages()
+	
+	if puzzle_to_solve() != null:
+		var green = Color(80.0/255.0, 200.0/255.0, 80.0/255.0)
+		get_node("Menu/Suspects/SuspectControl/AnalysisBoard/Label").set("custom_colors/font_color", green)
+	else:
+		var gray = Color(40.0/255.0, 40.0/255.0, 40.0/255.0)
+		get_node("Menu/Suspects/SuspectControl/AnalysisBoard/Label").set("custom_colors/font_color", gray)
+	emit_signal("inventory_opened")
 
-	if cur_item != -1 :
-		get_node("Menu/Inventory/i").get_node(slot_names[cur_item]).get_node("title").show()
-		get_node("Menu/Inventory/i").get_node(slot_names[cur_item]).get_node("points").show()
-		
 func open_fact_analysis():
+	var puzzle = puzzle_to_solve()
+	if puzzle == null:
+		game.get_node("speech_dialogue_player").start(["", analysis_data.no_puzzle], vm.level.current_context, false)
+		return
 	if game.current_scene.get_name() != "Analysis":
 		get_node("Menu/Options/menu").save_pressed("tempsave")
-		game.change_scene(["res://ui/FactAnalysis.tscn"], vm.level.current_context)
+		game.change_scene_puzzle(["res://ui/FactAnalysis.tscn"], puzzle, vm.level.current_context)
 		close()
-	
-func location_pressed(name):
-	close()
-	#TO-DO: Fading animation
-	game.change_scene([name], vm.level.current_context)
-	
+
+func puzzle_to_solve():
+	var puzzles = game.puzzles
+	var use_this_puzzle = true
+	for puzzle in puzzles.keys():
+		if !puzzles[puzzle].is_solved:
+			var clues =  puzzles[puzzle].clues
+			for clue in clues:
+				if !(clue in game.clues):
+					use_this_puzzle = false
+					break
+			if use_this_puzzle:
+				return puzzle
+		use_this_puzzle = true
+	return null
+
 #INPUT EVENTS
 func input(event):
 	if event.is_echo():
@@ -276,39 +125,236 @@ func input(event):
 		dir.x = 1
 
 	if dir != Vector2():
-		if cur_item != -1:
-			get_node("Menu/Inventory/i").get_node(slot_names[cur_item]).get_node("title").hide()
-			get_node("Menu/Inventory/i").get_node(slot_names[cur_item]).get_node("points").hide()
 		move_cursor(dir)
 		update_pages()
-
-	if cur_item != -1 :
-		get_node("Menu/Inventory/i").get_node(slot_names[cur_item]).get_node("title").show()
-		get_node("Menu/Inventory/i").get_node(slot_names[cur_item]).get_node("points").show()
 
 	if event.is_action("inventory_toggle"):
 		close()
 
-	if event.is_action("equip"):
-		equip()
+#CLUES
+func clue_pressed(clue_id, is_item):
+	if !vm.game.hud_layer.has_node("dialog"):
+		var node = null
+		if is_item and evidence_parent.has_node(clue_id):
+			node = evidence_parent.get_node(clue_id)
+		elif clue_parent.has_node(clue_id):
+			node = clue_parent.get_node(clue_id)
+		else:
+			return
+	
+		curr_node_original_pos = node.get_global_pos()
+		var clue_name = node.get_name()
+		var parent = node.get_parent()
+		
+		#real clue stays put, copy is dragged
+		var copy = node.duplicate()
+		reparent(copy, null, null)
+		copy.set_global_pos(curr_node_original_pos)
+		curr_clue = copy
+		dragging = true
+
+func reparent(child, current_parent, target_parent):
+	if current_parent != null:
+		current_parent.remove_child(child)
+	if target_parent == null:
+		add_child(child)
+	else:
+		target_parent.add_child(child)
+
+func clue_released(clue_id):
+	if has_node(clue_id):
+		var areas = get_node(clue_id).get_node("ClueButton/Area2D").get_overlapping_areas()
+		for area in areas:
+			if area.get_name().find("Notebook") != -1:
+				dragging = false
+				remove_child(curr_clue)
+				curr_clue = null
+				return
+		for area in areas:
+			if area.get_name() == "SuspectArea":
+				var suspect = area.get_node("../../").get_name()
+				check_suspect(suspect, clue_id)
+
+		dragging = false
+		remove_child(curr_clue)
+		curr_clue = null
+
+func check_suspect(suspect_id, clue_id):
+	var fact = analysis_data.fact_relations[clue_id]
+	var suspect = "suspect" + suspect_id
+	var suspect_parent = get_node("Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer")
+	if fact.has("supports") and suspect in fact["supports"]["clues"]:
+		if relation_exists(clue_id, suspect_id, "supports"):
+			game.get_node("speech_dialogue_player").start(["", analysis_data.found], vm.level.current_context, false)
+			return
+		var points = fact["points"]
+		var bar = suspect_parent.get_node(suspect_id).get_node("Sprite/ProgressBar")
+		if (bar.get_progress_texture().get_name() == "progress_negative.PNG"):
+			if (bar.get_value()*-1 + points) >= 0:
+				bar.set_progress_texture(load("res://ui/graphics/progress_progress.PNG"))
+				bar.set_value(bar.get_value()*-1 + points)
+			else:
+				bar.set_value(bar.get_value() - points)
+		elif (bar.get_value() + points) >= 0:
+			bar.set_progress_texture(load("res://ui/graphics/progress_progress.PNG"))
+			bar.set_value(bar.get_value() + points)
+		bar.get_node("Label").set_text("+" + str(bar.get_value()))
+		instance_relation(clue_id, suspect_id, "supports")
+		game.get_node("speech_dialogue_player").start(["", analysis_data.supports], vm.level.current_context, false)
+		clues_used_on_suspects.append(clue_id)
+		clean_clues(clue_id)
+	elif fact.has("contradicts") and suspect in fact["contradicts"]["clues"]:
+		if relation_exists(clue_id, suspect_id, "contradicts"):
+			game.get_node("speech_dialogue_player").start(["", analysis_data.found], vm.level.current_context, false)
+			return
+		var points = fact["points"]
+		var bar = suspect_parent.get_node(suspect_id).get_node("Sprite/ProgressBar")
+		if (bar.get_progress_texture().get_name() == "progress_negative.PNG"):
+			bar.set_value(bar.get_value() + points)
+		elif (bar.get_value() - points) < 0:
+			bar.set_progress_texture(load("res://ui/graphics/progress_negative.PNG"))
+			bar.set_value(-1*(bar.get_value() - points))
+		else:
+			bar.set_value(bar.get_value() - points)
+		bar.get_node("Label").set_text("-" + str(bar.get_value()))
+		instance_relation(clue_id, suspect_id, "contradicts")
+		game.get_node("speech_dialogue_player").start(["", analysis_data.contradicts], vm.level.current_context, false)
+		clues_used_on_suspects.append(clue_id)
+		clean_clues(clue_id)
+	else:
+		game.get_node("speech_dialogue_player").start(["", analysis_data.default], vm.level.current_context, false)
+	if(int(suspect_parent.get_node(suspect_id).get_node("Sprite/ProgressBar/Label").get_text()) >= analysis_data.SUSPECT_THRESHOLD):
+		vm.set_global(suspect, true)
+
+func clean_clues(id):
+	#add to list of things
+	#only erase if it's not in another puzzle
+	for puzzle in analysis_data.puzzles.keys():
+		if id in analysis_data.puzzles[puzzle]["clues"] and analysis_data.puzzles[puzzle]["is_solved"] == false:
+			return
+	
+	game.clues.erase(id)
+	clue_parent.remove_child(clue_parent.get_node(id))
+
+func instance_relation(clue_id, suspect_id, relation):
+	if !analysis_data.created_relations.has(clue_id):
+		analysis_data.created_relations[clue_id] = { "parents": [], "children": [] }
+	if !analysis_data.created_relations.has(suspect_id):
+		analysis_data.created_relations[suspect_id] = { "parents": [], "children": [] }
+
+	analysis_data.created_relations[suspect_id]["parents"].push_back([clue_id, relation])
+	analysis_data.created_relations[clue_id]["children"].push_back([suspect_id, relation])
+
+func relation_exists(clue_id, suspect_id, relation):
+	if !analysis_data.created_relations.has(clue_id):
+		return false
+	if !analysis_data.created_relations.has(suspect_id):
+		return false
+	for item in analysis_data.created_relations[clue_id]["children"]:
+		if item[0] == suspect_id and item[1] == relation:
+			return true
+	return false
+
+func is_item_clue(clue_id):
+	for item in inventory.items:
+		if clue_id == item.id:
+			return true
+	return false
+
+func find_item_clue(id):
+	if id.substr(0, 2) == "c/":
+		id.erase(0, 2)
+	for item in inventory.items:
+		if id == item.id:
+			return item
+
+func find_clue(id):
+	if id.substr(0, 2) == "c/":
+		id.erase(0, 2)
+	for item in inventory.clues:
+		if id == item.id:
+			return item
+
+func instance_clues():
+	print(game.clues)
+	for clue in game.clues:
+		if !is_item_clue(clue) and !clue_parent.has_node(clue):
+			instance_clue(clue, null, null, false)
+		elif is_item_clue(clue) and !evidence_parent.has_node(clue):
+			instance_clue(clue, null, null, true)
+	for clue in clue_parent.get_children():
+		if !(clue.get_name() in game.clues):
+			clue_parent.remove_child(clue)
+	
+	emit_signal("clues_instanced")
+
+func instance_clue(clue_id, parents, children, is_item):
+	var node
+	if is_item:
+		node = get_node("ItemClue").duplicate()
+		var item = find_item_clue(clue_id)
+		var spr = Sprite.new()
+		spr.set_texture(load(item.icon))
+		spr.set_pos(node.get_node("ClueButton/spritePosition").get_pos())
+		spr.set_scale(spr.get_scale() * 2)
+		node.get_node("ClueButton").add_child(spr)
+	else:
+		node = get_node("Clue").duplicate()
+	node.id = clue_id
+	node.content = find_clue(clue_id).title
+	node.get_node("ClueButton").get_node("Label").set_text(node.content)
+	if (analysis_data.fact_relations.has(clue_id)):
+		node.get_node("ClueButton").get_node("points").set_text(str(analysis_data.fact_relations[clue_id]["points"]))
+	
+	if clue_id.substr(0,2) == "c/":
+		clue_id.erase(0, 2)
+	node.set_name(clue_id)
+	
+	node.get_node("ClueButton").connect("button_down", self, "clue_pressed", [clue_id, is_item])
+	node.get_node("ClueButton").connect("button_up", self, "clue_released", [clue_id])
+	
+	if is_item:
+		evidence_parent.add_child(node)
+	else:
+		clue_parent.add_child(node)
+
+func drag_box():
+	var pos = get_global_mouse_pos()
+	var clue_size = get_clue_size(curr_clue)
+	if Input.is_mouse_button_pressed(BUTTON_LEFT):
+		curr_clue.set_global_pos(pos)
+		curr_clue.set_pos(curr_clue.get_pos() - clue_size / 4)
+
+func get_clue_size(node):
+	var curr_size
+	if (node.get_filename() == "res://ui/InventoryClue.tscn"):
+		curr_size = item_clue_size
+	else:
+		curr_size = clue_size
+		
+	return curr_size
+
+func _fixed_process(delta):
+	if (dragging and Input.is_mouse_button_pressed(BUTTON_LEFT)):
+			drag_box()
 
 func _ready():
 	game = get_node("/root/game")
 	vm = get_node("/root/vm")
-
-	item = get_node("Menu/Inventory/item")
-	item.hide()
-
-	item_cursor = get_node("Menu/Inventory/item_cursor")
-
-	get_node("Menu/Inventory/Analysis").connect("pressed", self, "open_fact_analysis")
+	set_fixed_process(true)
+	
+	clue_size = Vector2(get_node("Clue/ClueButton").get_rect().size.x, get_node("Clue/ClueButton").get_rect().size.y)
+	item_clue_size =  Vector2(get_node("ItemClue/ClueButton").get_rect().size.x, get_node("ItemClue/ClueButton").get_rect().size.y)
+	
+	clue_parent = get_node("Menu/Suspects/SuspectControl/TabContainer/Clues/VBoxContainer")
+	evidence_parent = get_node("Menu/Suspects/SuspectControl/TabContainer/Evidence/VBoxContainer")
+	analysis_data = get_node("AnalysisData")
+	instance_clues()
+	
+	
+	if game.puzzles.keys().size() < 1:
+		game.puzzles = analysis_data.puzzles
 
 	inventory = preload("res://game/data/inventory.gd")
-
-	vm.connect("global_changed", self, "inv_global_changed")
-	game.call_deferred("connect", "object_equipped", self, "equip_changed")
 	
-	get_node("Menu/Map/Waldorf").connect("pressed", self, "location_pressed", [base_path + "TeaRoom.tscn"])
-	get_node("Menu/Map/Office").connect("pressed", self, "location_pressed", [base_path + "SquashSquadOffice.tscn"])
-
-	find_slots()
+	get_node("Menu/Suspects/SuspectControl/AnalysisBoard").connect("pressed", self, "open_fact_analysis")

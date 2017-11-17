@@ -2,8 +2,26 @@
 
 debug "this is the 'load' event for the door to archie's office!"
 
-#set_global archie_intro_cutscene false
+set_global archie_intro_cutscene true
+set_global spoke_to_archie true
 
+/*
+set_clue archie1 true
+set_clue archie2 true
+
+set_clue archie3 true
+set_clue archie4 true
+
+set_clue A1 true
+set_clue A2 true
+set_clue A3 true
+
+set_clue B1 true
+set_clue B2 true
+
+set_clue office1 true
+set_clue office2 true
+*/
 > [test]
 	camera_to_player player
 	teleport_pos archie 670 105
@@ -16,21 +34,6 @@ debug "this is the 'load' event for the door to archie's office!"
 	teleport_pos player 670 650
 	set_clue archie1 true
 	set_clue archie2 true
-
-	set_clue archie3 true
-	set_clue archie4 true
-
-	set_clue A1 true
-	set_clue A2 true
-	set_clue A3 true
-
-	set_clue B1 true
-	set_clue B2 true
-
-	set_clue office1 true
-	set_clue office2 true
-	set_clue library1 true
-	set_clue kitchen1 true
 	set_global test true
 
 > [!archie_intro_cutscene]
@@ -39,7 +42,6 @@ debug "this is the 'load' event for the door to archie's office!"
 	#cut_scene camera camera_idle_below
 
 	#animation of player sipping coffee
-/*
 	say player "(It was a Tuesday evening when I met Theresa Waldorf for the first time.)" player_secret
 	cut_scene camera camera_pan_up
 	say player "(Her hair rippled in golden brown curls, framing the teary-eyed, vulnerable face of a young lady in desperate need of a knight's kind, professional rescue.)" player_secret
@@ -129,7 +131,7 @@ debug "this is the 'load' event for the door to archie's office!"
 	say default "Issuer: Archibald S."
 	say default "Complaint: Missing artisanally  crafted ceramic platter and home-made family legacy lemon butter spritz cookies."
 	say default "Location/Time: Initially left cookies in Squash Squad Office No. 3, Kitchen. 4PM. Discovered missing at 4:30PM."
-*/
+
 	set_global c/archie1 true
 
 	camera_to_player player

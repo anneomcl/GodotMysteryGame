@@ -54,14 +54,11 @@ func selected(n):
 	if !ready:
 		return
 	option_selected = n
-	if vm.globals.has("finish_event"):
-		animation.play("hide")
-	else:
-		clear_dialogue()
-		choice_size = 1
-		if is_choice:
-			vm.add_level(cmd[option_selected].params[1], false, dialog_task)
 	ready = false
+	clear_dialogue()
+	choice_size = 1
+	if is_choice:
+		vm.add_level(cmd[option_selected].params[1], false, dialog_task)
 
 func add_speech(text, id):
 	var it = item.duplicate()
@@ -72,9 +69,7 @@ func add_speech(text, id):
 	but.connect("pressed", self, "selected", [id])
 
 	if is_choice:
-		var height_ratio = Globals.get("platform/dialog_option_height")
-		var size = it.get_custom_minimum_size()
-		size.y = size.y * height_ratio
+		var size = it.get_node("button").get_minimum_size()
 		but.set_size(size)
 		handle_choice_offsets(it, but, lab, cur, choice_offset, id)
 	else:
@@ -86,8 +81,6 @@ func handle_choice_offsets(it, but, lab, cur, offset, i):
 	if has_multiple_choices:
 		var new_pos = it.get_pos() + (Vector2(0, offset) * i)
 		it.set_pos(new_pos)
-		but.set_pos(new_pos)
-		lab.set_pos(new_pos + Vector2(50, 0))
 		cur.set_pos(new_pos + Vector2(0, offset) * (i + 1)) #needs to match cursor offset
 
 		if (i == 0):
@@ -174,7 +167,6 @@ func start(params, p_context, p_is_choice):
 		display_portrait(avatar_id)
 	
 	if(character_name != null and character_name != "default"):
-		#get_node("anchor/avatars/name").show() disable this for now
 		get_node("anchor/avatars/name").set_text(character_name)
 	
 	ready = false
@@ -190,7 +182,6 @@ func _on_mouse_exit(button):
 	button.get_node("label").add_color_override("font_color_shadow", mouse_exit_shadow_color)
 
 func stop():
-	vm.game.hide_clue_received(false)
 	hide()
 	while container.get_child_count() > 0:
 		var c = container.get_child(0)
@@ -245,20 +236,13 @@ func _ready():
 	animation = get_node("animation")
 	animation.connect("finished", self, "anim_finished")\
 	
-	var player_camera_pos
-	if (weakref(vm.game.current_player).get_ref()):
-		player_camera_pos = vm.game.current_player.get_pos()
 	var game_height = (Globals.get("display/game_height"))
 	var game_width = (Globals.get("display/game_width"))
-	
-	#TO-DO: Change to offset factors
-	if player_camera_pos != null and player_camera_pos.y <= game_height/2:
+
+	if !vm.game.current_scene.has_node("player"):
 		set_pos(Vector2(game_width * .25 + 165, 0 * game_height - 110)) #top
 	else:
 		set_pos(Vector2(game_width * .25 + 165, .75 * game_height - 10)) #bottom
-
-	var indicator = vm.game.indicator
-	indicator.set_pos(get_node("indicator").get_global_pos())
 
 	self.connect("exit_tree", self, "clear_dialogue")
 	add_to_group("game")

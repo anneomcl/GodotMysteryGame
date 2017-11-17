@@ -26,6 +26,5 @@ debug "this is the 'use' event for the Judge and accusation sequence!"
 	say Judge "Present your evidence"
 	
 	set_global spoke_to_judge true
-	
-set_global esc_finished true
+
 

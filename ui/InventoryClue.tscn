@@ -9,7 +9,6 @@
 margin/left = 1.0
 margin/right = 483.0
 margin/bottom = 500.0
-params/resize_mode = 1
 
 [node name="Label" parent="ClueButton"]
 
@@ -22,6 +21,11 @@ margin/left = 390.0
 margin/top = 450.0
 margin/right = 447.0
 margin/bottom = 482.0
+
+[node name="CollisionShape2D" parent="ClueButton/Area2D"]
+
+transform/pos = Vector2( 241.511, 238.064 )
+transform/scale = Vector2( 1, 11.1201 )
 
 [node name="spritePosition" type="Position2D" parent="ClueButton"]
 

@@ -4,6 +4,8 @@ export(String,FILE) var events_path = ""
 
 var event_table = {}
 
+var puzzle_id
+
 var zoom_step = 2
 var scroll_speed = 20 
 var camera
@@ -13,6 +15,10 @@ var game
 var menu
 var inventory
 var analysis_data
+
+var therefore_sol_count = 0
+var supports_sol_count = 0
+var contradicts_sol_count = 0
 
 var dragging = false
 var curr_node #node currently selected
@@ -35,12 +41,13 @@ func back_to_game():
 	if game.has_node("hud_layer/dialog"):
 		game.get_node("hud_layer/dialog").stop()
 	vm.game.analysis_camera_pos = get_node("center").get_pos()
-	vm.game.analysis_camera_zoom = get_node("center/camera").get_zoom()
-	vm.game.relations = analysis_data.created_relations
-	vm.game.facts = analysis_data.fact_relations
-	for clue in vm.game.clues:
-		var clue_pos = get_node("c/" + clue).get_pos()
-		vm.game.clue_positions[clue] = clue_pos
+	#vm.game.analysis_camera_zoom = get_node("center/camera").get_zoom()
+	#vm.game.relations = analysis_data.created_relations
+	#vm.game.facts = analysis_data.fact_relations
+	vm.game.puzzles = analysis_data.puzzles
+	#for clue in vm.game.clues:
+	#	var clue_pos = get_node("c/" + clue).get_pos()
+	#	vm.game.clue_positions[clue] = clue_pos
 	menu.load_pressed("tempsave")
 
 func find_item_clue(id):
@@ -87,16 +94,8 @@ func instance_clue(clue_id, parents, children, is_item):
 	else:
 		node = get_node("Clue").duplicate()
 		node.show()
-		if (clue_id in suspect_ids):
-			node.get_node("ClueButton").set_normal_texture(load("res://ui/graphics/SuspectClue.png"))
-			if(!vm.get_global("first_suspect")):
-				vm.set_global("first_suspect", true)
-				game.get_node("speech_dialogue_player").start(["", analysis_data.first_suspect], vm.level.current_context, false)
-			else:
-				game.get_node("speech_dialogue_player").start(["", analysis_data.suspect], vm.level.current_context, false)
 		curr_clue_size = clue_size
-	
-	node.set_z(0)
+
 	var proposed_position = Vector2(col_width * col + col_offset, row_width * row + row_offset)
 	if parents != null:
 		var dist = abs(get_node("c/" + parents[0]).get_pos().x - get_node("c/" + parents[1]).get_pos().x)
@@ -129,8 +128,9 @@ func is_item_clue(clue_id):
 			return true
 	return false
 
-func instance_clues():
-	for clue in game.clues:
+func instance_clues(puzzle_id):
+	var clues = analysis_data.puzzles[puzzle_id].clues
+	for clue in clues:
 		if is_item_clue(clue):
 			instance_clue(clue, null, null, true)
 		else:
@@ -191,8 +191,6 @@ func instance_relation(clue_id, parents, children, relation):
 				analysis_data.created_relations[parent] = { "parents": [], "children": [] }
 			analysis_data.created_relations[parent]["children"].push_back([clue_id, relation])
 			draw_relation(parent, clue_id, relation)
-		
-	print(analysis_data.created_relations)
 
 func get_selected_relation():
 	if vm.get_global("therefore_selected"):
@@ -228,8 +226,7 @@ func update_points(parent, child, relation):
 		var child_points = parent_average
 		analysis_data.fact_relations[child]["points"] = child_points
 		get_node("c/" + child).get_node("ClueButton/points").set_text(str(child_points))
-	if(int(get_node("c/" + child).get_node("ClueButton/points").get_text()) >= analysis_data.SUSPECT_THRESHOLD):
-		vm.set_global(str("isSuspect" + child), true)
+	
 
 func update_children_points(node):
 	var nodes = [node]
@@ -289,14 +286,14 @@ func process_clues(first_clue, second_clue):
 				instance_relation(first_clue, null, [second_clue], relation)
 				update_points([first_clue], second_clue, "contradicts")
 				update_children_points(second_clue)
-				
+				contradicts_sol_count += 1
 			if relation == "supports":
 				print("Clue supports other clue: ")
 				#print ("Support points: " + str(fact_object[relation]["points"]))
 				instance_relation(first_clue, null, [second_clue], relation)
 				update_points([first_clue], second_clue, "supports")
 				update_children_points(second_clue)
-				
+				supports_sol_count += 1
 			if relation == "and":
 				var index = fact_object[relation]["clues"].find(second_clue)
 				var new_clue = fact_object[relation]["result"][index]
@@ -307,9 +304,13 @@ func process_clues(first_clue, second_clue):
 					update_children_points(new_clue)
 					game.clues.append(new_clue)
 					vm.set_global("c/" + new_clue, true)
+					
+					therefore_sol_count += 1
 				else:
 					game.get_node("speech_dialogue_player").start(["", "Clue already found!"], vm.level.current_context, false)
 					return
+			
+			process_solution()
 		else:
 			game.get_node("speech_dialogue_player").start(["", analysis_data.default], vm.level.current_context, false)
 			return
@@ -325,6 +326,48 @@ func get_clue_size(node):
 		curr_size = clue_size
 		
 	return curr_size
+
+func process_solution():
+	var solution = analysis_data.puzzles[puzzle_id].solution
+	if therefore_sol_count == solution["therefore"] and supports_sol_count == solution["supports"] and contradicts_sol_count == solution["contradicts"]:
+		if !vm.get_global("in_tutorial"):
+			analysis_data.puzzles[puzzle_id]["is_solved"] = true
+			game.get_node("speech_dialogue_player").start(["", analysis_data.puzzle_solved_success], vm.level.current_context, false)
+		else:
+			vm.set_global("tutorial_success", true)
+			game.execute_cutscene("res://ui/FactAnalysisDialogue.esc")
+			vm.set_global("in_tutorial", false)
+			analysis_data.puzzles[puzzle_id]["is_solved"] = true
+		clean_clues()
+
+func clean_clues():
+	var parent = get_node("c")
+	for clue in parent.get_children():
+		if not_in_any_puzzle(clue.get_name()) and no_relation_to_suspect(clue.get_name()):
+			vm.game.clues.erase(clue.get_name())
+			#Maybe add some kind of journal log to summarize?
+
+func not_in_any_puzzle(clue_id):
+	for puzzle in analysis_data.puzzles.keys():
+		if puzzle == puzzle_id:
+			continue
+		if clue_id in analysis_data.puzzles[puzzle]["clues"]:
+			return false
+	return true
+
+func no_relation_to_suspect(clue_id):
+	var sus_str = "suspect"
+	if clue_id in analysis_data.clues_used_on_suspects:
+		return true
+	if analysis_data.fact_relations[clue_id].has("supports"):
+		for supp_clue in analysis_data.fact_relations[clue_id]["supports"]["clues"]:
+			if supp_clue.substr(0, sus_str.length()) == sus_str:
+				return false
+	if analysis_data.fact_relations[clue_id].has("contradicts"):
+		for cont_clue in analysis_data.fact_relations[clue_id]["contradicts"]["clues"]:
+			if cont_clue.substr(0, sus_str.length()) == sus_str:
+				return false
+	return true
 
 func draw_relation(parent, child, relation):
 	
@@ -388,7 +431,6 @@ func clue_pressed(clue_id):
 
 func clue_released(clue_id):
 	dragging = false
-	curr_node.set_z(0)
 	curr_node = null
 	nodes = []
 
@@ -423,7 +465,6 @@ func find_all_clicked_nodes(node):
 
 func drag_box():
 	var pos = get_global_mouse_pos()
-	curr_node.set_z(1)
 	
 	var clue_size = get_clue_size(curr_node)
 	
@@ -462,7 +503,6 @@ func drag_box():
 				var parent_node = get_node("c/" + parent[0])
 				var parent_center = parent_node.get_pos() + (clue_size / 2)
 				update_draw_relation(parent_center, child_center, parent[0], curr_node.id)
-		
 
 func _fixed_process(delta):
 	if (dragging and Input.is_mouse_button_pressed(BUTTON_LEFT)):
@@ -512,6 +552,13 @@ func _ready():
 		analysis_data.created_relations = vm.game.relations
 	if vm.game.facts.keys().size() > 0:
 		analysis_data.fact_relations = vm.game.facts
+	if vm.game.puzzles.keys().size() > 0:
+		analysis_data.puzzles = vm.game.puzzles
+	if vm.game.hud_layer.get_node("inventory").clues_used_on_suspects.size() > 0:
+		analysis_data.clues_used_on_suspects = vm.game.hud_layer.get_node("inventory").clues_used_on_suspects
 	
-	instance_clues()
-	instance_relations()
+	if vm.get_global("in_tutorial"):
+		game.execute_cutscene("res://ui/FactAnalysisDialogue.esc")
+	
+	#instance_clues()
+	#instance_relations()

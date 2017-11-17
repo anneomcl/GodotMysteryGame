@@ -58,7 +58,7 @@ func _ready():
 				background = c
 				break
 				
-		get_node("inv_toggle").connect("visibility_changed",self,"_on_inv_toggle_vis_chaged")
+		get_node("inv_toggle").connect("ility_changed",self,"_on_inv_toggle_vis_chaged")
 		get_node("buttons/hints").connect("pressed",self,"_on_hint_pressed")
 		get_node("buttons/menu").connect("pressed",self,"_on_menu_pressed")
 	

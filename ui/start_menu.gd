@@ -126,7 +126,7 @@ func _ready():
 	if(find_node("new_game")):
 		get_node("new_game").connect("pressed", self, "new_pressed")
 	if(find_node("load_game")):
-		get_node("load_game").connect("pressed", self, "load_pressed", "savegame")
+		get_node("load_game").connect("pressed", self, "load_pressed", ["savegame"])
 	
 	vm = get_tree().get_root().get_node("vm")
 	game = get_tree().get_root().get_node("game")

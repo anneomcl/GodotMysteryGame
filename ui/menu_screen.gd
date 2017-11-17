@@ -44,7 +44,7 @@ func save_pressed(save_name):
 	
 func quit_to_menu_pressed():
 	close()
-	game.change_scene(["res://scenes/test/start_menu.tscn"], vm.level.current_context)
+	game.change_scene(["res://ui/main_menu.tscn"], vm.level.current_context)
 
 func load_menu_pressed():
 	load_pressed("savegame")

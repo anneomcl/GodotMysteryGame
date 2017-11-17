@@ -1,8 +1,18 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://ui/inventory_screen.gd" type="Script" id=1]
-[ext_resource path="res://globals/white.png" type="Texture" id=2]
-[ext_resource path="res://ui/menu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ui/Suspect.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/graphics/analysisBackground.png" type="Texture" id=3]
+[ext_resource path="res://ui/font/dialogue_default.fnt" type="BitmapFont" id=4]
+[ext_resource path="res://ui/menu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/InventoryClue.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ui/Clue.tscn" type="PackedScene" id=7]
+[ext_resource path="res://game/data/AnalysisData.tscn" type="PackedScene" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 169.583, 249.113 )
 
 [node name="inventory" type="Control"]
 
@@ -11,9 +21,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = -148.0
+margin/top = 0.0
 margin/right = 1281.0
-margin/bottom = 860.0
+margin/bottom = 1008.0
 script/script = ExtResource( 1 )
 
 [node name="Menu" type="TabContainer" parent="."]
@@ -22,14 +32,14 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 254.0
-margin/top = 237.0
-margin/right = 1033.0
-margin/bottom = 763.0
+margin/left = 150.0
+margin/top = 20.0
+margin/right = 1150.0
+margin/bottom = 720.0
 tab_align = 0
 tabs_visible = true
 
-[node name="Inventory" type="Tabs" parent="Menu"]
+[node name="Suspects" type="Tabs" parent="Menu"]
 
 anchor/right = 1
 anchor/bottom = 1
@@ -42,242 +52,274 @@ margin/top = 32.0
 margin/right = 4.0
 margin/bottom = 4.0
 
-[node name="Analysis" type="Button" parent="Menu/Inventory"]
+[node name="SuspectControl" type="Control" parent="Menu/Suspects"]
 
-anchor/right = 1
-anchor/bottom = 1
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 469.0
-margin/top = 326.0
-margin/right = 61.0
-margin/bottom = 67.0
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-text = "Analysis"
-flat = false
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
 
-[node name="Label" type="Label" parent="Menu/Inventory"]
+[node name="TabContainer" type="TabContainer" parent="Menu/Suspects/SuspectControl"]
 
-focus/ignore_mouse = true
+focus/ignore_mouse = false
 focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 480.0
-margin/top = 185.0
-margin/right = 698.0
-margin/bottom = 273.0
-align = 1
-autowrap = true
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 660.0
+margin/top = 23.0
+margin/right = 980.0
+margin/bottom = 443.0
+tab_align = 1
+tabs_visible = true
 
-[node name="item" type="Control" parent="Menu/Inventory"]
+[node name="Clues" type="ScrollContainer" parent="Menu/Suspects/SuspectControl/TabContainer"]
 
 editor/display_folded = true
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = -258.0
-margin/top = -269.0
-margin/right = -218.0
-margin/bottom = -229.0
-
-[node name="icon" type="Sprite" parent="Menu/Inventory/item"]
-
-[node name="title" type="Label" parent="Menu/Inventory/item"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = -50.0
-margin/top = 50.0
-margin/right = 42.0
-margin/bottom = 93.0
-text = "this is an item"
-align = 1
-autowrap = true
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="points" type="Label" parent="Menu/Inventory/item"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 64.0
-margin/top = -90.0
-margin/right = 104.0
-margin/bottom = -76.0
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="i" type="Node2D" parent="Menu/Inventory"]
-
-transform/pos = Vector2( -258, -269 )
-
-[node name="c" type="Node2D" parent="Menu/Inventory"]
-
-transform/pos = Vector2( -258, -269 )
-
-[node name="item_cursor" type="Sprite" parent="Menu/Inventory"]
-
-transform/pos = Vector2( -410.879, 6.26199 )
-texture = ExtResource( 2 )
-modulate = Color( 0.183382, 0.179504, 0.675781, 0.404353 )
-
-[node name="clue_cursor" type="Sprite" parent="Menu/Inventory"]
-
-visibility/visible = false
-transform/pos = Vector2( -261.955, 155.489 )
-transform/scale = Vector2( 7.1141, 1 )
-texture = ExtResource( 2 )
-modulate = Color( 0.183382, 0.179504, 0.675781, 0.404353 )
-
-[node name="clue" type="TextureFrame" parent="Menu/Inventory"]
-
-editor/display_folded = true
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = -228.0
-margin/top = -100.0
-margin/right = -188.0
-margin/bottom = -60.0
-stretch_mode = 0
-
-[node name="title" type="Label" parent="Menu/Inventory/clue"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = -223.0
-margin/top = -14.0
-margin/right = 206.0
-margin/bottom = 23.0
-text = "this is a clue"
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="item_slots" type="Position2D" parent="Menu/Inventory"]
-
-editor/display_folded = true
-transform/pos = Vector2( 23.294, 88.169 )
-
-[node name="Position2D" type="Position2D" parent="Menu/Inventory/item_slots"]
-
-transform/pos = Vector2( 90, 50 )
-
-[node name="Position2D1" type="Position2D" parent="Menu/Inventory/item_slots"]
-
-transform/pos = Vector2( 200, 50 )
-
-[node name="Position2D8 2" type="Position2D" parent="Menu/Inventory/item_slots"]
-
-transform/pos = Vector2( 300, 48.7722 )
-
-[node name="Position2D2" type="Position2D" parent="Menu/Inventory/item_slots"]
-
-transform/pos = Vector2( 90, 150 )
-
-[node name="Position2D3" type="Position2D" parent="Menu/Inventory/item_slots"]
-
-transform/pos = Vector2( 200, 150 )
-
-[node name="Position2D8 3" type="Position2D" parent="Menu/Inventory/item_slots"]
-
-transform/pos = Vector2( 300, 148.772 )
-
-[node name="Position2D4" type="Position2D" parent="Menu/Inventory/item_slots"]
-
-transform/pos = Vector2( 90, 250 )
-
-[node name="Position2D5" type="Position2D" parent="Menu/Inventory/item_slots"]
-
-transform/pos = Vector2( 200, 250 )
-
-[node name="Position2D8" type="Position2D" parent="Menu/Inventory/item_slots"]
-
-transform/pos = Vector2( 300, 248.772 )
-
-[node name="Position2D6" type="Position2D" parent="Menu/Inventory/item_slots"]
-
-transform/pos = Vector2( 90, 350 )
-
-[node name="Position2D7" type="Position2D" parent="Menu/Inventory/item_slots"]
-
-transform/pos = Vector2( 200, 350 )
-
-[node name="Position2D8 4" type="Position2D" parent="Menu/Inventory/item_slots"]
-
-transform/pos = Vector2( 300, 348.772 )
-
-[node name="hand_pos" type="Position2D" parent="Menu/Inventory"]
-
-transform/pos = Vector2( 581.136, 83.8834 )
-
-[node name="Map" type="Tabs" parent="Menu"]
-
-editor/display_folded = true
-visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
 focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
+size_flags/horizontal = 3
+size_flags/vertical = 3
 margin/left = 4.0
 margin/top = 32.0
 margin/right = 4.0
 margin/bottom = 4.0
+scroll/horizontal = true
+scroll/vertical = true
 
-[node name="Office" type="Button" parent="Menu/Map"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Suspects/SuspectControl/TabContainer/Clues"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 3
+size_flags/vertical = 3
+size_flags/stretch_ratio = 0.0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 312.0
+margin/bottom = 384.0
+custom_constants/separation = 130
+alignment = 0
+
+[node name="Evidence" type="ScrollContainer" parent="Menu/Suspects/SuspectControl/TabContainer"]
+
+editor/display_folded = true
+visibility/visible = false
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 4.0
+margin/top = 32.0
+margin/right = 4.0
+margin/bottom = 4.0
+scroll/horizontal = true
+scroll/vertical = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Suspects/SuspectControl/TabContainer/Evidence"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 3
+size_flags/vertical = 3
+size_flags/stretch_ratio = 0.0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 312.0
+margin/bottom = 384.0
+custom_constants/separation = 350
+alignment = 1
+
+[node name="BoundaryAreas" type="Node" parent="Menu/Suspects/SuspectControl/TabContainer"]
+
+[node name="Notebook" type="Area2D" parent="Menu/Suspects/SuspectControl/TabContainer/BoundaryAreas"]
+
+editor/display_folded = true
+transform/pos = Vector2( 852.862, 79.2649 )
+transform/scale = Vector2( 2.10888, 1 )
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1.3785, 145.122, 292.788 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Menu/Suspects/SuspectControl/TabContainer/BoundaryAreas/Notebook"]
+
+transform/pos = Vector2( 145.122, 292.788 )
+transform/scale = Vector2( 1, 1.3785 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Notebook1" type="Area2D" parent="Menu/Suspects/SuspectControl/TabContainer/BoundaryAreas"]
+
+editor/display_folded = true
+transform/pos = Vector2( -287.083, 83.4696 )
+transform/scale = Vector2( 1.38714, 1 )
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1.3785, 145.122, 292.788 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Menu/Suspects/SuspectControl/TabContainer/BoundaryAreas/Notebook1"]
+
+transform/pos = Vector2( 145.122, 292.788 )
+transform/scale = Vector2( 1, 1.3785 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Notebook2" type="Area2D" parent="Menu/Suspects/SuspectControl/TabContainer/BoundaryAreas"]
+
+editor/display_folded = true
+transform/pos = Vector2( 520.473, 810.952 )
+transform/scale = Vector2( 5.99841, 0.293701 )
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1.3785, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Menu/Suspects/SuspectControl/TabContainer/BoundaryAreas/Notebook2"]
+
+transform/scale = Vector2( 1, 1.3785 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Notebook3" type="Area2D" parent="Menu/Suspects/SuspectControl/TabContainer/BoundaryAreas"]
+
+editor/display_folded = true
+transform/pos = Vector2( 552.888, -72.2724 )
+transform/scale = Vector2( 5.99841, 0.293701 )
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1.3785, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Menu/Suspects/SuspectControl/TabContainer/BoundaryAreas/Notebook3"]
+
+transform/scale = Vector2( 1, 1.3785 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Menu/Suspects/SuspectControl"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 99.0
-margin/top = 77.0
-margin/right = 249.0
-margin/bottom = 177.0
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-text = "Go to Squash Squad Office"
-flat = false
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 625.0
+margin/bottom = 650.0
+scroll/horizontal = true
+scroll/vertical = true
 
-[node name="Waldorf" type="Button" parent="Menu/Map"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Suspects/SuspectControl/ScrollContainer"]
 
+rect/min_size = Vector2( 1, 1 )
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -1.0
+margin/top = 0.0
+margin/right = 1499.0
+margin/bottom = 1.0
+custom_constants/separation = 300
+alignment = 0
+
+[node name="A" parent="Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer" instance=ExtResource( 2 )]
+
+[node name="B" parent="Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer" instance=ExtResource( 2 )]
+
+margin/left = 300.0
+margin/right = 300.0
+
+[node name="archie" parent="Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer" instance=ExtResource( 2 )]
+
+margin/left = 600.0
+margin/right = 600.0
+
+[node name="librarian" parent="Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer" instance=ExtResource( 2 )]
+
+margin/left = 900.0
+margin/right = 900.0
+
+[node name="checkers" parent="Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer" instance=ExtResource( 2 )]
+
+margin/left = 1200.0
+margin/right = 1200.0
+
+[node name="dummy" parent="Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer" instance=ExtResource( 2 )]
+
+margin/left = 1500.0
+margin/right = 1500.0
+
+[node name="AnalysisBoard" type="TextureButton" parent="Menu/Suspects/SuspectControl"]
+
+editor/display_folded = true
+rect/scale = Vector2( 0.25, 0.25 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 507.0
-margin/top = 69.0
-margin/right = 662.0
-margin/bottom = 169.0
+margin/left = 660.0
+margin/top = 450.0
+margin/right = 1940.0
+margin/bottom = 1170.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "Go to Waldorf's House"
-flat = false
+textures/normal = ExtResource( 3 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="Label" type="Label" parent="Menu/Suspects/SuspectControl/AnalysisBoard"]
+
+rect/scale = Vector2( 4, 4 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 137.0
+margin/top = 292.0
+margin/right = 384.0
+margin/bottom = 324.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.316941, 0.813176, 0.306, 1 )
+text = "Analyze Clues"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [node name="Options" type="Tabs" parent="Menu"]
 
+editor/display_folded = true
 visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1
@@ -290,12 +332,45 @@ margin/top = 32.0
 margin/right = 4.0
 margin/bottom = 4.0
 
-[node name="menu" parent="Menu/Options" instance=ExtResource( 3 )]
+[node name="menu" parent="Menu/Options" instance=ExtResource( 5 )]
 
-margin/left = -260.0
-margin/top = -100.0
-margin/right = -220.0
-margin/bottom = -60.0
+[node name="quit_to_menu" parent="Menu/Options/menu"]
+
+margin/left = 350.0
+margin/top = 419.0
+margin/right = 650.0
+margin/bottom = 519.0
+
+[node name="load_game_menu" parent="Menu/Options/menu"]
+
+margin/left = 350.0
+margin/top = 269.0
+margin/right = 650.0
+margin/bottom = 369.0
+
+[node name="save_game_menu" parent="Menu/Options/menu"]
+
+margin/left = 350.0
+margin/top = 119.0
+margin/right = 650.0
+margin/bottom = 231.0
+
+[node name="ItemClue" parent="." instance=ExtResource( 6 )]
+
+margin/left = 470.0
+margin/top = 1549.0
+margin/right = 470.0
+margin/bottom = 1549.0
+
+[node name="Clue" parent="." instance=ExtResource( 7 )]
+
+margin/left = 877.0
+margin/top = 1569.0
+margin/right = 877.0
+margin/bottom = 1569.0
+
+[node name="AnalysisData" parent="." instance=ExtResource( 8 )]
 
 
+[editable path="Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer/A"]
 [editable path="Menu/Options/menu"]
