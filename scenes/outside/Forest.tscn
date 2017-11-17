@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://scenes/outside/ForestCamera.gd" type="Script" id=1]
 [ext_resource path="res://scenes/outside/graphics/Forest_Under.png" type="Texture" id=2]
@@ -7,7 +7,12 @@
 [ext_resource path="res://scenes/InvisibleWallLeft.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/InvisibleWallRight.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/office/TestWall.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/outside/Door_NoCollider.tscn" type="PackedScene" id=8]
+[ext_resource path="res://globals/item.gd" type="Script" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 13.4286 )
 
 [node name="Forest" type="Node2D"]
 
@@ -39,7 +44,7 @@ transform/pos = Vector2( 1419.24, 399.551 )
 
 [node name="TestWall" parent="." instance=ExtResource( 7 )]
 
-transform/pos = Vector2( 8.26609, 615.808 )
+transform/pos = Vector2( 8.26611, 546.832 )
 transform/rot = 90.0
 transform/scale = Vector2( 1.10336, 4.3089 )
 
@@ -51,16 +56,41 @@ transform/scale = Vector2( 1.10336, 4.3089 )
 
 [node name="TestWall2" parent="." instance=ExtResource( 7 )]
 
-transform/pos = Vector2( -2561.62, 415.185 )
-transform/scale = Vector2( 1.10336, 4.3089 )
+transform/pos = Vector2( -2484.02, -531.039 )
+transform/scale = Vector2( 1.10336, 2.6169 )
 
 [node name="TestWall3" parent="." instance=ExtResource( 7 )]
 
-transform/pos = Vector2( 2568.6, 615.807 )
-transform/scale = Vector2( 1.10336, 4.3089 )
+transform/pos = Vector2( 2568.6, -429.31 )
+transform/scale = Vector2( 1.10336, 2.56704 )
 
-[node name="ForestToOutside" parent="." instance=ExtResource( 8 )]
+[node name="ForestToOutside" type="Sprite" parent="."]
 
+editor/display_folded = true
+transform/pos = Vector2( -2429.08, 780.469 )
+script/script = ExtResource( 8 )
+active = true
 global_id = "ForestToOutside"
+talk_animation = "talk"
+events_path = "res://scenes/outside/esc_scripts/ForestToOutside.esc"
+
+[node name="Area2D" type="Area2D" parent="ForestToOutside"]
+
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 30.5797, 0, 0, 28.6904, 112.264, -109.245 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ForestToOutside/Area2D"]
+
+transform/pos = Vector2( 112.264, -109.245 )
+transform/scale = Vector2( 30.5797, 28.6904 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
 
 

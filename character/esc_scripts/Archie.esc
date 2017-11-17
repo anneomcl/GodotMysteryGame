@@ -75,7 +75,7 @@ debug "this is the 'use' event for Archie!"
 									?
 										- "Yes"
 											say player "This could be an elaborate set-up to create a learning experience for the new kid's first day!"
-											set_clue archie5
+											set_clue archie5 true
 											say player "Or like... a test of your crew's honesty! An honesty audit! To see who cracks!"
 											say archie "//*laughing face* If you can prove that I set this all up, then by all means, ARREST me for the CRIME of providing on-the-job experience."
 											say archie "//*laughing face* ..."

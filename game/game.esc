@@ -1,3 +1,3 @@
 :load
 
-#change_scene res://scenes/test/test_scene.tscn
+change_scene res://scenes/office/ArchieOffice.tscn
