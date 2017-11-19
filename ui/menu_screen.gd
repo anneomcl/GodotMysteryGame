@@ -1,4 +1,6 @@
 extends "start_menu.gd"
+var in_inventory
+var inventory
 
 func save():
 	var player = get_tree().get_nodes_in_group("save")[0]
@@ -14,6 +16,7 @@ func save():
 		relations = vm.game.relations,
 		facts = vm.game.facts,
 		items = vm.game.items,
+		puzzles = vm.game.puzzles,
 		clue_positions_x = process_clue_positions(false),
 		clue_positions_y = process_clue_positions(true),
 		analysis_camera_pos_x = vm.game.analysis_camera_pos.x,
@@ -59,6 +62,10 @@ func input(event):
 		close()
 
 func close():
+	if in_inventory:
+		inventory.close()
+		return
+	
 	hide()
 	game.remove_hud(self)
 
@@ -70,3 +77,7 @@ func _ready():
 	get_node("save_game_menu").connect("pressed", self, "save_pressed", ["savegame"])
 	get_node("quit_to_menu").connect("pressed", self, "quit_to_menu_pressed")
 	get_node("load_game_menu").connect("pressed", self, "load_menu_pressed")
+	
+	if get_node("../").get_name() == "Options":
+		in_inventory = true
+		inventory = get_tree().get_root().get_node("game/hud_layer/inventory")

@@ -14,6 +14,7 @@ var puzzles = {}
 var facts = {}
 var analysis_camera_pos = Vector2(0, 0)
 var analysis_camera_zoom = Vector2(1, 1)
+var character_globals = []
 
 var hud_stack = []
 var ui_stack = []
@@ -74,11 +75,11 @@ func _input(event):
 
 	else:
 		if event.is_action("inventory_toggle"):
-			if event.is_pressed() && !event.is_echo(): #&& current_scene.get_name() != "Analysis":
+			if event.is_pressed() && !event.is_echo() && current_scene.get_name() != "Analysis" && current_scene.get_name() != "start_menu":
 				inventory_open()
 
 		if event.is_action("menu_request"):
-			if event.is_pressed() && !event.is_echo() && current_scene.get_name() != "Analysis":
+			if event.is_pressed() && !event.is_echo() && current_scene.get_name() != "Analysis" && current_scene.get_name() != "start_menu":
 				menu_open()
 
 func menu_open():
@@ -111,6 +112,7 @@ func change_scene_puzzle(params, puzzle_id, context):
 	
 	scene.puzzle_id = puzzle_id
 	scene.instance_clues(puzzle_id)
+	scene.instance_relations(puzzle_id)
 	
 	set_current_scene(scene)
 	emit_signal("change_scene_finished")

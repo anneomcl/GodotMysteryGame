@@ -3,6 +3,7 @@
 debug "this is the 'use' event for A!"
 
 > [!spoke_to_A]
+	set_character_met "A"
 	say player "Hi A."
 	say Eyy "..."
 	say player "Uh... A?"

@@ -15,6 +15,7 @@ var game
 var menu
 var inventory
 var analysis_data
+var clues
 
 var therefore_sol_count = 0
 var supports_sol_count = 0
@@ -28,8 +29,6 @@ var item_clue_size
 var clue_distance
 var item_clue_distance
 
-const suspect_ids = [ "general3", "general4", "general5" ]
-
 var first_clue
 
 var row = 0
@@ -41,13 +40,13 @@ func back_to_game():
 	if game.has_node("hud_layer/dialog"):
 		game.get_node("hud_layer/dialog").stop()
 	vm.game.analysis_camera_pos = get_node("center").get_pos()
-	#vm.game.analysis_camera_zoom = get_node("center/camera").get_zoom()
-	#vm.game.relations = analysis_data.created_relations
-	#vm.game.facts = analysis_data.fact_relations
+	vm.game.analysis_camera_zoom = get_node("center/camera").get_zoom()
+	vm.game.relations = analysis_data.created_relations
+	vm.game.facts = analysis_data.fact_relations
 	vm.game.puzzles = analysis_data.puzzles
-	#for clue in vm.game.clues:
-	#	var clue_pos = get_node("c/" + clue).get_pos()
-	#	vm.game.clue_positions[clue] = clue_pos
+	for clue in clues:
+		var clue_pos = get_node("c/" + clue).get_pos()
+		vm.game.clue_positions[clue] = clue_pos
 	menu.load_pressed("tempsave")
 
 func find_item_clue(id):
@@ -129,7 +128,12 @@ func is_item_clue(clue_id):
 	return false
 
 func instance_clues(puzzle_id):
-	var clues = analysis_data.puzzles[puzzle_id].clues
+	clues = analysis_data.puzzles[puzzle_id].clues
+	
+	for i in analysis_data.puzzles[puzzle_id].intermediate:
+		if analysis_data.created_relations.has(i):
+			clues.append(i)
+	
 	for clue in clues:
 		if is_item_clue(clue):
 			instance_clue(clue, null, null, true)
@@ -139,10 +143,13 @@ func instance_clues(puzzle_id):
 		if vm.game.clue_positions.has(clue):
 			get_node("c/" + clue).set_pos(vm.game.clue_positions[clue])
 
-func instance_relations():
-	for clueid in analysis_data.created_relations.keys():
-		for child in game.relations[clueid]["children"]:
-			draw_relation(clueid, child[0], child[1])
+func instance_relations(puzzle_id):
+	for clueid in analysis_data.puzzles[puzzle_id].clues:
+		if analysis_data.created_relations.has(clueid):
+			for child in analysis_data.created_relations[clueid]["children"]:
+				print(analysis_data.puzzles[puzzle_id].has("intermediate"))
+				if child[0] in analysis_data.puzzles[puzzle_id].clues or (child[0] in analysis_data.puzzles[puzzle_id]["intermediate"]):
+					draw_relation(clueid, child[0], child[1])
 
 func validate_relation(parent, child):
 	if (parent == null or child == null):
@@ -303,6 +310,7 @@ func process_clues(first_clue, second_clue):
 					update_points([first_clue, second_clue], new_clue, relation)
 					update_children_points(new_clue)
 					game.clues.append(new_clue)
+					clues.append(new_clue)
 					vm.set_global("c/" + new_clue, true)
 					
 					therefore_sol_count += 1
@@ -478,11 +486,12 @@ func drag_box():
 		#update ALL positions
 		for nodeid in nodes:
 			if nodeid != curr_node.id:
-				var node = get_node("c/" + nodeid)
-				var node_pos = node.get_pos()
-				
-				var new_pos = -curr_node_pos_diff + node_pos
-				node.set_pos(new_pos)
+				if has_node("c/" + nodeid):
+					var node = get_node("c/" + nodeid)
+					var node_pos = node.get_pos()
+					
+					var new_pos = -curr_node_pos_diff + node_pos
+					node.set_pos(new_pos)
 	
 	elif Input.is_mouse_button_pressed(BUTTON_LEFT):
 		
@@ -493,16 +502,18 @@ func drag_box():
 			var children = analysis_data.created_relations[curr_node.id]["children"]
 			var parent_center = curr_node.get_pos() + (clue_size / 2)
 			for child in children:
-				var child_node = get_node("c/" + child[0])
-				var child_center = child_node.get_pos() + (clue_size / 2)
-				update_draw_relation(parent_center, child_center, curr_node.id, child[0])
+				if has_node("c/" + child[0]):
+					var child_node = get_node("c/" + child[0])
+					var child_center = child_node.get_pos() + (clue_size / 2)
+					update_draw_relation(parent_center, child_center, curr_node.id, child[0])
 	
 			var parents = analysis_data.created_relations[curr_node.id]["parents"]
 			var child_center = curr_node.get_pos() + (clue_size / 2)
 			for parent in parents:
-				var parent_node = get_node("c/" + parent[0])
-				var parent_center = parent_node.get_pos() + (clue_size / 2)
-				update_draw_relation(parent_center, child_center, parent[0], curr_node.id)
+				if has_node("c/" + parent[0]):
+					var parent_node = get_node("c/" + parent[0])
+					var parent_center = parent_node.get_pos() + (clue_size / 2)
+					update_draw_relation(parent_center, child_center, parent[0], curr_node.id)
 
 func _fixed_process(delta):
 	if (dragging and Input.is_mouse_button_pressed(BUTTON_LEFT)):
@@ -559,6 +570,3 @@ func _ready():
 	
 	if vm.get_global("in_tutorial"):
 		game.execute_cutscene("res://ui/FactAnalysisDialogue.esc")
-	
-	#instance_clues()
-	#instance_relations()

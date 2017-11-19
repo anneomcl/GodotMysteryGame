@@ -17,28 +17,33 @@ const puzzle_solved_success = "A-ha! I think I've solved this one."
 var puzzles = {
 	"puzzle1" : {
 		"clues" : ["archie1", "archie2"],
+		"intermediate" : [],
 		"solution" : 
 			{ "therefore" : 1, "supports" : 0, "contradicts" : 0 },
 		"is_solved" : false
 	},
 	"puzzle2" : {
 		"clues" : ["general1", "archie3", "B1", "B2", "kitchen1"],
+		"intermediate" : ["general2", "general3", "general4"],
 		"solution" : 
 			{ "therefore" : 1, "supports" :  2, "contradicts" : 1},
 		"is_solved" : false
 	},
 	"puzzle3" : {
 		"clues" : ["general1", "archie4", "archie5"],
+		"intermediate" : [],
 		"solution" : { "therefore" : 1, "supports" : 1, "contradicts" : 0 },
 		"is_solved" : false
 	},
 	"puzzle4" : {
 		"clues" : ["general1", "A1", "A2"],
+		"intermediate" : [],
 		"solution" : { "therefore" : 1, "supports" : 0, "contradicts" : 1 },
 		"is_solved" : false
 	},
 	"puzzle5" : {
 		"clues" : ["library1", "office1", "office2"],
+		"intermediate" : [ "general5", "general6" ],
 		"solution" : 
 			{ "therefore" : 2, "supports" : 0, "contradicts" : 0 },
 		"is_solved" : false

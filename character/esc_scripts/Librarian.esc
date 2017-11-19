@@ -2,6 +2,7 @@
 debug "this is the 'use' event for Librarian!"
 
 > [!library_initial]
+	set_character_met("librarian")
 	say librarian "Hi, this part isn't ready yet. Here's your test clue, lemon fairies cause mischief, and they are attracted to lemony things."
 	set_global c/library1 true
 	stop

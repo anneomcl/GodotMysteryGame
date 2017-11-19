@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://ui/inventory_screen.gd" type="Script" id=1]
-[ext_resource path="res://ui/Suspect.tscn" type="PackedScene" id=2]
-[ext_resource path="res://ui/graphics/analysisBackground.png" type="Texture" id=3]
-[ext_resource path="res://ui/font/dialogue_default.fnt" type="BitmapFont" id=4]
-[ext_resource path="res://ui/menu.tscn" type="PackedScene" id=5]
-[ext_resource path="res://ui/InventoryClue.tscn" type="PackedScene" id=6]
-[ext_resource path="res://ui/Clue.tscn" type="PackedScene" id=7]
-[ext_resource path="res://game/data/AnalysisData.tscn" type="PackedScene" id=8]
+[ext_resource path="res://ui/graphics/analysisBackground.png" type="Texture" id=2]
+[ext_resource path="res://ui/font/dialogue_default.fnt" type="BitmapFont" id=3]
+[ext_resource path="res://ui/menu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/InventoryClue.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/Clue.tscn" type="PackedScene" id=6]
+[ext_resource path="res://game/data/AnalysisData.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ui/Suspect.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -65,6 +65,7 @@ margin/bottom = 0.0
 
 [node name="TabContainer" type="TabContainer" parent="Menu/Suspects/SuspectControl"]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 3
@@ -252,33 +253,6 @@ margin/bottom = 1.0
 custom_constants/separation = 300
 alignment = 0
 
-[node name="A" parent="Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer" instance=ExtResource( 2 )]
-
-[node name="B" parent="Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer" instance=ExtResource( 2 )]
-
-margin/left = 300.0
-margin/right = 300.0
-
-[node name="archie" parent="Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer" instance=ExtResource( 2 )]
-
-margin/left = 600.0
-margin/right = 600.0
-
-[node name="librarian" parent="Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer" instance=ExtResource( 2 )]
-
-margin/left = 900.0
-margin/right = 900.0
-
-[node name="checkers" parent="Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer" instance=ExtResource( 2 )]
-
-margin/left = 1200.0
-margin/right = 1200.0
-
-[node name="dummy" parent="Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer" instance=ExtResource( 2 )]
-
-margin/left = 1500.0
-margin/right = 1500.0
-
 [node name="AnalysisBoard" type="TextureButton" parent="Menu/Suspects/SuspectControl"]
 
 editor/display_folded = true
@@ -294,7 +268,7 @@ margin/bottom = 1170.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-textures/normal = ExtResource( 3 )
+textures/normal = ExtResource( 2 )
 params/resize_mode = 0
 params/stretch_mode = 0
 
@@ -309,7 +283,7 @@ margin/left = 137.0
 margin/top = 292.0
 margin/right = 384.0
 margin/bottom = 324.0
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.316941, 0.813176, 0.306, 1 )
 text = "Analyze Clues"
 align = 1
@@ -332,7 +306,9 @@ margin/top = 32.0
 margin/right = 4.0
 margin/bottom = 4.0
 
-[node name="menu" parent="Menu/Options" instance=ExtResource( 5 )]
+[node name="menu" parent="Menu/Options" instance=ExtResource( 4 )]
+
+editor/display_folded = true
 
 [node name="quit_to_menu" parent="Menu/Options/menu"]
 
@@ -355,22 +331,31 @@ margin/top = 119.0
 margin/right = 650.0
 margin/bottom = 231.0
 
-[node name="ItemClue" parent="." instance=ExtResource( 6 )]
+[node name="ItemClue" parent="." instance=ExtResource( 5 )]
 
+visibility/visible = false
 margin/left = 470.0
 margin/top = 1549.0
 margin/right = 470.0
 margin/bottom = 1549.0
 
-[node name="Clue" parent="." instance=ExtResource( 7 )]
+[node name="Clue" parent="." instance=ExtResource( 6 )]
 
+visibility/visible = false
 margin/left = 877.0
 margin/top = 1569.0
 margin/right = 877.0
 margin/bottom = 1569.0
 
-[node name="AnalysisData" parent="." instance=ExtResource( 8 )]
+[node name="AnalysisData" parent="." instance=ExtResource( 7 )]
+
+[node name="Suspect" parent="." instance=ExtResource( 8 )]
+
+margin/left = 1234.0
+margin/top = 1373.0
+margin/right = 1234.0
+margin/bottom = 1374.0
 
 
-[editable path="Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer/A"]
 [editable path="Menu/Options/menu"]
+[editable path="Suspect"]

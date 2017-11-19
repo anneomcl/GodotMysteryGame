@@ -7,6 +7,7 @@ const event_allow_param_names = false
 var is_comment_block = false
 
 var commands = {
+	"set_character_met": { "min_args": 1, "types": [TYPE_STRING] },
 	"set_global": { "min_args": 2, "types": [TYPE_STRING, TYPE_BOOL] },
 	"set_clue": { "min_args": 2, "types": [TYPE_STRING, TYPE_BOOL] },
 	"set_value": { "min_args": 3, "lvalues": 1 },

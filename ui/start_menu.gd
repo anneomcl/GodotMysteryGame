@@ -85,6 +85,12 @@ func load_pressed(save_name):
 				vm.game.items = items
 			else:
 				vm.game.items = []
+				
+			var puzzles = line["puzzles"]
+			if (puzzles != null):
+				vm.game.puzzles = puzzles
+			else:
+				vm.game.puzzles = []
 	
 			var clue_positions_x = line["clue_positions_x"]
 			var clue_positions_y = line["clue_positions_y"]

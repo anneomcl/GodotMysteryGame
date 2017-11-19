@@ -5,6 +5,7 @@ var item
 
 var dummy
 var dummy_item
+var dummy_suspect
 
 var hand
 
@@ -12,6 +13,7 @@ var clue_size
 var item_clue_size
 var clue_parent
 var evidence_parent
+var suspect_parent
 var curr_clue
 var analysis_data
 var curr_node_original_pos
@@ -48,8 +50,19 @@ func close():
 	hide()
 	dummy.queue_free()
 	dummy_item.queue_free()
+	dummy_suspect.queue_free()
 	game.remove_hud(self)
 	emit_signal("inventory_closed")
+
+func add_suspect_dummy():
+	dummy_suspect = get_node("Suspect").duplicate()
+	dummy_suspect.get_node("Sprite/Label").set_text("")
+	dummy_suspect.get_node("Sprite").set_texture(null)
+	dummy_suspect.get_node("Sprite/Label").set_text("")
+	dummy_suspect.get_node("Sprite/ProgressBar").hide()
+	dummy_suspect.get_node("Sprite/SuspectArea").monitoring = false
+	dummy_suspect.get_node("Sprite/SuspectArea").monitorable = false
+	suspect_parent.add_child(dummy_suspect)
 
 func add_clue_dummy():
 	dummy = get_node("Clue").duplicate()
@@ -67,10 +80,12 @@ func add_evidence_dummy():
 
 func open():
 	instance_clues()
+	instance_suspects()
 	#TO-DO:See if this is necessary:
 	#yield(self, "clues_instanced")
 	add_clue_dummy()
 	add_evidence_dummy()
+	add_suspect_dummy()
 	show()
 	game.add_hud(self)
 	
@@ -275,8 +290,16 @@ func find_clue(id):
 		if id == item.id:
 			return item
 
+func instance_suspects():
+	for suspect in game.character_globals:
+		if !suspect_parent.has_node(suspect):
+			var node = get_node("Suspect").duplicate()
+			suspect_parent.add_child(node)
+			node.set_name(suspect)
+			node.get_node("Sprite/Label").set_text(suspect)
+			#TO-DO: Load portraits dynamically
+
 func instance_clues():
-	print(game.clues)
 	for clue in game.clues:
 		if !is_item_clue(clue) and !clue_parent.has_node(clue):
 			instance_clue(clue, null, null, false)
@@ -292,6 +315,7 @@ func instance_clue(clue_id, parents, children, is_item):
 	var node
 	if is_item:
 		node = get_node("ItemClue").duplicate()
+		node.show()
 		var item = find_item_clue(clue_id)
 		var spr = Sprite.new()
 		spr.set_texture(load(item.icon))
@@ -300,6 +324,7 @@ func instance_clue(clue_id, parents, children, is_item):
 		node.get_node("ClueButton").add_child(spr)
 	else:
 		node = get_node("Clue").duplicate()
+	node.show()
 	node.id = clue_id
 	node.content = find_clue(clue_id).title
 	node.get_node("ClueButton").get_node("Label").set_text(node.content)
@@ -348,8 +373,10 @@ func _ready():
 	
 	clue_parent = get_node("Menu/Suspects/SuspectControl/TabContainer/Clues/VBoxContainer")
 	evidence_parent = get_node("Menu/Suspects/SuspectControl/TabContainer/Evidence/VBoxContainer")
+	suspect_parent = get_node("Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer")
 	analysis_data = get_node("AnalysisData")
 	instance_clues()
+	instance_suspects()
 	
 	
 	if game.puzzles.keys().size() < 1:

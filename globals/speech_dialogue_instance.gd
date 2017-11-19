@@ -81,7 +81,7 @@ func handle_choice_offsets(it, but, lab, cur, offset, i):
 	if has_multiple_choices:
 		var new_pos = it.get_pos() + (Vector2(0, offset) * i)
 		it.set_pos(new_pos)
-		cur.set_pos(new_pos + Vector2(0, offset) * (i + 1)) #needs to match cursor offset
+		cur.set_pos(Vector2(0, cur.get_pos().y + offset/5)) #needs to match cursor offset
 
 		if (i == 0):
 			option_selected = 0

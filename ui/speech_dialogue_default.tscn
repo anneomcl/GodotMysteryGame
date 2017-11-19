@@ -282,6 +282,7 @@ max_lines_visible = -1
 
 [node name="cursor" parent="item" instance=ExtResource( 4 )]
 
+visibility/visible = true
 visibility/opacity = 1.0
 transform/pos = Vector2( 0, 15 )
 transform/scale = Vector2( 0.284009, 1.63048 )

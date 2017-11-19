@@ -32,6 +32,10 @@ func _walk(params, block):
 		vm.game.get_object(params[0]).walk(tpos, speed, current_context, params[3], params[4], params[5], params[6], int(params[7]))
 		return vm.state_return
 
+func set_character_met(params):
+	vm.set_global(params[0], true)
+	vm.game.character_globals.append(params[0])
+
 func static_camera(params):
 	var lock = false
 	if params[0] == "true":
