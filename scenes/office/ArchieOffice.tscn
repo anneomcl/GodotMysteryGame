@@ -228,6 +228,8 @@ _update_shape_index = 0
 
 [node name="Walls" type="Node2D" parent="."]
 
+editor/display_folded = true
+
 [node name="TestWall" parent="Walls" instance=ExtResource( 9 )]
 
 transform/pos = Vector2( -6.07822, 267.94 )
@@ -327,8 +329,6 @@ autoplay = ""
 
 [node name="event_positions" type="Node" parent="."]
 
-editor/display_folded = true
-
 [node name="upper_right" type="Position2D" parent="event_positions"]
 
 transform/pos = Vector2( 1100, 60 )
@@ -338,12 +338,30 @@ global_id = "upper_right"
 talk_animation = "talk"
 events_path = ""
 
+[node name="upper_left" type="Position2D" parent="event_positions"]
+
+transform/pos = Vector2( 300, 60 )
+script/script = ExtResource( 6 )
+active = true
+global_id = "upper_left"
+talk_animation = "talk"
+events_path = ""
+
 [node name="lower_right" type="Position2D" parent="event_positions"]
 
 transform/pos = Vector2( 1100, 500 )
 script/script = ExtResource( 6 )
 active = true
 global_id = "lower_right"
+talk_animation = "talk"
+events_path = ""
+
+[node name="lower_left" type="Position2D" parent="event_positions"]
+
+transform/pos = Vector2( 300, 500 )
+script/script = ExtResource( 6 )
+active = true
+global_id = "lower_left"
 talk_animation = "talk"
 events_path = ""
 
@@ -369,6 +387,7 @@ events_path = ""
 
 [node name="ArchieOfficeViewportAnimation" type="Node2D" parent="."]
 
+editor/display_folded = true
 visibility/opacity = 0.0
 script/script = ExtResource( 6 )
 active = true

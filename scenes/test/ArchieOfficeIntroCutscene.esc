@@ -2,7 +2,7 @@
 
 debug "this is the 'load' event for the door to archie's office!"
 
-#set_global archie_intro_cutscene false
+set_global archie_intro_cutscene true
 
 > [test]
 	camera_to_player player
@@ -74,6 +74,8 @@ debug "this is the 'load' event for the door to archie's office!"
 	walk_block player lower_right 6 false false false false 0
 
 	camera_to_player center
+	walk_block archie lower_left 4 false false false false 0
+	walk_block archie upper_left 4 false false false false 0
 	walk_block archie near_window 4 false false false false 0
 	#animation: archie fixes blinds
 	say archie "*sigh*... No, no... I'll make another brew myself. You know, I've really taken to a particular ratio of a certain blend--"

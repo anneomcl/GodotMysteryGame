@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://ui/Suspect.gd" type="Script" id=1]
-[ext_resource path="res://character/avatars/default.png" type="Texture" id=2]
+[ext_resource path="res://character/avatars/A_default.png" type="Texture" id=2]
 [ext_resource path="res://ui/font/dialogue_default.fnt" type="BitmapFont" id=3]
 [ext_resource path="res://ui/graphics/progress_over.png" type="Texture" id=4]
 [ext_resource path="res://ui/graphics/progress_progress.png" type="Texture" id=5]
@@ -23,10 +23,40 @@ margin/right = 0.0
 margin/bottom = 1.0
 script/script = ExtResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Label" type="Label" parent="."]
 
-transform/pos = Vector2( 156.213, 167.371 )
-texture = ExtResource( 2 )
+rect/min_size = Vector2( 220, 65 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 33.0
+margin/top = 1102.0
+margin/right = 271.0
+margin/bottom = 1167.0
+text = "This is evidence for or against the given suspect. Points: 239558230239582358"
+align = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Sprite" type="TextureButton" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 69.0
+margin/top = 45.0
+margin/right = 269.0
+margin/bottom = 245.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 2 )
+params/resize_mode = 0
+params/stretch_mode = 0
 
 [node name="Label" type="Label" parent="Sprite"]
 
@@ -34,10 +64,10 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = -80.0
-margin/top = 120.0
-margin/right = 80.0
-margin/bottom = 140.0
+margin/left = 18.0
+margin/top = 241.0
+margin/right = 178.0
+margin/bottom = 273.0
 custom_fonts/font = ExtResource( 3 )
 text = "NAME"
 align = 1
@@ -51,10 +81,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = -52.0
-margin/top = 167.0
-margin/right = 48.0
-margin/bottom = 397.0
+margin/left = 46.0
+margin/top = 288.0
+margin/right = 146.0
+margin/bottom = 518.0
 range/min = 0.0
 range/max = 100.0
 range/step = 1.0
@@ -88,7 +118,7 @@ max_lines_visible = -1
 
 [node name="SuspectArea" type="Area2D" parent="Sprite"]
 
-transform/pos = Vector2( -1.21252, 167.629 )
+transform/pos = Vector2( 97.2137, 289.11 )
 transform/scale = Vector2( 4, 9 )
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
@@ -105,5 +135,140 @@ transform/pos = Vector2( 0.629379, -2.27207 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 48.0
+margin/top = 36.0
+margin/right = 298.0
+margin/bottom = 266.0
+scroll/horizontal = true
+scroll/vertical = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 250.0
+margin/bottom = 515.0
+custom_constants/separation = 10
+alignment = 0
+
+[node name="Label1" type="Label" parent="ScrollContainer/VBoxContainer"]
+
+rect/min_size = Vector2( 220, 65 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 75.0
+margin/right = 238.0
+margin/bottom = 140.0
+text = "This is evidence for or against the given suspect. Points: 239558230239582358"
+align = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer"]
+
+rect/min_size = Vector2( 220, 65 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 150.0
+margin/right = 238.0
+margin/bottom = 215.0
+text = "This is evidence for or against the given suspect. Points: 239558230239582358"
+align = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label3" type="Label" parent="ScrollContainer/VBoxContainer"]
+
+rect/min_size = Vector2( 220, 65 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 225.0
+margin/right = 238.0
+margin/bottom = 290.0
+text = "This is evidence for or against the given suspect. Points: 239558230239582358"
+align = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label4" type="Label" parent="ScrollContainer/VBoxContainer"]
+
+rect/min_size = Vector2( 220, 65 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 300.0
+margin/right = 238.0
+margin/bottom = 365.0
+text = "This is evidence for or against the given suspect. Points: 239558230239582358"
+align = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label5" type="Label" parent="ScrollContainer/VBoxContainer"]
+
+rect/min_size = Vector2( 220, 65 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 375.0
+margin/right = 238.0
+margin/bottom = 440.0
+text = "This is evidence for or against the given suspect. Points: 239558230239582358"
+align = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label6" type="Label" parent="ScrollContainer/VBoxContainer"]
+
+rect/min_size = Vector2( 220, 65 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 450.0
+margin/right = 238.0
+margin/bottom = 515.0
+text = "This is evidence for or against the given suspect. Points: 239558230239582358"
+align = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 

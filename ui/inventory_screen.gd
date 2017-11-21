@@ -57,7 +57,7 @@ func close():
 func add_suspect_dummy():
 	dummy_suspect = get_node("Suspect").duplicate()
 	dummy_suspect.get_node("Sprite/Label").set_text("")
-	dummy_suspect.get_node("Sprite").set_texture(null)
+	dummy_suspect.get_node("Sprite").set_normal_texture(null)
 	dummy_suspect.get_node("Sprite/Label").set_text("")
 	dummy_suspect.get_node("Sprite/ProgressBar").hide()
 	dummy_suspect.get_node("Sprite/SuspectArea").monitoring = false
@@ -196,9 +196,12 @@ func clue_released(clue_id):
 
 func check_suspect(suspect_id, clue_id):
 	var fact = analysis_data.fact_relations[clue_id]
+	var fact_description = find_clue(clue_id).title
 	var suspect = "suspect" + suspect_id
 	var suspect_parent = get_node("Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer")
 	if fact.has("supports") and suspect in fact["supports"]["clues"]:
+		var obj = { "points" : fact.points, "fact" : fact_description, "relation" : "+" }
+		suspect_parent.get_node(suspect_id).evidence.append(obj)
 		if relation_exists(clue_id, suspect_id, "supports"):
 			game.get_node("speech_dialogue_player").start(["", analysis_data.found], vm.level.current_context, false)
 			return
@@ -219,6 +222,8 @@ func check_suspect(suspect_id, clue_id):
 		clues_used_on_suspects.append(clue_id)
 		clean_clues(clue_id)
 	elif fact.has("contradicts") and suspect in fact["contradicts"]["clues"]:
+		var obj = { "points" : fact.points, "fact" : fact_description, "relation" : "-" }
+		suspect_parent.get_node(suspect_id).evidence.append(obj)
 		if relation_exists(clue_id, suspect_id, "contradicts"):
 			game.get_node("speech_dialogue_player").start(["", analysis_data.found], vm.level.current_context, false)
 			return
