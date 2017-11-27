@@ -8,10 +8,10 @@ var hud_layer
 
 var items = []
 var clues = []
-var relations = {}
 var clue_positions = {}
 var puzzles = {}
 var facts = {}
+var relations = {}
 var analysis_camera_pos = Vector2(0, 0)
 var analysis_camera_zoom = Vector2(1, 1)
 var character_globals = []
@@ -212,6 +212,7 @@ func _ready():
 
 	hud_layer = get_node("hud_layer")
 	ui_layer = get_node("ui_layer")
+	facts = hud_layer.get_node("inventory/AnalysisData").fact_relations
 
 	set_process(true)
 	set_process_input(true)

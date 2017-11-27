@@ -1,11 +1,19 @@
 :load
 
 
+> [c/general6]
+	say player "I have a few leads now, but I'm not sure where to go next without hard evidence."
+	say player "I should talk to Archie and see what my next steps are."
+	stop
+
 > [tutorial_success]
 	say player "A-ha! So that's how it works... I guess I should figure out who was in the kitchen from 4PM to 4:30PM. Let's see... The book says:"
+	say default "When clues are connected, press CTRL+click to drag groups of clues."
+	say default "Use the arrow keys to move the view, and the + and - keys to zoom in and out."
 	say default "Newly discovered clues will be added to your notebook, and can be used to increase or decrease suspicion of suspects."
 	say default "Remember to check the board frequently to analyze clues and find new leads."
 	say default "This logician will write more in a second volume. Please look forward to it."
+	say default "In the meantime, practice your skills with the examples in our companion workbook. (NOTE: If you are playing an early build, this is not ready yet :) )"
 	stop
 
 > [in_tutorial]

@@ -30,6 +30,18 @@ transform/pos = Vector2( 662.841, -217.526 )
 transform/rot = 90.0
 transform/scale = Vector2( 1, 2 )
 
+[node name="UpperBound1" parent="." instance=ExtResource( 1 )]
+
+visibility/visible = false
+transform/pos = Vector2( -395.432, -31.683 )
+transform/scale = Vector2( 1, 2 )
+
+[node name="UpperBound2" parent="." instance=ExtResource( 1 )]
+
+visibility/visible = false
+transform/pos = Vector2( 1715.95, -186.552 )
+transform/scale = Vector2( 1, 2 )
+
 [node name="InvisibleWallLeft" parent="." instance=ExtResource( 2 )]
 
 [node name="InvisibleWallRight" parent="." instance=ExtResource( 3 )]
@@ -77,6 +89,7 @@ transform/pos = Vector2( 640.442, -62.8934 )
 
 [node name="DoorToForest" type="Sprite" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 1795.51, -65.4575 )
 script/script = ExtResource( 9 )
 active = true

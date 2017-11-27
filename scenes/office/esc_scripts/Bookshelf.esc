@@ -35,6 +35,17 @@
 			say player "This is the tenth volume, where the moonlit gnome is finally able to walk through the sun-kissed orchards of Raylaria with Aylor'uk the giant...!!"
 			say player "Ahhh... So emotional."
 
+		- "How to Win Cases and Prosecute People"
+			say default "All knight detectives are anointed with the divine privileges of prosecuting and defending any citizen in the Kingdom."
+			say default "With the advent of scientific magic, deterministic and mystical systems have been implemented to decide the truthiness of claims and evidence."
+			say default "The clues in a knights notebook have a score for how much they influence the guilt or innocence of a suspect."
+			say default "Click and drag clues to a suspect to determine if they influence their guilt or innocence."
+			say default "If a suspect's score is above 90, they may be accused of the crime and taken to court."
+			say default "If a suspect's score is below 90, they can be considered innocent and dismissed as a suspect for the time being."
+			say default "You may gain new information about a case by questioning a suspect at trial, even if they aren't proven guilty."
+			say default "However, if you fail 3 trials (ie: are unable to prove the guilt of any suspect) for a single case, your status as a knight detective will be revoked."
+			say player "In other words: 'Game Over'..."
+/*
 		- "Some Magazines"
 			say default "Would you like to read some magazines?"
 			>
@@ -42,3 +53,4 @@
 					- "Yes"
 					- "No"
 						stop
+*/

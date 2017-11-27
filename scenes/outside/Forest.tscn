@@ -93,4 +93,33 @@ shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
+[node name="ForestToRiver" type="Sprite" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 1855.53, 487.553 )
+script/script = ExtResource( 8 )
+active = true
+global_id = "ForestToRiver"
+talk_animation = "talk"
+events_path = "res://scenes/outside/esc_scripts/ForestToRiver.esc"
+
+[node name="Area2D" type="Area2D" parent="ForestToRiver"]
+
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 30.5797, 0, 0, 28.6904, 112.264, -109.245 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ForestToRiver/Area2D"]
+
+transform/pos = Vector2( 112.264, -109.245 )
+transform/scale = Vector2( 30.5797, 28.6904 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
 

@@ -1,11 +1,13 @@
 
 :use
 > [has_keys]
+	say player "I wonder where A went...?"
+	say player "Well, let's see if there's anything in his desk..."
 	say player "Woah! I found the cookies!"
-	say player "Does this mean we're case closed? Eyy did it?"
+	say player "Does this mean we're case closed? He did it?"
 	say player "Wait a second... There's a bunch of other stuff too..."
 	say player "A can of avgolemono soup, Xixi Lemony Fresh Wood Varnish, the cookies and the plate... and then a crumple of papers with yellow marks all over."
-	say player "There has to be more to this... I doubt Eyy just wanted to hoard the cookies, if it was him."
+	say player "There has to be more to this... I doubt A just wanted to hoard the cookies, if it was him."
 	say player "Always be skeptical until you can prove the truth. Right. *nod*"
 	set_global i/office1 true
 	set_global c/office1 true

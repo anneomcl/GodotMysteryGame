@@ -2,6 +2,11 @@
 
 debug "this is the 'use' event for B!"
 
+> [B_annoyed]
+	say bee "Sorry, kid! A little busy here."
+	say player "Right, sorry..."
+	stop
+
 > [!spoke_to_B]
 	set_character_met "B"
 	say player "Uh, hey, B."
@@ -12,9 +17,8 @@ debug "this is the 'use' event for B!"
 	say bee "Go ahead, shoot."
 	set_global spoke_to_B true	
 > [spoke_to_B]
-	say player "I wanted to ask about something else..."
 	?
-		- "Were you in the kitchen between 4 and 4:30PM?
+		- "Were you in the kitchen between 4 and 4:30PM? [c/general1]
 			say player "Were you in the kitchen between 4 and 4:30PM? Approximately?"
 			set_global c/B1 true
 			say bee "Yeah, I suppose I was there around 4ish. I was washing out my mug."
@@ -24,17 +28,19 @@ debug "this is the 'use' event for B!"
 			say bee "That's why everyone's out today, responding to cases."
 			say player "Hmmm..."
 			say player "Anyway, you say you were in there around 4PM. Was anyone else in there? Or heading in? Heading out?"
-			set_global c/B2 true
-			say bee "Well Archie came in with his newest baked good... lemon cookies? And then Eyy came in just as Archie went out. And then I left soon after Eyy came in."
+			set_clue B2 true
+			set_clue B3 true
+			say bee "Well Archie came in with his newest baked good... lemon cookies? And then A came in just as Archie and I were leaving."
 			say player "You know what he was doing in there?"
-			say bee "...No, I wasn't paying too much attention, if you know what I mean."
-			say player "Hm, yeah... makes sense. So what time did you leave then? If you had to guess?"
+			say bee "...No, I wasn't paying too much attention."
+			say player "Hm, okay... So what time did you leave then? If you had to guess?"
 			say bee "I was in there for maybe 5 minutes?"
-			say player "*nod* *nod* Hmmm, yes, yes..."
+			say player "*nod* *nod* Hmmmm, of course..."
+			say player "..."
 			say player "*whisper* So should I write... like, 4:05PM? Is it okay if it isn't exact?"
-			say bee "You probably shouldn't ask your witnesses how to do your job *laugh*"
+			say bee "You probably shouldn't ask your witnesses how to do your job, even if they are your co-workers. *laugh*"
 			say player "Right, sorry!"
-			say player "I just really want to do a good job..."
+			say player "I just really, REALLY want to do a good job..."
 			say bee "You're doing fine so far. And yeah, go ahead and write 4:05."
 			say player "Cool."
 
@@ -42,6 +48,8 @@ debug "this is the 'use' event for B!"
 			say player "It's my first case, and I just started, I was wondering if you had any advice or--"
 			say bee "Oh would you look at that! Nearly 5 o'clock, need to wrap up quickly if we want to beat the evening rush!"
 			say player "Uh, right. Yeah."
+			say player "(That was weird...)"
+			set_global B_annoyed true
 
 		- Nevermind
 			set_global nevermind true

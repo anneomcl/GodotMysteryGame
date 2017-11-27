@@ -212,20 +212,22 @@ func update_points(parent, child, relation):
 		var parent_points = analysis_data.fact_relations[parent[0]]["points"]
 		var child_points = analysis_data.fact_relations[child]["points"]
 		if relation == "contradicts":
-			parent_points = -1 * .1 * parent_points
-			child_points = -1 * .1 * child_points
+			parent_points = -1 *  parent_points
+			child_points = -1 *  child_points
 		else:
-			parent_points = .1 * parent_points
-			child_points = .1 * child_points
+			parent_points = parent_points
+			child_points = child_points
 		var new_child_points = analysis_data.fact_relations[child]["points"]
 		new_child_points += parent_points
 		analysis_data.fact_relations[child]["points"] = new_child_points
 		get_node("c/" + child).get_node("ClueButton/points").set_text(str(new_child_points))
-		if relation == "supports":
-			var new_parent_points = analysis_data.fact_relations[parent[0]]["points"]
-			new_parent_points += child_points
-			analysis_data.fact_relations[parent[0]]["points"] = new_parent_points
-			get_node("c/" + parent[0]).get_node("ClueButton/points").set_text(str(new_parent_points))
+		var new_parent_points = analysis_data.fact_relations[parent[0]]["points"]
+		new_parent_points += child_points
+		analysis_data.fact_relations[parent[0]]["points"] = new_parent_points
+		get_node("c/" + parent[0]).get_node("ClueButton/points").set_text(str(new_parent_points))
+		
+		analysis_data.fact_relations[parent[0]].points = new_parent_points
+		analysis_data.fact_relations[child].points = new_child_points
 	if relation == "and":
 		var parent_points = analysis_data.fact_relations[parent[0]]["points"]
 		var parent_points_two = analysis_data.fact_relations[parent[1]]["points"]
@@ -233,7 +235,7 @@ func update_points(parent, child, relation):
 		var child_points = parent_average
 		analysis_data.fact_relations[child]["points"] = child_points
 		get_node("c/" + child).get_node("ClueButton/points").set_text(str(child_points))
-	
+		analysis_data.fact_relations[child].points = child_points
 
 func update_children_points(node):
 	var nodes = [node]
@@ -290,6 +292,10 @@ func process_clues(first_clue, second_clue):
 	
 		if fact_object.has(relation) and fact_object[relation]["clues"].has(second_clue):
 			if relation == "contradicts":
+				if analysis_data.created_relations.has(first_clue):
+					if [second_clue, "supports"] in analysis_data.created_relations[first_clue]["parents"] \
+					or [second_clue, "supports"] in analysis_data.created_relations[first_clue]["children"]:
+						return
 				instance_relation(first_clue, null, [second_clue], relation)
 				update_points([first_clue], second_clue, "contradicts")
 				update_children_points(second_clue)
@@ -297,6 +303,10 @@ func process_clues(first_clue, second_clue):
 			if relation == "supports":
 				print("Clue supports other clue: ")
 				#print ("Support points: " + str(fact_object[relation]["points"]))
+				if analysis_data.created_relations.has(first_clue):
+					if [second_clue, "supports"] in analysis_data.created_relations[first_clue]["parents"] \
+					or [second_clue, "supports"] in analysis_data.created_relations[first_clue]["children"]:
+						return
 				instance_relation(first_clue, null, [second_clue], relation)
 				update_points([first_clue], second_clue, "supports")
 				update_children_points(second_clue)

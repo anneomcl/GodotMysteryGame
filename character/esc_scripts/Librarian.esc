@@ -3,7 +3,12 @@ debug "this is the 'use' event for Librarian!"
 
 > [!library_initial]
 	set_character_met("librarian")
-	say librarian "Hi, this part isn't ready yet. Here's your test clue, lemon fairies cause mischief, and they are attracted to lemony things."
+	say librarian "Hi, this part isn't ready yet, but there will be a neat system for researching clues in the library."
+	say librarian "What you would find in your research is the following:"
+	say librarian "There are creatures called 'lemon fairies' that live across the river."
+	say librarian "Lemon fairies are attracted to anything that looks, smells or tastes like lemon."
+	say librarian "They are known to cause mischief and torment those around them."
+	say librarian "It is recommended to not aggregate too many lemony things in a small space to avoid attracting lemon fairies."
 	set_global c/library1 true
 	stop
 /*

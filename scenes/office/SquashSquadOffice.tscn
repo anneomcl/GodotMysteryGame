@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=1]
 
-[ext_resource path="res://globals/scene.gd" type="Script" id=1]
+[ext_resource path="res://scenes/office/SquashSquadOffice.gd" type="Script" id=1]
 [ext_resource path="res://scenes/office/graphics/SquashSquadOfficeHallway.png" type="Texture" id=2]
 [ext_resource path="res://scenes/office/TestWall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/office/Door.tscn" type="PackedScene" id=4]
@@ -203,7 +203,6 @@ events_path = "res://character/esc_scripts/Bee.esc"
 
 [node name="A" parent="Room" instance=ExtResource( 7 )]
 
-editor/display_folded = true
 transform/pos = Vector2( 92.0753, 238.333 )
 transform/scale = Vector2( 0.3, 0.3 )
 global_id = "Eyy"

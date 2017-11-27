@@ -56,12 +56,14 @@ func close():
 
 func add_suspect_dummy():
 	dummy_suspect = get_node("Suspect").duplicate()
-	dummy_suspect.get_node("Sprite/Label").set_text("")
+	dummy_suspect.get_node("NameLabel").set_text("")
 	dummy_suspect.get_node("Sprite").set_normal_texture(null)
-	dummy_suspect.get_node("Sprite/Label").set_text("")
-	dummy_suspect.get_node("Sprite/ProgressBar").hide()
-	dummy_suspect.get_node("Sprite/SuspectArea").monitoring = false
-	dummy_suspect.get_node("Sprite/SuspectArea").monitorable = false
+	dummy_suspect.get_node("NameLabel").set_text("")
+	dummy_suspect.get_node("ProgressBar").hide()
+	dummy_suspect.get_node("ScrollContainer").hide()
+	dummy_suspect.get_node("SuspectArea").monitoring = false
+	dummy_suspect.get_node("SuspectArea").monitorable = false
+	dummy_suspect.get_node("SuspectArea/CollisionShape2D").call_deferred("queue_free")
 	suspect_parent.add_child(dummy_suspect)
 
 func add_clue_dummy():
@@ -187,7 +189,7 @@ func clue_released(clue_id):
 				return
 		for area in areas:
 			if area.get_name() == "SuspectArea":
-				var suspect = area.get_node("../../").get_name()
+				var suspect = area.get_node("../").get_name()
 				check_suspect(suspect, clue_id)
 
 		dragging = false
@@ -195,7 +197,7 @@ func clue_released(clue_id):
 		curr_clue = null
 
 func check_suspect(suspect_id, clue_id):
-	var fact = analysis_data.fact_relations[clue_id]
+	var fact = game.facts[clue_id]
 	var fact_description = find_clue(clue_id).title
 	var suspect = "suspect" + suspect_id
 	var suspect_parent = get_node("Menu/Suspects/SuspectControl/ScrollContainer/HBoxContainer")
@@ -206,7 +208,7 @@ func check_suspect(suspect_id, clue_id):
 			game.get_node("speech_dialogue_player").start(["", analysis_data.found], vm.level.current_context, false)
 			return
 		var points = fact["points"]
-		var bar = suspect_parent.get_node(suspect_id).get_node("Sprite/ProgressBar")
+		var bar = suspect_parent.get_node(suspect_id).get_node("ProgressBar")
 		if (bar.get_progress_texture().get_name() == "progress_negative.PNG"):
 			if (bar.get_value()*-1 + points) >= 0:
 				bar.set_progress_texture(load("res://ui/graphics/progress_progress.PNG"))
@@ -228,7 +230,7 @@ func check_suspect(suspect_id, clue_id):
 			game.get_node("speech_dialogue_player").start(["", analysis_data.found], vm.level.current_context, false)
 			return
 		var points = fact["points"]
-		var bar = suspect_parent.get_node(suspect_id).get_node("Sprite/ProgressBar")
+		var bar = suspect_parent.get_node(suspect_id).get_node("ProgressBar")
 		if (bar.get_progress_texture().get_name() == "progress_negative.PNG"):
 			bar.set_value(bar.get_value() + points)
 		elif (bar.get_value() - points) < 0:
@@ -242,17 +244,24 @@ func check_suspect(suspect_id, clue_id):
 		clues_used_on_suspects.append(clue_id)
 		clean_clues(clue_id)
 	else:
-		game.get_node("speech_dialogue_player").start(["", analysis_data.default], vm.level.current_context, false)
-	if(int(suspect_parent.get_node(suspect_id).get_node("Sprite/ProgressBar/Label").get_text()) >= analysis_data.SUSPECT_THRESHOLD):
+		if in_unsolved_puzzle(clue_id):
+			game.get_node("speech_dialogue_player").start(["", analysis_data.look_further], vm.level.current_context, false)
+		else:
+			game.get_node("speech_dialogue_player").start(["", analysis_data.default], vm.level.current_context, false)
+	if(int(suspect_parent.get_node(suspect_id).get_node("ProgressBar/Label").get_text()) >= analysis_data.SUSPECT_THRESHOLD):
 		vm.set_global(suspect, true)
+
+func in_unsolved_puzzle(clue_id):
+	for puzzle in analysis_data.puzzles.keys():
+		if clue_id in analysis_data.puzzles[puzzle]["clues"] and analysis_data.puzzles[puzzle]["is_solved"] == false:
+			return true
+	return false
 
 func clean_clues(id):
 	#add to list of things
 	#only erase if it's not in another puzzle
-	for puzzle in analysis_data.puzzles.keys():
-		if id in analysis_data.puzzles[puzzle]["clues"] and analysis_data.puzzles[puzzle]["is_solved"] == false:
-			return
-	
+	if in_unsolved_puzzle(id):
+		return
 	game.clues.erase(id)
 	clue_parent.remove_child(clue_parent.get_node(id))
 
@@ -301,7 +310,7 @@ func instance_suspects():
 			var node = get_node("Suspect").duplicate()
 			suspect_parent.add_child(node)
 			node.set_name(suspect)
-			node.get_node("Sprite/Label").set_text(suspect)
+			node.get_node("NameLabel").set_text(suspect)
 			#TO-DO: Load portraits dynamically
 
 func instance_clues():
@@ -333,8 +342,8 @@ func instance_clue(clue_id, parents, children, is_item):
 	node.id = clue_id
 	node.content = find_clue(clue_id).title
 	node.get_node("ClueButton").get_node("Label").set_text(node.content)
-	if (analysis_data.fact_relations.has(clue_id)):
-		node.get_node("ClueButton").get_node("points").set_text(str(analysis_data.fact_relations[clue_id]["points"]))
+	if (game.facts.has(clue_id)):
+		node.get_node("ClueButton").get_node("points").set_text(str(game.facts[clue_id]["points"]))
 	
 	if clue_id.substr(0,2) == "c/":
 		clue_id.erase(0, 2)

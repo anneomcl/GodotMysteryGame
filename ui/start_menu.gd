@@ -91,6 +91,18 @@ func load_pressed(save_name):
 				vm.game.puzzles = puzzles
 			else:
 				vm.game.puzzles = []
+
+			var clues_used_on_suspects = line["clues_used_on_suspects"]
+			if (clues_used_on_suspects != null):
+				vm.game.hud_layer.get_node("inventory").clues_used_on_suspects = clues_used_on_suspects
+			else:
+				vm.game.hud_layer.get_node("inventory").clues_used_on_suspects = []
+
+			var character_globals = line["character_globals"]
+			if (character_globals != null):
+				vm.game.character_globals = character_globals
+			else:
+				vm.game.character_globals = []
 	
 			var clue_positions_x = line["clue_positions_x"]
 			var clue_positions_y = line["clue_positions_y"]

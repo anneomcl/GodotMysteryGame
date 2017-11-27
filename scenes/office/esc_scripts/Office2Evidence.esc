@@ -4,10 +4,10 @@ say player "What's this?"
 set_global i/office2 true
 set_global c/office2 true
 set_active office2 false
-say player "Oh... It's our performance report. Archie posts it on the bathroom door every month."
-say player "I guess it's to remind us of our failures when we're at our most vulnerable... *sigh*"
+say player "Oh... It's the Squash Squad performance report. Looks like Archie posts it on the bathroom door every month."
+say player "I guess that's one way to make sure everyone sees it."
 say player "It's ordered by who solved the most cases."
-say default "They paper reads: 1) Eyy, 2) XXX 3) YYY 4) Bee, and then scribbled beneath in pencil:"
-say default "'Cups of Coffee:' and 'Cups of Tea' with tally marks next to each."
-say player "Archie always has one coffee in the morning, one tea in the afternoon, he always has an even split each month."
-say player "Well, maybe I'll finally get cases if I can land this one! Alright, gotta keep going!"
+say default "They paper reads: 1) A, 2) XXX 3) YYY 4) B, and then scribbled beneath in pencil:"
+say default "New kid incoming!"
+say player "I guess that's me."
+say player "Maybe I'll be at the top next month!"

@@ -27,6 +27,8 @@ const state_jump = 5
 
 var last_event_id = 0
 
+var cancel_all_events = false
+
 var ui_active = false
 
 #delete
@@ -54,6 +56,8 @@ func _new_event_id():
 	return last_event_id
 
 func run_event(event, params, p_prio = 0):
+	cancel_all_events = false
+
 	var id = _new_event_id()
 	var task = { "stack": [], "stopped": false, "cutscene_mode": false, "skipped": false, "prio": p_prio, "id": id }
 	task.stack.push_back(instance_level(event.level, params, true, id))

@@ -5,11 +5,11 @@ debug "Analyze clue"
 
 > [!analysis_selected]
 	?
-		- "THEREFORE"
+		- "'A' AND 'B' THEREFORE 'C'"
 			set_global therefore_selected true
-		- "SUPPORTS"
+		- "'A' SUPPORTS 'B'"
 			set_global supports_selected true
-		- "CONTRADICTS"
+		- "'A' CONTRADICTS 'B'"
 			set_global contradicts_selected true
 		- "BACK"
 			set_global analysis_selected false

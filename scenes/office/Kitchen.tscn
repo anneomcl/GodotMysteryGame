@@ -59,6 +59,7 @@ events_path = "res://scenes/office/esc_scripts/Kitchen1Evidence.esc"
 
 [node name="kitchen2" parent="." instance=ExtResource( 4 )]
 
+visibility/visible = false
 transform/pos = Vector2( -563.902, 33.4907 )
 global_id = "kitchen2"
 events_path = "res://scenes/office/esc_scripts/Kitchen2Evidence.esc"

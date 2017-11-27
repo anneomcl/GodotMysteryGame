@@ -2,18 +2,15 @@
 debug "this is the 'use' event for Archie!"
 
 #After you've found all the relevant evidence you can, move to Chapter 3
-> [spoke_to_archie, i/office2, c/office2, c/library4, !c/office1, !has_keys, c/general3, c/general4, c/general5]
+> [!has_keys, c/library1, c/office2, spoke_to_B, spoke_to_A]
 	?
-		- "Can I have the keys to everyone's desks?" 
-			say player "And maybe the bathroom?"
-			say archie "Sure."
+		- "I've run out of leads..." 
+			say player "And my current suspects are between A and B. Is there any way I can look through their desks?"
+			say default "<Received Squash Squad Master Key>"
 
 			#archie gives you office master keys
 			set_global has_keys true
 
-			stop
-
-		- "Nevermind"
 			stop
 
 #After the intro cutscene
@@ -64,9 +61,9 @@ debug "this is the 'use' event for Archie!"
 						- "I'd like to accuse Archie"
 							> [suspectArchie]
 								say player "I'd like to accuse...You!"
-								say archie "Okay"
+								say archie "Okay."
 								cut_scene ArchieOfficeViewportAnimation fade_to_black
-								#insert "Chapter 2 end" card here
+								cut_scene ArchieOfficeViewportAnimation chapter2_over
 								stop
 							> [!suspectArchie]
 								say player "I'd like to accuse A...You!"
@@ -100,16 +97,18 @@ debug "this is the 'use' event for Archie!"
 							say player "Hmmmm..."
 						- "Was there anyone else in the kitchen?"
 							set_global c/archie3 true
-							say archie "I saw Bee there, she took one and then started doing something or other by the sink."
+							say archie "I saw B there, she took one and then started doing something or other by the sink."
 							say player "You think it was her then?"
 							say archie "I think... I hope, at least, that no one on my team would break their oaths as knights for something like this."
 							say player "Yeah..."
 							say archie "We need a full picture of the situation, the truth. Do not yield to theories based on a single fact!"
-							say player "Okay, so Bee was in the kitchen around 4PM. Full stop. No suspicious undertones."
+							say player "Okay, so B was in the kitchen around 4PM. Full stop. No suspicious undertones."
+
+/*
 						- "Where is everyone else?" [firstDoorUse]
 							say player "I don't see the others here today... Have they been around?"
 							say archie "We've been swamped with cases lately, they've all been out on cases. Likely won't be back until later this evening."
-							say player "Hmmm... So it's just been you, me, Eyy and Bee here all day?"
+							say player "Hmmm... So it's just been you, me, A and B here all day?"
 							say archie "As far as I know."
 							say player "Well that really narrows it down!"
 							say archie "Unless someone snuck in? Hacked the door or incanted a magical curse?"
@@ -119,12 +118,13 @@ debug "this is the 'use' event for Archie!"
 							say player "Huh, never knew that. Ok, I'll check the ledger then."
 							say archie "Eventually you'll instinctively remember these details, it comes with experience."
 							say player "(When you say that it makes me think I'll be in small crimes forever D:)"
+*/
 						- Nevermind
 							set_global nevermind true
 					repeat [!nevermind]
 					set_global nevermind false
 			#has talked to A and B, is a little confused. get an additional fact.
-			- "Who do YOU think it is?" [A1, B1, firstDoorUse]
+			- "Who do YOU think it is?" [c/A1, c/B1, firstDoorUse]
 				say player "I talked to A and B... but I'm not sure who it could be."
 				say archie "No one who deserves to be on this team, that's for sure!"
 				say player "Right, I mean-- I don't want to accuse anyone, it doesn't make sense..."
@@ -157,6 +157,7 @@ debug "this is the 'use' event for Archie!"
 							say player "Ahahaha...yeah... I guess that did happen." player_embarrased
 							say player "(And I guess you totally saw it happen... (((Just kill me now... )))) *super embarrassed*" player_embarrased
 							say archie "Then we have been in here ever since. And now it's -- let's see... half past four."
+/*
 						- How do I know it's not someone outside the office?"
 							say player "How do I know it's not some completely random person who used super advanced magic to hack their way in?"
 							say archie "Hm... And for that matter, how do we know the cookies didn't spontaneously disintegrate? That we aren't in a computer simulation?"
@@ -170,6 +171,7 @@ debug "this is the 'use' event for Archie!"
 							say player "Until we DIE?! (I knew it...)"
 							say archie "*face palm face*"
 							say archie "Just keep going with what you have. You haven't gone through all your options yet."
+*/
 						- Nevermind
 							set_global nevermind true
 					repeat [!nevermind]

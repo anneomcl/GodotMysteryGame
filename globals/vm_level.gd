@@ -113,6 +113,8 @@ func say(params):
 		return vm.state_return
 	if !check_obj(params[0], "say"):
 		return vm.state_return
+	if vm.cancel_all_events:
+		return vm.state_return
 	current_context.waiting = true
 	vm.game.say(params, current_context)
 	return vm.state_yield
@@ -364,6 +366,7 @@ func resume(context):
 		if ret == vm.state_jump:
 			return vm.state_jump
 	context.ip = 0
+	vm.cancel_all_events = false
 	return vm.state_return
 
 func set_vm(p_vm):

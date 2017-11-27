@@ -1,7 +1,19 @@
 :use
 
 debug "this is the 'use' event for A!"
-
+> [has_keys]
+	say player "I wonder where A went...?"
+	say player "Well, let's see if there's anything in his desk..."
+	say player "Woah! I found the cookies!"
+	say player "Does this mean we're case closed? He did it?"
+	say player "Wait a second... There's a bunch of other stuff too..."
+	say player "A can of avgolemono soup, Xixi Lemony Fresh Wood Varnish, the cookies and the plate... and then a crumple of papers with yellow marks all over."
+	say player "There has to be more to this... I doubt A just wanted to hoard the cookies, if it was him."
+	say player "Always be skeptical until you can prove the truth. Right. *nod*"
+	set_global i/office1 true
+	set_global c/office1 true
+	set_active office1 false
+	stop
 > [!spoke_to_A]
 	set_character_met "A"
 	say player "Hi A."
@@ -23,7 +35,7 @@ debug "this is the 'use' event for A!"
 	say Eyy "Yeah."
 	say Eyy "Ok, ask away."
 	set_global spoke_to_A true
-
+> [spoke_to_A]
 	>
 		?
 			- "Where were you between 4PM and now?" [c/general1]
@@ -50,8 +62,10 @@ debug "this is the 'use' event for A!"
 				say player "Any other details?"
 				say Eyy "Only what's in the book. But nothing relevant that comes to mind."
 				say player "Ok. Thanks, A."
+/*
 			- "Why are you on the Squash Squad?" [c/office2]
 			- "Have any tips for me?"
+*/
 			- "Nevermind"
 				stop
 		repeat

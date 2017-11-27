@@ -15,6 +15,8 @@ func save():
 		clues = vm.game.clues,
 		relations = vm.game.relations,
 		facts = vm.game.facts,
+		clues_used_on_suspects = vm.game.hud_layer.get_node("inventory").clues_used_on_suspects,
+		character_globals = vm.game.character_globals,
 		items = vm.game.items,
 		puzzles = vm.game.puzzles,
 		clue_positions_x = process_clue_positions(false),

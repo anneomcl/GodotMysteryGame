@@ -65,6 +65,7 @@ margin/bottom = 0.0
 
 [node name="TabContainer" type="TabContainer" parent="Menu/Suspects/SuspectControl"]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 3
@@ -97,12 +98,11 @@ focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 3
 size_flags/vertical = 3
-size_flags/stretch_ratio = 0.0
 margin/left = 0.0
 margin/top = 0.0
 margin/right = 312.0
 margin/bottom = 384.0
-custom_constants/separation = 130
+custom_constants/separation = 120
 alignment = 0
 
 [node name="Evidence" type="ScrollContainer" parent="Menu/Suspects/SuspectControl/TabContainer"]
@@ -330,7 +330,6 @@ margin/bottom = 231.0
 
 [node name="ItemClue" parent="." instance=ExtResource( 5 )]
 
-visibility/visible = false
 margin/left = 470.0
 margin/top = 1549.0
 margin/right = 470.0
@@ -338,11 +337,10 @@ margin/bottom = 1549.0
 
 [node name="Clue" parent="." instance=ExtResource( 6 )]
 
-visibility/visible = false
-margin/left = 877.0
-margin/top = 1569.0
-margin/right = 877.0
-margin/bottom = 1569.0
+margin/left = 825.0
+margin/top = 1617.0
+margin/right = 825.0
+margin/bottom = 1617.0
 
 [node name="AnalysisData" parent="." instance=ExtResource( 7 )]
 

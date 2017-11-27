@@ -1,0 +1,5 @@
+:use
+
+say player "The river's just passed here. I always came to the river to think when I was a kid..."
+say player "Though I guess the family farm is way upstream from here."
+say default "(NOTE: The river area is not ready yet :) )"

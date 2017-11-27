@@ -29,6 +29,9 @@ var option_selected = 0
 var dialog_task
 
 func input(event):
+	if event.is_action_pressed("cutscene_cancel"):
+		stop()
+		vm.cancel_all_events = true
 	if event.is_action_pressed("ui_accept"):
 		if has_multiple_choices:
 			selected(int(option_mapping[str(option_selected)]))
@@ -239,7 +242,7 @@ func _ready():
 	var game_height = (Globals.get("display/game_height"))
 	var game_width = (Globals.get("display/game_width"))
 
-	if !vm.game.current_scene.has_node("player"):
+	if vm.game.current_scene != null and !vm.game.current_scene.has_node("player"):
 		set_pos(Vector2(game_width * .25 + 165, 0 * game_height - 110)) #top
 	else:
 		set_pos(Vector2(game_width * .25 + 165, .75 * game_height - 10)) #bottom

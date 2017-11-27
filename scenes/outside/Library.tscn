@@ -41,6 +41,7 @@ events_path = "res://scenes/outside/esc_scripts/LibraryToOutside.esc"
 
 [node name="Librarian" parent="." instance=ExtResource( 2 )]
 
+editor/display_folded = true
 transform/pos = Vector2( 9.86414, -67.9665 )
 global_id = "librarian"
 events_path = "res://character/esc_scripts/Librarian.esc"
@@ -68,16 +69,7 @@ z/relative = false
 
 [node name="Desk" parent="." instance=ExtResource( 4 )]
 
-editor/display_folded = true
-transform/pos = Vector2( 18.636, 149.088 )
-
-[node name="StaticBody2D" parent="Desk"]
-
-transform/pos = Vector2( 0, 4.659 )
-
-[node name="CollisionShape2D" parent="Desk/StaticBody2D"]
-
-transform/pos = Vector2( 2.78955, -34.7301 )
+transform/pos = Vector2( 2.78955, 167.371 )
 
 
 [editable path="Room"]
