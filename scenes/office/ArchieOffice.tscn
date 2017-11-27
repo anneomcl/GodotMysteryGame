@@ -140,12 +140,11 @@ texture = ExtResource( 3 )
 
 [node name="player" parent="." instance=ExtResource( 4 )]
 
-editor/display_folded = true
 transform/pos = Vector2( 670, 620 )
 
 [node name="Camera2D" parent="player"]
 
-editor/display_folded = true
+transform/pos = Vector2( 0, 1000 )
 drag_margin/left = 0.1
 drag_margin/top = 0.1
 drag_margin/right = 0.1
@@ -228,21 +227,22 @@ _update_shape_index = 0
 
 [node name="Walls" type="Node2D" parent="."]
 
-editor/display_folded = true
-
 [node name="TestWall" parent="Walls" instance=ExtResource( 9 )]
 
+visibility/visible = false
 transform/pos = Vector2( -6.07822, 267.94 )
 transform/scale = Vector2( 1, 0.961257 )
 
 [node name="TestWall 2" parent="Walls" instance=ExtResource( 9 )]
 
+visibility/visible = false
 transform/pos = Vector2( 1284.5, 265.635 )
 transform/scale = Vector2( 1, 0.935424 )
 
 [node name="TestWall4" parent="Walls" instance=ExtResource( 9 )]
 
 editor/display_folded = true
+visibility/visible = false
 transform/pos = Vector2( 653.496, -190.458 )
 transform/rot = 90.0
 transform/scale = Vector2( 1.65336, 1.23272 )
@@ -258,6 +258,7 @@ transform/pos = Vector2( 33.9118, -6.94196 )
 [node name="TestWall3" parent="Walls" instance=ExtResource( 9 )]
 
 editor/display_folded = true
+visibility/visible = false
 transform/pos = Vector2( 229.468, 733.125 )
 transform/rot = 90.0
 transform/scale = Vector2( 1.2938, 0.494677 )
@@ -265,6 +266,7 @@ transform/scale = Vector2( 1.2938, 0.494677 )
 [node name="TestWall5" parent="Walls" instance=ExtResource( 9 )]
 
 editor/display_folded = true
+visibility/visible = false
 transform/pos = Vector2( 1092.98, 718.772 )
 transform/rot = 90.0
 transform/scale = Vector2( 1.04205, 0.465306 )
@@ -328,6 +330,8 @@ blend_times = [  ]
 autoplay = ""
 
 [node name="event_positions" type="Node" parent="."]
+
+editor/display_folded = true
 
 [node name="upper_right" type="Position2D" parent="event_positions"]
 

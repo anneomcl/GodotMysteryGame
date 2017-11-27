@@ -5,12 +5,13 @@ debug "this is the 'load' event for the door to archie's office!"
 #set_global archie_intro_cutscene true
 #set_character_met "B"
 
-
+/*
 > [test]
 	camera_to_player player
 	teleport_pos archie 670 105
 	teleport_pos player 670 650
 	stop
+*/
 
 > [archie_intro_cutscene]
 	camera_to_player player
@@ -43,8 +44,8 @@ debug "this is the 'load' event for the door to archie's office!"
 > [!archie_intro_cutscene]
 	teleport_pos player 670 -80
 	teleport_pos archie -1000 -80
+	cut_scene camera camera_idle_below
 	set_character_met "archie"
-	#cut_scene camera camera_idle_below
 
 	#animation of player sipping coffee
 

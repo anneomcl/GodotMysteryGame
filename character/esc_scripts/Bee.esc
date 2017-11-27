@@ -44,7 +44,7 @@ debug "this is the 'use' event for B!"
 			say bee "You're doing fine so far. And yeah, go ahead and write 4:05."
 			say player "Cool."
 
-		- "Do you have any tips for me?"
+		- "Do you have any tips for me?" [c/B2]
 			say player "It's my first case, and I just started, I was wondering if you had any advice or--"
 			say bee "Oh would you look at that! Nearly 5 o'clock, need to wrap up quickly if we want to beat the evening rush!"
 			say player "Uh, right. Yeah."

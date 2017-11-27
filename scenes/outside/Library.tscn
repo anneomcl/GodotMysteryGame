@@ -14,8 +14,6 @@ extents = Vector2( 10, 9.39997 )
 
 [node name="Room" parent="." instance=ExtResource( 1 )]
 
-editor/display_folded = true
-
 [node name="Floor" parent="Room"]
 
 transform/pos = Vector2( -8.87329, 173.608 )
@@ -23,15 +21,22 @@ transform/scale = Vector2( 0.752015, 0.625239 )
 
 [node name="TestWall" parent="Room"]
 
+visibility/visible = false
 transform/pos = Vector2( -692.301, 177.042 )
 
 [node name="TestWall1" parent="Room"]
 
+visibility/visible = false
 transform/pos = Vector2( 662.685, 214.314 )
 
 [node name="TestWall2" parent="Room"]
 
+visibility/visible = false
 transform/pos = Vector2( -12.9265, -214.41 )
+
+[node name="TestWall3" parent="Room"]
+
+visibility/visible = false
 
 [node name="DoorToArchie" parent="Room"]
 
